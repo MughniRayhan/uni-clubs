@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Roots = () => {
+const Home = () => {
     return (
         <div>
             
         </div>
     );
-}; 
+};
 
-export default Roots;
+export default Home;
