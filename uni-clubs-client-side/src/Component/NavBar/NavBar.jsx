@@ -3,7 +3,7 @@ import React from "react";
 const NavBar = () => {
   return (
     <div>
-      <div className="navbar bg-primary text-white shadow-sm px-15 py-5 ">
+      <div className="navbar bg-gradient-to-r from-[#084C80] to-[#0D8491] text-white shadow-sm px-15  ">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -72,8 +72,8 @@ const NavBar = () => {
           </ul>
         </div>
         <div className="navbar-end gap-x-4 ">
-          <a className="btn text-white">Sign In</a>
-          <a className="btn text-white">Sign Up</a>
+          <a className="btn text-white bg-transparent border border-gray-200">Sign In</a>
+          <a className="btn text-white bg-transparent border border-gray-200">Sign Up</a>
         </div>
       </div>
     </div>
