@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { AuthContext } from './AuthContext'
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile  } from 'firebase/auth';
-import { auth } from '../FireBase/FireBase.config'
+import { auth } from '../../FireBase/FireBase.config'
 const provider = new GoogleAuthProvider();
 
 
@@ -52,7 +52,7 @@ return ()=>{
         signInWithGoogle,
         updateUserProfile
     }
-
+console.log(user)
   return (
     <AuthContext value={authInfo}>
        {children}
