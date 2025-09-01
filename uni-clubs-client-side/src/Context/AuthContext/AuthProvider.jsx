@@ -4,7 +4,6 @@ import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged,
 import { auth } from '../../FireBase/FireBase.config'
 const provider = new GoogleAuthProvider();
 
-
 function AuthProvider({children}) {
     const [user,setUser] = useState(null);
     const [loading, setLoading] = useState(true);
