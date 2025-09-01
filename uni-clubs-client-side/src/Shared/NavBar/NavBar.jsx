@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 
 const NavBar = () => {
   return (
@@ -72,8 +73,8 @@ const NavBar = () => {
           </ul>
         </div>
         <div className="navbar-end gap-x-4 ">
-          <a className="btn text-white bg-transparent border border-gray-200">Sign In</a>
-          <a className="btn text-white bg-transparent border border-gray-200">Sign Up</a>
+          <Link to='/auth/login' className="btn text-white bg-transparent border border-gray-200">Sign In</Link>
+          <Link to='/auth/register' className="btn text-white bg-transparent border border-gray-200">Sign Up</Link>
         </div>
       </div>
     </div>
