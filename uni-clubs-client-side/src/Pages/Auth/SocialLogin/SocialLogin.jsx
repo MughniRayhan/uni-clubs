@@ -2,18 +2,20 @@ import React from 'react'
 import { useLocation, useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import UseAuth from '../../../Hooks/UseAuth';
+import UseAxios from '../../../Hooks/UseAxios';
 
 function SocialLogin() {
-  const { signInWithGoogle} = UseAuth();
+ const { signInWithGoogle} = UseAuth();
     const location = useLocation();
     const navigate = useNavigate();
+   const axiosInstance = UseAxios();
     
     const handleGoogleSignIn = () =>{
-      signInWithGoogle()
+        signInWithGoogle()
         .then(async(result) => {
             const user = result.user;
 
-     // update userInfo in database
+    //update userInfo in database
     const userData = {
     email: user.email,
     displayName: user.displayName,
@@ -23,15 +25,25 @@ function SocialLogin() {
     last_login: new Date().toISOString(),
   };
 
+    try {
+      // post user data to server
+      const res = await axiosInstance.post("/user", userData);
+      if (res.data.inserted) {
+      } else {
+        
+      }
+    } catch (error) {
+      console.error("Error saving user:", error);
+    }
 
-
-            toast.success("Successfully logged in")
-            navigate(location.state || '/');
-        })
+      toast.success("Successfully logged in")
+      navigate(location.state || '/');
+      })
         .catch(error => {
             console.error(error.message);
         })
     }
+
   return (
     <div className='  sm:w-[330px]'>
         <p className='text-center my-4'>OR</p>
