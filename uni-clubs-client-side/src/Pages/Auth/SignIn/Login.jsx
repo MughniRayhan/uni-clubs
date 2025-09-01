@@ -28,7 +28,6 @@ function Login() {
         <form onSubmit={handleSubmit(onSubmit)} className='card-body'>
            <div className='mb-2'>
              <h2 className='font-extrabold sm:text-3xl text-xl mb-1 '>Welcome Back</h2>
-            
            </div>
         <fieldset className="fieldset">
           <label className="label">Email</label>
@@ -48,7 +47,7 @@ function Login() {
           }
           
           <button className="btn btn-neutral mt-4 sm:w-[330px] bg-primary   font-bold border-none">Login</button>
-           <div className='mt-2 text-base'>Don't have any account? <Link to='/auth/register' className='text-secondary font-semibold underline dark:text-green-600'>Register</Link></div>
+           <div className='mt-2 text-base'>Don't have any account? <Link to='/auth/register' className='text-secondary font-semibold underline'>Register</Link></div>
           
           <SocialLogin/>
         </fieldset>
