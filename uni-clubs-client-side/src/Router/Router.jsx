@@ -2,13 +2,13 @@ import React from "react";
 import { createBrowserRouter } from "react-router";
 import Error from "../Pages/Error/Error";
 import Home from "../Pages/Home/Home";
-import Roots from "../LayOut/Roots";
+import RootLayout from "../LayOut/RootLayout";
 
 
  export const router = createBrowserRouter([
   {
     path: "/",
-    Component: Roots,
+    Component: RootLayout,
     errorElement: Error ,
     children:[
         {   index: true,
