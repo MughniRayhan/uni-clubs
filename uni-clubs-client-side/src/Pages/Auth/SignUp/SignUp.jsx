@@ -41,7 +41,7 @@ const onSubmit = (data) => {
         <div className=' my-10 sm:w-[70%] mx-auto w-full shadow-lg md:shadow-none'>
         <form onSubmit={handleSubmit(onSubmit)} className='card-body'>
            <div className='mb-2'>
-             <h2 className='font-extrabold sm:text-3xl text-xl mb-1 text-accent dark:text-orange-500'>Create an Account</h2>
+             <h2 className='font-extrabold sm:text-3xl text-xl mb-1  '>Create an Account</h2>
             
            </div>
 
@@ -77,7 +77,7 @@ const onSubmit = (data) => {
             errors.password?.type === 'minLength' && <span className='text-red-500'>Must have to 6 length</span>
           }
          
-          <button className="btn btn-neutral mt-4 sm:w-[330px] bg-primary  font-bold border-none dark:bg-orange-500">Register</button>
+          <button className="btn btn-neutral mt-4 sm:w-[330px] bg-primary  font-bold border-none">Register</button>
           <div className='mt-2 text-base'>Allready have an account?    <Link to='/auth/login' className='text-secondary font-semibold underline dark:text-green-600'>   Login</Link></div>
          <SocialLogin />
         </fieldset>
