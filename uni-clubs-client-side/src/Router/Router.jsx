@@ -6,6 +6,7 @@ import RootLayout from "../LayOut/RootLayout";
 import AuthLayout from "../LayOut/AuthLayout";
 import Login from "../Pages/Auth/SignIn/Login";
 import SignUp from "../Pages/Auth/SignUp/SignUp";
+import Forbidden from "../Pages/Forbidden/Forbidden";
 
 
  export const router = createBrowserRouter([
@@ -16,7 +17,11 @@ import SignUp from "../Pages/Auth/SignUp/SignUp";
     children:[
         {   index: true,
             Component:Home
-        }
+        },
+         {
+        path: '/forbidden',
+        Component: Forbidden
+      }
     ]
 
   },
