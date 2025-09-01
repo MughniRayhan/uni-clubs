@@ -220,7 +220,7 @@ const NavBar = () => {
               {/* Large Device Button */}
               <button
                 onClick={handleLogout}
-                className="lg:inline-block px-4 py-2 border border-gray-200 rounded-md bg-transparent 
+                className="lg:inline-block px-4 py-2 lg:border border-gray-200 rounded-md bg-transparent 
                            text-white lg:hover:bg-[#26667F] hover:text-[#daf5ff] transition duration-300 font-medium"
               >
                 Sign Out
