@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import UseAuth from './UseAuth';
 
     const   axiosSecure = axios.create({
-        baseURL: 'http://localhost:5000' 
+        baseURL: 'http://localhost:5000/api' 
     })
 
 function UseAxiosSecure() {
@@ -24,6 +24,7 @@ function UseAxiosSecure() {
         return Promise.reject(error);
       }
     );
+    
 const responseInterceptor = axiosSecure.interceptors.response.use(
       (res) => {
         return res;
