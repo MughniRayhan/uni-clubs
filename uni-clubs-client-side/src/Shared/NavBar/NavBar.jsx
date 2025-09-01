@@ -15,7 +15,7 @@ const NavBar = () => {
   
   return (
     <div>
-      <div className="navbar bg-gradient-to-r from-[#084C80] to-[#0D8491] text-white shadow-sm px-15 py-5 ">
+      <div className="navbar bg-gradient-to-r from-[#084C80] to-[#0D8491] text-white shadow-sm lg:px-15 lg:py-5 px-5 py-3">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -39,12 +39,16 @@ const NavBar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
+             {
+               user ? <>
               <li>
-                <a>Home</a>
-              </li>
+              <a>Home</a>
+            </li>
               <li>
-                <a>Clubs</a>
-                <ul className="p-2">
+              
+                <details>
+                <summary>My Clubs</summary>
+                <ul className="p-2 bg-[#084C80]">
                   <li>
                     <a>Submenu 1</a>
                   </li>
@@ -52,17 +56,43 @@ const NavBar = () => {
                     <a>Submenu 2</a>
                   </li>
                 </ul>
-              </li>
+              </details>
+            </li>
               <li>
-                <a>Events</a>
-              </li>
-            </ul>
-          </div>
-          <a className=" text-4xl font-semibold">UniClubs</a>
-        </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 text-xl">
+              <a>Profile</a>
+            </li>
+              <li>
+              <a>Dashboard</a>
+            </li>
+             
             <li>
+              <details>
+                <summary>Clubs</summary>
+                <ul className="p-2 bg-[#084C80]">
+                  <li>
+                    <a>Submenu 1</a>
+                  </li>
+                  <li>
+                    <a>Submenu 2</a>
+                  </li>
+                </ul>
+              </details>
+            </li>
+            <li>
+             <details>
+                <summary>Events</summary>
+                <ul className="p-2 bg-[#084C80]">
+                  <li>
+                    <a>Submenu 1</a>
+                  </li>
+                  <li>
+                    <a>Submenu 2</a>
+                  </li>
+                </ul>
+              </details>
+            </li>
+               </>  :  
+               <> <li>
               <a>Home</a>
             </li>
             <li>
@@ -90,20 +120,137 @@ const NavBar = () => {
                   </li>
                 </ul>
               </details>
+            </li></>
+            }
+            </ul>
+          </div>
+          <a className=" text-4xl font-semibold">UniClubs</a>
+        </div>
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1 text-xl">
+            {
+               user ? <>
+              <li>
+              <a>Home</a>
             </li>
+              <li>
+              
+                <details>
+                <summary>My Clubs</summary>
+                <ul className="p-2 bg-[#084C80]">
+                  <li>
+                    <a>Submenu 1</a>
+                  </li>
+                  <li>
+                    <a>Submenu 2</a>
+                  </li>
+                </ul>
+              </details>
+            </li>
+              <li>
+              <a>Profile</a>
+            </li>
+              <li>
+              <a>Dashboard</a>
+            </li>
+             
+            <li>
+              <details>
+                <summary>Clubs</summary>
+                <ul className="p-2 bg-[#084C80]">
+                  <li>
+                    <a>Submenu 1</a>
+                  </li>
+                  <li>
+                    <a>Submenu 2</a>
+                  </li>
+                </ul>
+              </details>
+            </li>
+            <li>
+             <details>
+                <summary>Events</summary>
+                <ul className="p-2 bg-[#084C80]">
+                  <li>
+                    <a>Submenu 1</a>
+                  </li>
+                  <li>
+                    <a>Submenu 2</a>
+                  </li>
+                </ul>
+              </details>
+            </li>
+               </>  :  
+               <> <li>
+              <a>Home</a>
+            </li>
+            <li>
+              <details>
+                <summary>Clubs</summary>
+                <ul className="p-2 bg-[#084C80]">
+                  <li>
+                    <a>Submenu 1</a>
+                  </li>
+                  <li>
+                    <a>Submenu 2</a>
+                  </li>
+                </ul>
+              </details>
+            </li>
+            <li>
+             <details>
+                <summary>Events</summary>
+                <ul className="p-2 bg-[#084C80]">
+                  <li>
+                    <a>Submenu 1</a>
+                  </li>
+                  <li>
+                    <a>Submenu 2</a>
+                  </li>
+                </ul>
+              </details>
+            </li></>
+            }
+            
           </ul>
         </div>
-        {
-           user? <div className="navbar-end gap-x-4 "> 
-           <button className="btn text-white bg-transparent border border-gray-200" 
-           onClick={handleLogout}>Sign Out</button>
-           </div> : <>
-           <div className="navbar-end gap-x-4 ">
-          <Link to='/auth/login' className="btn text-white bg-transparent border border-gray-200">Sign In</Link>
-          <Link to='/auth/register' className="btn text-white bg-transparent border border-gray-200">Sign Up</Link>
-        </div></>
-        }
-        
+        <div className="navbar-end gap-x-4">
+          {user ? (
+            <>
+              {/* Large Device Button */}
+              <button
+                onClick={handleLogout}
+                className="lg:inline-block px-4 py-2 border border-gray-200 rounded-md bg-transparent 
+                           text-white lg:hover:bg-[#26667F] hover:text-[#daf5ff] transition duration-300 font-medium"
+              >
+                Sign Out
+              </button>
+
+              
+            </>
+          ) : (
+            <>
+              {/* Large Device Buttons */}
+              <Link
+                to="/auth/login"
+                className="lg:inline-block px-4 py-2 lg:border lg:border-gray-200 rounded-md bg-transparent 
+                           text-white lg:hover:bg-[#26667F] hover:text-[#daf5ff] transition duration-300 font-medium"
+              >
+                Sign In
+              </Link>
+              <Link
+                to="/auth/register"
+               className="lg:inline-block px-4 py-2 lg:border lg:border-gray-200 rounded-md bg-transparent 
+                           text-white lg:hover:bg-[#26667F] hover:text-[#daf5ff] transition duration-300 font-medium"
+              >
+                Sign Up
+              </Link>
+
+             
+              
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
