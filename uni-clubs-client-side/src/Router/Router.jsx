@@ -41,15 +41,15 @@ import MyClubs from "../Pages/DashBoard/MyClubs/MyClubs";
 
   },
   {
-    path: '/Dashboard',
+    path: 'Dashboard',
     element: <DashboardLayout />,
     children: [
       {
-        path: '/Profile',
+        path: 'Profile',
         Component:Profile
       },
       {
-        path: '/MyClubs',
+        path: 'MyClubs',
         Component: MyClubs
       },
     ]

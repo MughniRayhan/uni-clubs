@@ -48,16 +48,7 @@ const NavBar = () => {
       {user && (
 
         <>
-        <NavLink
-          to="/MyClubs"
-          className={({ isActive }) =>
-            isActive
-              ? "text-[#FAFEFF] rounded-b-md border-b-2 font-semibold text-xl"
-              : "text-[#FAFEFF] font-semibold text-xl"
-          }
-        >
-          My_Clubs
-        </NavLink>
+        
         <NavLink
           to="/Dashboard"
           className={({ isActive }) =>
@@ -68,16 +59,7 @@ const NavBar = () => {
         >
           Dashboard
         </NavLink>
-        <NavLink
-          to="/Profile"
-          className={({ isActive }) =>
-            isActive
-              ? "text-[#FAFEFF] rounded-b-md border-b-2 font-semibold text-xl"
-              : "text-[#FAFEFF] font-semibold text-xl"
-          }
-        >
-          Profile
-        </NavLink>
+       
 
         
 
