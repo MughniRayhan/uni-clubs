@@ -7,11 +7,12 @@ import AuthLayout from "../LayOut/AuthLayout";
 import Login from "../Pages/Auth/SignIn/Login";
 import SignUp from "../Pages/Auth/SignUp/SignUp";
 import Forbidden from "../Pages/Forbidden/Forbidden";
-import Profile from "../Components/Profile";
-import Dashboard from "../Components/Dashboard";
-import MyClubs from "../Components/MyClubs";
-import Clubs from "../Components/Clubs/Clubs";
-import Events from "../Components/Events/Events";
+import Events from "../Pages/Events/Events";
+import DashboardLayout from "../LayOut/DashboardLayout";
+import Profile from "../Pages/DashBoard/Profile/Profile";
+import Clubs from "../Pages/Clubs/Clubs"
+import MyClubs from "../Pages/DashBoard/MyClubs/MyClubs";
+
 
 
  export const router = createBrowserRouter([
@@ -27,18 +28,7 @@ import Events from "../Components/Events/Events";
         path: '/forbidden',
         Component: Forbidden
       },
-      {
-        path: '/Profile',
-        Component: Profile
-      },
-      {
-        path: '/Dashboard',
-        Component: Dashboard
-      },
-      {
-        path: '/MyClubs',
-        Component: MyClubs
-      },
+      
       {
         path: '/Clubs',
         Component:Clubs
@@ -49,6 +39,20 @@ import Events from "../Components/Events/Events";
       },
     ]
 
+  },
+  {
+    path: '/Dashboard',
+    element: <DashboardLayout />,
+    children: [
+      {
+        path: '/Profile',
+        Component:Profile
+      },
+      {
+        path: '/MyClubs',
+        Component: MyClubs
+      },
+    ]
   },
   {
     path: '/auth',

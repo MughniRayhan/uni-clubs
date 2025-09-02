@@ -13,7 +13,7 @@ const NavBar = () => {
       .catch((error) => toast.error(error.message));
   };
    const NavList = (
-    <>
+    <> 
       <NavLink
         to="/"
         className={({ isActive }) =>
