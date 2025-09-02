@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
 import { toast } from "react-toastify";
 
 const NavBar = () => {
-  const {user,logOut}= useContext(AuthContext)
+  const { user, logOut } = useContext(AuthContext);
   console.log(user);
 
   const handleLogout = () => {
@@ -12,7 +12,84 @@ const NavBar = () => {
       .then(() => toast.success("Sign out successful"))
       .catch((error) => toast.error(error.message));
   };
-  
+   const NavList = (
+    <>
+      <NavLink
+        to="/"
+        className={({ isActive }) =>
+          isActive
+            ? "text-[#FAFEFF] rounded-b-md border-b-2 border-[#FAFEFF] font-semibold text-xl"
+            : "text-[#FAFEFF] font-semibold text-xl"
+        }
+      >
+        Home
+      </NavLink>
+      <NavLink
+        to="/Clubs"
+        className={({ isActive }) =>
+          isActive
+            ? "text-[#FAFEFF] rounded-b-md border-b-2 font-semibold text-xl"
+            : "text-[#FAFEFF] font-semibold text-xl"
+        }
+      >
+        Clubs
+      </NavLink>
+      <NavLink
+        to="/Events"
+        className={({ isActive }) =>
+          isActive
+            ? "text-[#FAFEFF] rounded-b-md border-b-2 font-semibold text-xl"
+            : "text-[#FAFEFF] font-semibold text-xl"
+        }
+      >
+        Events
+      </NavLink>
+
+      {user && (
+
+        <>
+        <NavLink
+          to="/MyClubs"
+          className={({ isActive }) =>
+            isActive
+              ? "text-[#FAFEFF] rounded-b-md border-b-2 font-semibold text-xl"
+              : "text-[#FAFEFF] font-semibold text-xl"
+          }
+        >
+          My_Clubs
+        </NavLink>
+        <NavLink
+          to="/Dashboard"
+          className={({ isActive }) =>
+            isActive
+              ? "text-[#FAFEFF] rounded-b-md border-b-2 font-semibold text-xl"
+              : "text-[#FAFEFF] font-semibold text-xl"
+          }
+        >
+          Dashboard
+        </NavLink>
+        <NavLink
+          to="/Profile"
+          className={({ isActive }) =>
+            isActive
+              ? "text-[#FAFEFF] rounded-b-md border-b-2 font-semibold text-xl"
+              : "text-[#FAFEFF] font-semibold text-xl"
+          }
+        >
+          Profile
+        </NavLink>
+
+        
+
+        </>
+          
+
+        
+      )}
+     
+    </>
+  );
+
   return (
     <div>
       <div className="navbar bg-gradient-to-r from-[#084C80] to-[#0D8491] text-white shadow-sm lg:px-15 lg:py-5 px-5 py-3">
@@ -39,179 +116,18 @@ const NavBar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
-             {
-               user ? <>
-              <li>
-              <a>Home</a>
-            </li>
-              <li>
-              
-                <details>
-                <summary>My Clubs</summary>
-                <ul className="p-2 bg-[#084C80]">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
-            </li>
-              <li>
-              <a>Profile</a>
-            </li>
-              <li>
-              <a>Dashboard</a>
-            </li>
-             
-            <li>
-              <details>
-                <summary>Clubs</summary>
-                <ul className="p-2 bg-[#084C80]">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
-            </li>
-            <li>
-             <details>
-                <summary>Events</summary>
-                <ul className="p-2 bg-[#084C80]">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
-            </li>
-               </>  :  
-               <> <li>
-              <a>Home</a>
-            </li>
-            <li>
-              <details>
-                <summary>Clubs</summary>
-                <ul className="p-2 bg-[#084C80]">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
-            </li>
-            <li>
-             <details>
-                <summary>Events</summary>
-                <ul className="p-2 bg-[#084C80]">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
-            </li></>
-            }
+              {
+                NavList
+              }
             </ul>
           </div>
           <a className=" text-4xl font-semibold">UniClubs</a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 text-xl">
+          <ul className="menu menu-horizontal px-1 gap-x-5 ">
             {
-               user ? <>
-              <li>
-              <a>Home</a>
-            </li>
-              <li>
-              
-                <details>
-                <summary>My Clubs</summary>
-                <ul className="p-2 bg-[#084C80]">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
-            </li>
-              <li>
-              <a>Profile</a>
-            </li>
-              <li>
-              <a>Dashboard</a>
-            </li>
-             
-            <li>
-              <details>
-                <summary>Clubs</summary>
-                <ul className="p-2 bg-[#084C80]">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
-            </li>
-            <li>
-             <details>
-                <summary>Events</summary>
-                <ul className="p-2 bg-[#084C80]">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
-            </li>
-               </>  :  
-               <> <li>
-              <a>Home</a>
-            </li>
-            <li>
-              <details>
-                <summary>Clubs</summary>
-                <ul className="p-2 bg-[#084C80]">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
-            </li>
-            <li>
-             <details>
-                <summary>Events</summary>
-                <ul className="p-2 bg-[#084C80]">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
-            </li></>
+              NavList
             }
-            
           </ul>
         </div>
         <div className="navbar-end gap-x-4">
@@ -225,8 +141,6 @@ const NavBar = () => {
               >
                 Sign Out
               </button>
-
-              
             </>
           ) : (
             <>
@@ -240,14 +154,11 @@ const NavBar = () => {
               </Link>
               <Link
                 to="/auth/register"
-               className="lg:inline-block px-4 py-2 lg:border lg:border-gray-200 rounded-md bg-transparent 
+                className="lg:inline-block px-4 py-2 lg:border lg:border-gray-200 rounded-md bg-transparent 
                            text-white lg:hover:bg-[#26667F] hover:text-[#daf5ff] transition duration-300 font-medium"
               >
                 Sign Up
               </Link>
-
-             
-              
             </>
           )}
         </div>
