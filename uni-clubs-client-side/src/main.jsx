@@ -11,7 +11,7 @@ import AuthProvider from './Context/AuthContext/AuthProvider.jsx';
 
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <StrictMode className='poppins'>
     <ToastContainer/>
    
       <AuthProvider>

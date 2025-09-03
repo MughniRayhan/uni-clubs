@@ -59,14 +59,8 @@ const NavBar = () => {
         >
           Dashboard
         </NavLink>
-       
-
-        
 
         </>
-          
-
-        
       )}
      
     </>
@@ -74,7 +68,7 @@ const NavBar = () => {
 
   return (
     <div>
-      <div className="navbar bg-gradient-to-r from-[#084C80] to-[#0D8491] text-white shadow-sm lg:px-15 lg:py-5 px-5 py-3">
+      <div className="navbar bg-[#036666] text-white shadow-sm lg:px-15 lg:py-5 px-5 py-3 border-b border-secondary">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -96,7 +90,7 @@ const NavBar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-primary rounded-box z-1 mt-3 w-52 p-2 space-y-2  shadow"
             >
               {
                 NavList
