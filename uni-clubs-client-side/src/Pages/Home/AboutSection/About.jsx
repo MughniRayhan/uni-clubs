@@ -34,11 +34,8 @@ export default function About() {
                 {/* Mission & Vision */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
        
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+          <div
+           
             className="card bg-base-200 shadow-lg hover:shadow-xl transition rounded-2xl p-10 space-y-4 text-left"
           >
             <FaBullseye className="w-10 h-10 text-primary" />
@@ -61,14 +58,11 @@ export default function About() {
               smooth participation in all university events.
             </p>
  
-          </motion.div>
+          </div>
     
 
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+          <div
+            
             className="card bg-base-200 shadow-lg hover:shadow-xl transition rounded-2xl p-10 space-y-4 text-left"
           >
             <FaEye className="w-10 h-10 text-primary" />
@@ -90,7 +84,7 @@ export default function About() {
               enhances student involvement, fosters collaboration, and 
               strengthens the campus community.
             </p>
-          </motion.div>
+          </div>
         </div>
 
         {/* Feature Cards */}
