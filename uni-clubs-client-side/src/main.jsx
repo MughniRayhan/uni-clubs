@@ -6,9 +6,13 @@ import { ToastContainer } from 'react-toastify';
 import { RouterProvider} from "react-router";
 import { router } from './Router/Router.jsx';
 import AuthProvider from './Context/AuthContext/AuthProvider.jsx';
+import AOS from 'aos';
 
 
 
+AOS.init({
+      once: false
+    });
 
 createRoot(document.getElementById('root')).render(
   <StrictMode className='poppins'>
