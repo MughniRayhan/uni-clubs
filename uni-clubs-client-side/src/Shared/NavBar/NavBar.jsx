@@ -7,8 +7,7 @@ import Logo from "../Logo/Logo"
 
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
-  console.log(user);
-
+  
   const handleLogout = () => {
     logOut()
       .then(() => toast.success("Sign out successful"))
@@ -109,10 +108,10 @@ const NavBar = () => {
               }
             </ul>
           </div>
-           <div className="flex items-center ">
+           <Link to='/' className="flex items-center ">
             <Logo></Logo>
-            <a className=" text-4xl font-semibold">UniClubs</a>
-           </div>
+            <h3 className=" text-4xl font-semibold">UniClubs</h3>
+           </Link>
           
         </div>
         <div className="navbar-center hidden lg:flex">
