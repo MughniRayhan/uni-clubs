@@ -16,6 +16,7 @@
     "daisyui": "^5.0.46",
     "firebase": "^12.2.1",
     "framer-motion": "^12.23.12",
+    "lucide-react": "^0.542.0",
     "motion": "^12.23.12",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
