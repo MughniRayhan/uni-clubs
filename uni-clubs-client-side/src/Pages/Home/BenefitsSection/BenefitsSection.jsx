@@ -10,7 +10,7 @@ const benefits = [
 
 const BenefitsSection = () => {
   return (
-    <section className="bg-gradient-to-tl from-primary/20 via-transparent to-primary/10  py-20"  data-aos="fade-up" data-aos-duration="2000"
+    <section className="bg-gradient-to-tl from-primary/20 via-transparent to-primary/10 px-10  py-20"  data-aos="fade-up" data-aos-duration="2000"
    
     >
       <div className="container mx-auto px-4 ">

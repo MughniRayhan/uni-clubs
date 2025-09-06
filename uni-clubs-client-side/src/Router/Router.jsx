@@ -12,7 +12,8 @@ import DashboardLayout from "../LayOut/DashboardLayout";
 import Profile from "../Pages/DashBoard/Profile/Profile";
 import Clubs from "../Pages/Clubs/Clubs"
 import MyClubs from "../Pages/DashBoard/MyClubs/MyClubs";
-import About from "../Pages/Home/About/About";
+import About from "../Pages/Home/AboutSection/About";
+
 
 
 
