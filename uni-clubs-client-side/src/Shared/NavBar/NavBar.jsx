@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
 import { toast } from "react-toastify";
+import Logo from "../Logo/Logo"
+
 
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -78,7 +80,7 @@ const NavBar = () => {
 
   return (
     <div className="sticky top-0 z-50"> 
-      <div className="navbar bg-[#036666]  text-white shadow-sm lg:px-15 lg:py-5 px-5 py-3 border-b border-secondary">
+      <div className="navbar bg-[#036666]  text-white shadow-sm lg:px-15 lg:py-5 px-5 py-2 border-b border-secondary">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -107,7 +109,11 @@ const NavBar = () => {
               }
             </ul>
           </div>
-          <a className=" text-4xl font-semibold">UniClubs</a>
+           <div className="flex items-center ">
+            <Logo></Logo>
+            <a className=" text-4xl font-semibold">UniClubs</a>
+           </div>
+          
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 gap-x-5 ">
