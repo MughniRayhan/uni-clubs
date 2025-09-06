@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import BannerImage from "../../../assets/banner.png";
-import BackgroundImage from "../../../assets/bg.jpg";
+import { Link } from 'react-router';
+import UseAuth from '../../../Hooks/UseAuth';
 
 const messages = [
   { text: "🎓  Join your favorite clubs", position: "top-[-60px] right-[-60px] -translate-x-1/2" },
@@ -10,6 +11,7 @@ const messages = [
 ];
 
 export default function Banner() {
+  const {user} = UseAuth();
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -53,12 +55,14 @@ export default function Banner() {
             className="flex flex-col sm:flex-row gap-4"
             
           >
-            <button className="bg-primary hover:bg-emerald-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition">
+            <Link to='/Clubs' className="bg-primary hover:bg-emerald-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition">
               Explore Clubs
-            </button>
-            <button  className="border border-white hover:bg-gradient-to-r hover:from-primary hover:to-secondary  font-semibold px-6 py-3 rounded-xl transition">
+            </Link>
+            {!user && 
+            <Link to='/auth/register'  className="border border-white hover:bg-gradient-to-r hover:from-primary hover:to-secondary  font-semibold px-6 py-3 rounded-xl transition">
               Register Now
-            </button>
+            </Link>
+            }
           </motion.div>
         </div>
 
