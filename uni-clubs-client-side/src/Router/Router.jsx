@@ -12,6 +12,7 @@ import DashboardLayout from "../LayOut/DashboardLayout";
 import Profile from "../Pages/DashBoard/Profile/Profile";
 import Clubs from "../Pages/Clubs/Clubs"
 import MyClubs from "../Pages/DashBoard/MyClubs/MyClubs";
+import About from "../Pages/Home/About/About";
 
 
 
@@ -36,6 +37,10 @@ import MyClubs from "../Pages/DashBoard/MyClubs/MyClubs";
       {
         path: '/Events',
         Component: Events
+      },
+      {
+        path: '/About',
+        Component: About
       },
     ]
 

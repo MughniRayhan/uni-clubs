@@ -35,6 +35,16 @@ const NavBar = () => {
         Clubs
       </NavLink>
       <NavLink
+        to="/About"
+        className={({ isActive }) =>
+          isActive
+            ? "text-[#FAFEFF] rounded-b-md border-b-2 font-semibold text-xl"
+            : "text-[#FAFEFF] font-semibold text-xl"
+        }
+      >
+        About
+      </NavLink>
+      <NavLink
         to="/Events"
         className={({ isActive }) =>
           isActive
@@ -67,8 +77,8 @@ const NavBar = () => {
   );
 
   return (
-    <div>
-      <div className="navbar bg-[#036666] text-white shadow-sm lg:px-15 lg:py-5 px-5 py-3 border-b border-secondary">
+    <div className="sticky top-0 z-50"> 
+      <div className="navbar bg-[#036666]  text-white shadow-sm lg:px-15 lg:py-5 px-5 py-3 border-b border-secondary">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
