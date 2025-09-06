@@ -5,7 +5,7 @@ import { Link } from "react-router";
 export default function CallToAction() {
     const {user} = UseAuth();
   return (
-    <section className="relative overflow-hidden bg-gray-900 text-white py-20">
+    <section className="relative overflow-hidden bg-gray-900 text-white py-20 mt-10">
       {/* Animated Blobs Background */}
       <motion.div
         className="absolute top-10 left-10 w-72 h-72 bg-emerald-400/20 rounded-full blur-3xl"
@@ -58,7 +58,7 @@ export default function CallToAction() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          className="flex justify-center gap-4"
+          className="flex flex-col sm:flex-row justify-center gap-4"
         >
           {
             user ?

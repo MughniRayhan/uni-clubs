@@ -4,6 +4,7 @@ import About from './AboutSection/About';
 import BenefitsSection from './BenefitsSection/BenefitsSection';
 import Gallery from './Gallery/Gallery';
 import CallToAction from './CallToAction/CallToAction';
+import Stats from './StatsSection/Stats';
 
 
 const Home = () => {
@@ -14,6 +15,7 @@ const Home = () => {
             <BenefitsSection/>
             <Gallery/>
             <CallToAction/>
+            <Stats/>
         </div>
     );
 };
