@@ -64,7 +64,7 @@ const BenefitsSection = () => {
 
             <div className="absolute left-0 transform -translate-x-1/2 bg-gradient-to-r from-gray-900 to-secondary   w-4 h-4 rounded-full shadow-2xl shadow-secondary z-10"></div>
            
-            <p className="text-gray-700 text-lg">
+            <div className="text-gray-700 text-lg">
               Traditional systems like Google Forms, Facebook groups, and spreadsheets often result in scattered information, inconsistent communication, and increased administrative workload for both students and club coordinators. Important announcements may get lost, attendance tracking becomes cumbersome, and event registrations require repetitive manual handling.<br/><br />
               
               <div className="absolute left-0 transform -translate-x-1/2 bg-gradient-to-r from-gray-900 to-secondary   w-4 h-4 rounded-full shadow-2xl shadow-secondary z-10"></div>
@@ -74,7 +74,7 @@ const BenefitsSection = () => {
               <div className="absolute left-0 transform -translate-x-1/2 bg-gradient-to-r from-gray-900 to-secondary   w-4 h-4 rounded-full shadow-2xl shadow-secondary z-10"></div>
               
               By streamlining operations and improving communication, Uni-Clubs not only saves time but also enhances student engagement and collaboration across campus. Clubs can run more efficiently, events reach a wider audience, and students experience a more organized and enjoyable extracurricular environment. Overall, Uni-Clubs transforms university club management into a modern, digital-first experience, eliminating the inefficiencies and limitations of traditional manual systems.
-          </p>
+          </div>
           </div>
         </div>
       </div>

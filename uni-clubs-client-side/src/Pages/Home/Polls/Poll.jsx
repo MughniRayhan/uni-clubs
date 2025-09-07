@@ -37,19 +37,16 @@ const Polls = () => {
   };
 
   return (
-    <div
-      className="bg-gradient-to-tl from-primary/20 via-transparent to-primary/10 px-10 py-20"
-      data-aos="fade-up"
-      data-aos-duration="2000"
-    >
+   <section className="bg-white py-20"  data-aos="fade-up" data-aos-duration="2000" >
       <div className="p-6 max-w-5xl mx-auto">
         <motion.h2
-          className="text-3xl lg:mt-10 md:text-5xl text-center bg-gradient-to-tl from-black via-primary to-secondary/50 bg-clip-text text-transparent font-bold mb-4"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="text-3xl md:text-5xl text-center bg-gradient-to-tl from-black via-primary to-secondary/50 bg-clip-text text-transparent font-bold mb-4"
         >
-          🎉 Club Voting Section
+           Club Voting Section
         </motion.h2>
 
         {/* ✅ Short Explanation */}
@@ -61,7 +58,7 @@ const Polls = () => {
           {limitedEvents.map((event, index) => (
             <motion.div
               key={event.id}
-              className="flex justify-between items-center bg-gradient-to-r from-blue-100 to-blue-50 p-5 rounded-2xl shadow-lg"
+              className="flex justify-between items-center bg-gradient-to-r from-blue-100/50 to-blue-50 p-5 rounded-2xl shadow-lg"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.15 }}
@@ -87,7 +84,7 @@ const Polls = () => {
                 whileTap={{ scale: 0.9 }}
                 className={`px-4 py-2 rounded-xl shadow-md font-medium ${
                   user
-                    ? "bg-blue-600 text-white hover:bg-blue-700"
+                    ? "bg-primary text-white hover:bg-white hover:text-primary hover:border hover:border-primary transition-all duration-300"
                     : "bg-gray-300 text-gray-600 cursor-not-allowed"
                 }`}
               >
@@ -100,12 +97,12 @@ const Polls = () => {
         {/* ✅ Button goes to AllPolls page */}
         <Link to="/AllPolls">
           <div className="flex justify-center text-primary items-center gap-x-2 mt-10 hover:text-secondary font-semibold">
-            <h1 className="text-2xl font-bold">Show More Polls</h1>
+            <h1 className="text-xl font-bold">Show More Polls</h1>
             <FaArrowRightLong />
           </div>
         </Link>
       </div>
-    </div>
+    </section>
   );
 };
 

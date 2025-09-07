@@ -58,6 +58,7 @@ function SignUp() {
           .catch((error) => {});
         toast.success("Successfully registered");
         navigate("/");
+        
       })
       .catch((error) => {
         console.error(error.message);
@@ -83,22 +84,19 @@ function SignUp() {
   };
 
   return (
-    <div className="bg-gradient-to-tl from-primary/20 via-transparent to-primary/10 px-10  py-20"> 
-    <div className=" flex my-10 sm:w-[70%] mx-auto w-full shadow-lg md:shadow-none">
-      <form onSubmit={handleSubmit(onSubmit)} className="card-body">
-        <div className="mb-2">
-          <h2 className="font-extrabold sm:text-3xl text-xl mb-1 ">
+    <div className="bg-gradient-to-tl from-primary/20 via-transparent to-primary/10  "> 
+    <div className=' flex  items-center justify-center  '>
+      <form onSubmit={handleSubmit(onSubmit)} className='lg:w-1/2 w-full bg-white  min-h-screen flex flex-col justify-center items-center shadow-lg md:shadow-none px-5 '>
+          <h2 className="text-3xl bg-gradient-to-t from-black via-primary to-secondary/50 bg-clip-text text-transparent font-bold mb-6">
             Create an Account
           </h2>
-        </div>
-
         <fieldset className="fieldset">
           {/* image */}
           <input
             type="file"
             onChange={handleUploadImage}
-            className="file-input file-input-bordered text-white bg-base-100 
-             file:bg-secondary file:border-none file:px-4 file:py-2 file:text-white file:rounded file:cursor-pointer"
+            className="file-input file-input-bordered text-gray-500 bg-base-100 
+             file:bg-secondary/20 file:border-primary/20 file:px-4 file:py-2 file:text-primary file:rounded file:cursor-pointer"
           />
 
           {/* name */}
@@ -138,7 +136,8 @@ function SignUp() {
             <span className="text-red-500">Must have to 6 length</span>
           )}
 
-          <button className="btn btn-neutral mt-4 sm:w-[330px] bg-primary  font-bold border-none ">
+          <button 
+          className="btn  mt-4 sm:w-[330px] bg-primary text-white hover:bg-white hover:text-primary hover:border hover:border-primary font-bold ">
             Register
           </button>
           <div className="mt-2 text-base">
@@ -154,7 +153,7 @@ function SignUp() {
           <SocialLogin />
         </fieldset>
       </form>
-      <div className="ml-20  lg:block hidden">
+      <div className=" w-1/2  bg-secondary/20  min-h-screen hidden lg:flex justify-center items-center ">
         <Lottie
           className="w-100 h-140"
           animationData={animation}

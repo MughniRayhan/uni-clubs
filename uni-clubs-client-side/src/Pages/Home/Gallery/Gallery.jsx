@@ -44,12 +44,18 @@ export default function Gallery() {
   };
 
   return (
-    <div>
-      <h2 className="text-3xl lg:mt-10 md:text-5xl text-center bg-gradient-to-tl from-black via-primary to-secondary/50 bg-clip-text text-transparent font-bold mb-4">
+     <section className=" py-20"  data-aos="fade-up" data-aos-duration="2000" >
+      <motion.h2
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                viewport={{ once: true }}
+                className="text-3xl md:text-5xl text-center bg-gradient-to-tl from-black via-primary to-secondary/50 bg-clip-text text-transparent font-bold mb-4"
+              >
         Gallery & Media
-      </h2>
+      </motion.h2>
 
-      <section className="w-full py-16 text-white">
+      <div className="w-full py-16 text-white">
         <div className="max-w-7xl mx-auto px-6 md:px-12 text-center">
           <div className="flex justify-center items-center space-x-6">
             {getVisibleSlides().map((index) => {
@@ -94,7 +100,7 @@ export default function Gallery() {
             })}
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }

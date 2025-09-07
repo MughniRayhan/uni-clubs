@@ -14,7 +14,7 @@ export default function About() {
           viewport={{ once: true }}
           className="text-3xl md:text-5xl bg-gradient-to-tl from-black via-primary to-secondary/50 bg-clip-text text-transparent font-bold mb-4"
         >
-          About <span className="">Us</span>
+          About Us
         </motion.h2>
 
         {/* Description */}

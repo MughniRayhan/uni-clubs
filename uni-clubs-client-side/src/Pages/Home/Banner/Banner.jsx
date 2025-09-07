@@ -5,9 +5,9 @@ import { Link } from 'react-router';
 import UseAuth from '../../../Hooks/UseAuth';
 
 const messages = [
-  { text: "🎓  Join your favorite clubs", position: "top-[-60px] right-[-60px] -translate-x-1/2" },
+  { text: "🎓  Join your favorite clubs", position: "top-[-40px] right-[-70px] -translate-x-1/2" },
   { text: "📅 Register for events", position: "top-[-40] right-[-50px] -translate-y-1/2"  },
-  { text: "📊 Track your engagement", position: "top-[-60px] left-1/2 -translate-x-1/2" },
+  { text: "📊 Track your engagement", position: "top-[-40px] right-[-5px] -translate-x-1/2" },
 ];
 
 export default function Banner() {
