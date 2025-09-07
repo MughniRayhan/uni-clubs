@@ -63,8 +63,7 @@ export default function Gallery() {
                   transition={{ duration: 0.6 }}
                   className={`relative rounded-xl overflow-hidden shadow-xl ${
                     isActive ? "ring-4 ring-secondary " : "pointer-events-none"
-                  }`}
-                  style={{ width: "400px", height: "300px" }}
+                  } lg:w-96 lg:h-75  w-40 h-40 `  }
                 >
                   {/* Image / Video */}
                   {item.type === "image" ? (
