@@ -5,6 +5,7 @@ import BenefitsSection from './BenefitsSection/BenefitsSection';
 import Gallery from './Gallery/Gallery';
 import CallToAction from './CallToAction/CallToAction';
 import Stats from './StatsSection/Stats';
+import Poll from './Polls/Poll';
 
 
 const Home = () => {
@@ -15,6 +16,7 @@ const Home = () => {
             <BenefitsSection/>
             <Gallery/>
             <CallToAction/>
+            <Poll/>
             <Stats/>
         </div>
     );

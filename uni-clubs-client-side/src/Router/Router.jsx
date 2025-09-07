@@ -13,7 +13,8 @@ import Profile from "../Pages/DashBoard/Profile/Profile";
 import Clubs from "../Pages/Clubs/Clubs"
 import MyClubs from "../Pages/DashBoard/MyClubs/MyClubs";
 import About from "../Pages/Home/AboutSection/About";
-import Gallery from "../Pages/Home/Gallery/Gallery";
+import AllPolls from "../Pages/Home/Polls/AllPolls";
+
 
 
 
@@ -45,9 +46,10 @@ import Gallery from "../Pages/Home/Gallery/Gallery";
         Component: About
       },
       {
-        path: '/Gallery',
-        Component: Gallery
-      },
+        path: '/AllPolls',
+        Component: AllPolls
+      }
+
     ]
 
   },
