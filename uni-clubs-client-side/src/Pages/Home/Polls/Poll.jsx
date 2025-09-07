@@ -37,7 +37,11 @@ const Polls = () => {
   };
 
   return (
-    <div className="bg-gradient-to-tl from-primary/20 via-transparent to-primary/10 px-10 py-20" data-aos="fade-up" data-aos-duration="2000">
+    <div
+      className="bg-gradient-to-tl from-primary/20 via-transparent to-primary/10 px-10 py-20"
+      data-aos="fade-up"
+      data-aos-duration="2000"
+    >
       <div className="p-6 max-w-5xl mx-auto">
         <motion.h2
           className="text-3xl lg:mt-10 md:text-5xl text-center bg-gradient-to-tl from-black via-primary to-secondary/50 bg-clip-text text-transparent font-bold mb-4"
@@ -47,6 +51,11 @@ const Polls = () => {
         >
           🎉 Club Voting Section
         </motion.h2>
+
+        {/* ✅ Short Explanation */}
+        <p className="text-center text-gray-600 max-w-2xl mx-auto mb-10">
+          Have Your Say! Your votes determine which club events take the spotlight on campus. Support your favorite activities and help shape the university experience together.”.
+        </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
           {limitedEvents.map((event, index) => (
@@ -59,7 +68,7 @@ const Polls = () => {
               whileHover={{ scale: 1.03 }}
             >
               <div>
-                <h3 className="text-lg font-semibold text-gray-800">
+                <h3 className="text-lg font-semibold text-gray-700 mb-2">
                   {event.name}
                 </h3>
                 <motion.span
@@ -67,7 +76,7 @@ const Polls = () => {
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.3 }}
-                  className="text-blue-600 font-bold"
+                  className="text-primary font-bold"
                 >
                   {event.votes} votes
                 </motion.span>

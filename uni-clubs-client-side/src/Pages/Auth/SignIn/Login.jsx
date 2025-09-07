@@ -4,6 +4,9 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import { toast } from 'react-toastify';
 import UseAuth from '../../../Hooks/UseAuth';
+import animation from '../../../assets/Animation/login.json'
+import Lottie from 'lottie-react';
+
 
 function Login() {
     const {register, handleSubmit, formState: {errors}} = useForm();
@@ -24,7 +27,8 @@ function Login() {
             })
     }
   return (
-    <div className=' my-10 sm:w-[70%] mx-auto w-full shadow-lg md:shadow-none  '>
+    <div className="bg-gradient-to-tl from-primary/20 via-transparent to-primary/10 px-10  py-20" > 
+    <div className=' flex my-10 sm:w-[70%] mx-auto w-full shadow-lg md:shadow-none  '>
         <form onSubmit={handleSubmit(onSubmit)} className='card-body'>
            <div className='mb-2'>
              <h2 className='font-extrabold sm:text-3xl text-xl mb-1 '>Welcome Back</h2>
@@ -51,7 +55,13 @@ function Login() {
           
           <SocialLogin/>
         </fieldset>
-    </form>
+        </form>
+        <div className="ml-20  lg:block hidden">
+         <Lottie className='w-150 h-150' animationData={animation} loop={true}>
+
+         </Lottie>
+       </div>
+    </div>
     </div>
   )
 }
