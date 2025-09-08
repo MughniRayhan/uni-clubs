@@ -66,7 +66,7 @@ const AllPolls = () => {
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.3 }}
-                  className="text-blue-600 font-bold"
+                  className="text-secondary font-bold"
                 >
                   {event.votes} votes
                 </motion.span>

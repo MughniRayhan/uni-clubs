@@ -7,6 +7,7 @@ import { Link } from "react-router";
 
 const Polls = () => {
   const { user } = useContext(AuthContext);
+
   const [events, setEvents] = useState([
     { id: 1, name: "🎶 Music Night", votes: 0 },
     { id: 2, name: "💻 Tech Workshop", votes: 0 },
@@ -20,6 +21,9 @@ const Polls = () => {
     { id: 10, name: "🧩 Quiz Night", votes: 0 },
   ]);
 
+  // ✅ Track which events the user already voted for
+  const [votedEvents, setVotedEvents] = useState([]);
+
   // ✅ Show only first 6 clubs
   const limitedEvents = events.slice(0, 6);
 
@@ -28,16 +32,31 @@ const Polls = () => {
       toast.error("Please login to vote!");
       return;
     }
+
+    // prevent voting multiple times on the same event
+    if (votedEvents.includes(id)) {
+      toast.warning("You already voted for this event!");
+      return;
+    }
+
     setEvents((prevEvents) =>
       prevEvents.map((event) =>
         event.id === id ? { ...event, votes: event.votes + 1 } : event
       )
     );
+
+    // mark event as voted
+    setVotedEvents((prev) => [...prev, id]);
+
     toast.success("✅ Your vote has been added!");
   };
 
   return (
-   <section className="bg-white py-20"  data-aos="fade-up" data-aos-duration="2000" >
+    <section
+      className="bg-white py-20"
+      data-aos="fade-up"
+      data-aos-duration="2000"
+    >
       <div className="p-6 max-w-5xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
@@ -46,12 +65,14 @@ const Polls = () => {
           viewport={{ once: true }}
           className="text-3xl md:text-5xl text-center bg-gradient-to-tl from-black via-primary to-secondary/50 bg-clip-text text-transparent font-bold mb-4"
         >
-           Club Voting Section
+          Club Voting Section
         </motion.h2>
 
         {/* ✅ Short Explanation */}
         <p className="text-center text-gray-600 max-w-2xl mx-auto mb-10">
-          Have Your Say! Your votes determine which club events take the spotlight on campus. Support your favorite activities and help shape the university experience together.”.
+          Have Your Say! Your votes determine which club events take the
+          spotlight on campus. Support your favorite activities and help shape
+          the university experience together.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
@@ -82,13 +103,20 @@ const Polls = () => {
               <motion.button
                 onClick={() => handleVote(event.id)}
                 whileTap={{ scale: 0.9 }}
+                disabled={!user || votedEvents.includes(event.id)} // ✅ disable after voting
                 className={`px-4 py-2 rounded-xl shadow-md font-medium ${
-                  user
-                    ? "bg-primary text-white hover:bg-white hover:text-primary hover:border hover:border-primary transition-all duration-300"
-                    : "bg-gray-300 text-gray-600 cursor-not-allowed"
+                  !user
+                    ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                    : votedEvents.includes(event.id)
+                    ? "bg-gray-400 text-white cursor-not-allowed"
+                    : "bg-primary text-white hover:bg-white hover:text-primary hover:border hover:border-primary transition-all duration-300"
                 }`}
               >
-                {user ? "Vote" : <Link to="/auth/login">Login Required</Link>}
+                {!user
+                  ? <Link to="/auth/login">Login Required</Link>
+                  : votedEvents.includes(event.id)
+                  ? "Voted ✅"
+                  : "Vote"}
               </motion.button>
             </motion.div>
           ))}
