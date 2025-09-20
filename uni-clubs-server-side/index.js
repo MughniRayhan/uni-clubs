@@ -23,6 +23,7 @@ app.use('/api', userRoutes);
 app.use("/api", adminRoutes);
 
 
+
 app.get("/", (req, res) => {
   res.send("Uni-Clubs API is running...");
 });

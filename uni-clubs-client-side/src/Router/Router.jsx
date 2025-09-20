@@ -14,6 +14,7 @@ import Clubs from "../Pages/Clubs/Clubs"
 import MyClubs from "../Pages/DashBoard/MyClubs/MyClubs";
 import About from "../Pages/Home/AboutSection/About";
 import AllPolls from "../Pages/Home/Polls/AllPolls";
+import AllUsers from "../Pages/DashBoard/AllUsers/AllUsers";
 
 
 
@@ -65,6 +66,10 @@ import AllPolls from "../Pages/Home/Polls/AllPolls";
         path: 'myClubs',
         Component: MyClubs
       },
+      {
+        path: 'allUsers',
+        Component: AllUsers
+      }
     ]
   },
   {

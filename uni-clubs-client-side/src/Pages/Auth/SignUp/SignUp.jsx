@@ -58,10 +58,10 @@ function SignUp() {
           .catch((error) => {});
         toast.success("Successfully registered");
         navigate("/");
-        
       })
       .catch((error) => {
         console.error(error.message);
+        toast.error(error.message);
       });
   };
 

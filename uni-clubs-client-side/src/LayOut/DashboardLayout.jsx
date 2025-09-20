@@ -4,9 +4,11 @@ import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import UseAuth from "../Hooks/UseAuth";
 import { FaUserCircle } from "react-icons/fa";
 import { toast } from "react-toastify";
+import useUserRole from "../Hooks/useUserRole";
 
 function DashboardLayout() {
   const { user, logOut } = UseAuth(); 
+  const {role,roleLoading} = useUserRole()
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -146,6 +148,15 @@ function DashboardLayout() {
           <NavLink to="/dashboard/profile" className="flex items-center gap-2 mt-5 text-lg dashboard_page">
              <FaUserCircle /> My Profile
           </NavLink>
+
+          {
+             !roleLoading && role==="admin" && 
+              <>
+              <NavLink to="/dashboard/allUsers" className="flex items-center gap-2 mt-5 text-lg dashboard_page">
+              <FaUserCircle /> All Users
+            </NavLink>
+            </>
+          }
 
         </ul>
       </div>

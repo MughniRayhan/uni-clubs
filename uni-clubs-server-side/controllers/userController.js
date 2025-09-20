@@ -31,4 +31,24 @@ const createUser = async (req, res) => {
   }
 };
 
-module.exports = {createUser};
+
+const userRole =async (req, res) =>  {
+  try {
+    const { email } = req.params;
+    if (!email) {
+      return res.status(400).send({ message: "Email parameter is required" });
+    }
+    const user = await User.findOne(
+      { email }
+    );
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+    res.send({ role: user.role || "user" }); 
+  } catch (error) {
+    console.error("Error fetching user role:", error);
+    res.status(500).send({ message: "Failed to get user role" });
+  }
+};
+
+module.exports = {createUser, userRole};
