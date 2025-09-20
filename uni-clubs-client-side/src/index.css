@@ -20,3 +20,8 @@
 footer a.active {
   font-weight: bold;
 }
+
+.dashboard_page.active {
+  color: #036666;
+  font-weight: bold;
+}

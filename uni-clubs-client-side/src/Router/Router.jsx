@@ -34,15 +34,15 @@ import AllPolls from "../Pages/Home/Polls/AllPolls";
       },
       
       {
-        path: '/Clubs',
+        path: '/clubs',
         Component:Clubs
       },
       {
-        path: '/Events',
+        path: '/events',
         Component: Events
       },
       {
-        path: '/About',
+        path: '/about',
         Component: About
       },
       {
@@ -54,15 +54,15 @@ import AllPolls from "../Pages/Home/Polls/AllPolls";
 
   },
   {
-    path: 'Dashboard',
+    path: '/dashboard',
     element: <DashboardLayout />,
     children: [
       {
-        path: 'Profile',
+        path: 'profile',
         Component:Profile
       },
       {
-        path: 'MyClubs',
+        path: 'myClubs',
         Component: MyClubs
       },
     ]

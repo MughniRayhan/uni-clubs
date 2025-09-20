@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
 import { toast } from "react-toastify";
 import Logo from "../Logo/Logo"
@@ -7,11 +7,18 @@ import Logo from "../Logo/Logo"
 
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
   
   const handleLogout = () => {
     logOut()
-      .then(() => toast.success("Sign out successful"))
-      .catch((error) => toast.error(error.message));
+      .then(() => {
+        toast.success("Logged out successfully");
+        navigate('/');
+      })
+      .catch((error) => {
+        console.error("Logout Error: ", error);
+        toast.error("Logout failed");
+      });
   };
    const NavList = (
     <> 
@@ -26,7 +33,7 @@ const NavBar = () => {
         Home
       </NavLink>
       <NavLink
-        to="/Clubs"
+        to="/clubs"
         className={({ isActive }) =>
           isActive
             ? "text-[#FAFEFF] rounded-b-md border-b-2 font-semibold text-xl"
@@ -36,7 +43,7 @@ const NavBar = () => {
         Clubs
       </NavLink>
       <NavLink
-        to="/About"
+        to="/about"
         className={({ isActive }) =>
           isActive
             ? "text-[#FAFEFF] rounded-b-md border-b-2 font-semibold text-xl"
@@ -46,7 +53,7 @@ const NavBar = () => {
         About
       </NavLink>
       <NavLink
-        to="/Events"
+        to="/events"
         className={({ isActive }) =>
           isActive
             ? "text-[#FAFEFF] rounded-b-md border-b-2 font-semibold text-xl"
@@ -61,7 +68,7 @@ const NavBar = () => {
         <>
         
         <NavLink
-          to="/Dashboard"
+          to="/dashboard"
           className={({ isActive }) =>
             isActive
               ? "text-[#FAFEFF] rounded-b-md border-b-2 font-semibold text-xl"
@@ -106,11 +113,42 @@ const NavBar = () => {
               {
                 NavList
               }
+              {user ? (
+            <>
+              {/* Large Device Button */}
+              <button
+                onClick={handleLogout}
+                className="lg:inline-block lg:border border-gray-200 rounded-md bg-transparent 
+                           text-white lg:hover:bg-[#26667F] hover:text-[#daf5ff] transition duration-300 font-medium"
+              >
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <>
+              {/* Large Device Buttons */}
+              <Link
+                to="/auth/login"
+                className="lg:inline-block  lg:border lg:border-gray-200 rounded-md bg-transparent 
+                           text-white lg:hover:bg-[#26667F] hover:text-[#daf5ff] transition duration-300 font-medium"
+              >
+                Sign In
+              </Link>
+              <Link
+                to="/auth/register"
+                className="lg:inline-block  lg:border lg:border-gray-200 rounded-md bg-transparent 
+                           text-white lg:hover:bg-[#26667F] hover:text-[#daf5ff] transition duration-300 font-medium"
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
             </ul>
+            
           </div>
            <Link to='/' className="flex items-center ">
             <Logo></Logo>
-            <h3 className=" text-4xl font-semibold">UniClubs</h3>
+            <h3 className=" sm:text-4xl text-3xl font-semibold">UniClubs</h3>
            </Link>
           
         </div>
@@ -121,7 +159,7 @@ const NavBar = () => {
             }
           </ul>
         </div>
-        <div className="navbar-end gap-x-4">
+        <div className="navbar-end gap-x-4 sm:flex hidden">
           {user ? (
             <>
               {/* Large Device Button */}
