@@ -2,7 +2,7 @@ import React from "react";
 import { MdDashboard, MdLogout } from "react-icons/md";
 import { Link, NavLink, Outlet, useNavigate } from "react-router"; 
 import UseAuth from "../Hooks/UseAuth";
-import { FaUserCircle } from "react-icons/fa";
+import { FaUserCircle, FaUsers } from "react-icons/fa";
 import { toast } from "react-toastify";
 import useUserRole from "../Hooks/useUserRole";
 
@@ -153,7 +153,7 @@ function DashboardLayout() {
              !roleLoading && role==="admin" && 
               <>
               <NavLink to="/dashboard/allUsers" className="flex items-center gap-2 mt-5 text-lg dashboard_page">
-              <FaUserCircle /> All Users
+               <FaUsers /> All Users
             </NavLink>
             </>
           }
