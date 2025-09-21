@@ -153,7 +153,7 @@ function DashboardLayout() {
              !roleLoading && role==="admin" && 
               <>
               <NavLink to="/dashboard/allUsers" className="flex items-center gap-2 mt-5 text-lg dashboard_page">
-               <FaUsers /> All Users
+               <FaUsers /> Manage Users
             </NavLink>
             </>
           }

@@ -55,6 +55,40 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+// make admin
+const makeAdmin = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await User.findByIdAndUpdate(
+      id,
+      { role: 'admin' },
+      { new: true } // return updated document
+    );
+    if (!result) return res.status(404).send({ message: 'User not found' });
+    res.send(result);
+  } catch (error) {
+    console.error('Error making admin:', error);
+    res.status(500).send({ message: 'Failed to make admin' });
+  }
+};
+
+// remove admin
+const removeAdmin = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await User.findByIdAndUpdate(
+      id,
+      { role: 'user' },
+      { new: true }
+    );
+    if (!result) return res.status(404).send({ message: 'User not found' });
+    res.send(result);
+  } catch (error) {
+    console.error('Error removing admin:', error);
+    res.status(500).send({ message: 'Failed to remove admin' });
+  }
+};
+
 
 
 // get user role
@@ -77,4 +111,4 @@ const userRole =async (req, res) =>  {
   }
 };
 
-module.exports = {createUser, getAllUsers, userRole};
+module.exports = {createUser, getAllUsers, makeAdmin,removeAdmin, userRole};
