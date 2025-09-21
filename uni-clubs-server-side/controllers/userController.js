@@ -72,6 +72,20 @@ const makeAdmin = async (req, res) => {
   }
 };
 
+const singleUser = async (req, res) => {
+  try {
+    const email = req.params.email;
+    const user = await User.findOne({ email }); 
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 // remove admin
 const removeAdmin = async (req, res) => {
   const { id } = req.params;
@@ -111,4 +125,24 @@ const userRole =async (req, res) =>  {
   }
 };
 
-module.exports = {createUser, getAllUsers, makeAdmin,removeAdmin, userRole};
+
+// update user profile
+const updateProfile = async (req, res) => {
+  const { email } = req.params;
+  const { studentId, department, phone, batch, bio } = req.body;
+
+  try {
+    const updatedUser = await User.findOneAndUpdate(
+      { email },
+      { $set: { studentId, department, phone, batch, bio } },
+      { new: true }
+    );
+    if (!updatedUser) return res.status(404).json({ message: "User not found" });
+    res.json(updatedUser);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to update profile" });
+  }
+};
+
+module.exports = {createUser, getAllUsers, makeAdmin,removeAdmin, singleUser, userRole, updateProfile};
