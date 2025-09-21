@@ -6,7 +6,6 @@ const bodyParser = require('body-parser');
 const connectDB = require('./config/db');
 
 const userRoutes = require('./routes/userRoutes');
-const adminRoutes = require("./routes/adminRoutes");
 
 const app = express();
 connectDB();
@@ -20,7 +19,6 @@ const PORT = process.env.PORT || 8000;
 
 // Routes
 app.use('/api', userRoutes);
-app.use("/api", adminRoutes);
 
 
 

@@ -32,6 +32,32 @@ const createUser = async (req, res) => {
 };
 
 
+// get all users
+const getAllUsers = async (req, res) => {
+  const search = req.query.search;
+  let query = {};
+
+  if (search) {
+    query = {
+      $or: [
+        { displayName: { $regex: search, $options: "i" } },
+        { email: { $regex: search, $options: "i" } }
+      ]
+    };
+  }
+
+  try {
+    const users = await User.find(query).lean();
+    res.send(users);
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).send({ message: "Failed to fetch users" });
+  }
+};
+
+
+
+// get user role
 const userRole =async (req, res) =>  {
   try {
     const { email } = req.params;
@@ -51,4 +77,4 @@ const userRole =async (req, res) =>  {
   }
 };
 
-module.exports = {createUser, userRole};
+module.exports = {createUser, getAllUsers, userRole};
