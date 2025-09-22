@@ -9,8 +9,6 @@ const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 connectDB();
-
-
 //Middleware
 app.use(express.json());
 app.use(bodyParser.json());
