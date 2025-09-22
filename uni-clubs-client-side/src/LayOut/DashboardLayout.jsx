@@ -5,11 +5,23 @@ import UseAuth from "../Hooks/UseAuth";
 import { FaUserCircle, FaUsers } from "react-icons/fa";
 import { toast } from "react-toastify";
 import useUserRole from "../Hooks/useUserRole";
+import { useQuery } from "@tanstack/react-query";
+import UseAxiosSecure from "../Hooks/UseAxiosSecure";
 
 function DashboardLayout() {
-  const { user, logOut } = UseAuth(); 
+  const { user, logOut } = UseAuth();
+  const axiosSecure = UseAxiosSecure(); 
   const {role,roleLoading} = useUserRole()
   const navigate = useNavigate();
+
+    const { data: profile } = useQuery({
+    queryKey: ["profile", user?.email],
+    enabled: !!user,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/users/${user?.email}`);
+      return res.data;
+    }
+  });
 
   const handleLogout = () => {
       logOut()
@@ -84,31 +96,42 @@ function DashboardLayout() {
 
              {/* ===== Profile Avatar (Large Devices) ===== */}
           <div className="flex-none hidden lg:flex items-center">
-            <div className="dropdown dropdown-end">
-              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                  <img
-                    src={user?.photoURL || "https://i.ibb.co/4pDNDk1/avatar.png"}
-                    alt="profile"
-                  />
-                </div>
-              </label>
-              <ul
-                tabIndex={0}
-                className="menu dropdown-content mt-3 p-2 shadow bg-white rounded-box w-48"
-              >
-                <li className="px-2 py-1 text-center font-medium">
-                  {user?.displayName || "User"}
-                </li>
-                <div className="divider my-1"></div>
-                <li>
-                  <button onClick={handleLogout} className="font-semibold text-gray-700 flex justify-center">
-                    <MdLogout /> Sign out
-                 </button>
-                </li>
-              </ul>
-            </div>
+      <div className="dropdown dropdown-end">
+        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+          <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+            <img
+              src={
+                profile?.photoURL ||    
+                user?.photoURL ||       
+                "https://i.ibb.co/4pDNDk1/avatar.png" 
+              }
+              alt="profile"
+              className="object-cover"
+            />
           </div>
+        </label>
+
+        <ul
+          tabIndex={0}
+          className="menu dropdown-content mt-3 p-2 shadow bg-white rounded-box w-48"
+        >
+          <li className="px-2 py-1 text-center font-medium">
+            {profile?.displayName || user?.displayName || "User"}
+          </li>
+
+          <div className="divider my-1"></div>
+
+          <li>
+            <button
+              onClick={handleLogout}
+              className="font-semibold text-gray-700 flex justify-center"
+            >
+              <MdLogout /> Sign out
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
           </div>
 
          
