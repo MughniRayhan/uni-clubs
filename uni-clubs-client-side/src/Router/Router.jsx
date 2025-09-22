@@ -15,6 +15,8 @@ import MyClubs from "../Pages/DashBoard/MyClubs/MyClubs";
 import About from "../Pages/Home/AboutSection/About";
 import AllPolls from "../Pages/Home/Polls/AllPolls";
 import AllUsers from "../Pages/DashBoard/AllUsers/AllUsers";
+import AddEvent from "../Pages/DashBoard/AddEvents/AddEvent";
+import JoinClub from "../Pages/DashBoard/JoinClubs/JoinClub";
 
 
 
@@ -69,6 +71,14 @@ import AllUsers from "../Pages/DashBoard/AllUsers/AllUsers";
       {
         path: 'allUsers',
         Component: AllUsers
+      },
+      {
+        path: 'AddEvent',
+        Component: AddEvent
+      },
+      {
+        path: 'JoinClub',
+        Component: JoinClub
       }
     ]
   },
