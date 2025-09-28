@@ -1,5 +1,5 @@
 import React from "react";
-import { MdDashboard, MdLogout } from "react-icons/md";
+import { MdAddCircleOutline, MdDashboard, MdLogout } from "react-icons/md";
 import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import UseAuth from "../Hooks/UseAuth";
 import { FaUserCircle, FaUsers } from "react-icons/fa";
@@ -200,15 +200,22 @@ function DashboardLayout() {
           {
             !roleLoading && role === "user" &&(
               <>
+
+              <NavLink 
+                  to="/dashboard/createClub"
+                  className="flex items-center gap-2 mt-5 text-lg dashboard_page"
+                >
+                  <MdAddCircleOutline /> Create Club
+                </NavLink>
                     
                  <NavLink
-            to="/dashboard/AddEvent"
+            to="/dashboard/addEvent"
             className="flex items-center gap-2 mt-5 text-lg dashboard_page"
           >
             <VscDiffAdded />Add Events
           </NavLink>
           <NavLink
-            to="/dashboard/JoinClub"
+            to="/dashboard/joinClub"
             className="flex items-center gap-2 mt-5 text-lg dashboard_page"
           >
             <MdJoinInner />Join Clubs

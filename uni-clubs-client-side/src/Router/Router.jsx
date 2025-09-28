@@ -17,6 +17,7 @@ import AllPolls from "../Pages/Home/Polls/AllPolls";
 import AllUsers from "../Pages/DashBoard/AllUsers/AllUsers";
 import AddEvent from "../Pages/DashBoard/AddEvents/AddEvent";
 import JoinClub from "../Pages/DashBoard/JoinClubs/JoinClub";
+import CreateClub from "../Pages/DashBoard/CreateClub/CreateClub";
 
 
 
@@ -65,6 +66,10 @@ import JoinClub from "../Pages/DashBoard/JoinClubs/JoinClub";
         Component:Profile
       },
       {
+        path: 'createClub',
+        Component: CreateClub
+      },
+      {
         path: 'myClubs',
         Component: MyClubs
       },
@@ -73,11 +78,11 @@ import JoinClub from "../Pages/DashBoard/JoinClubs/JoinClub";
         Component: AllUsers
       },
       {
-        path: 'AddEvent',
+        path: 'addEvent',
         Component: AddEvent
       },
       {
-        path: 'JoinClub',
+        path: 'joinClub',
         Component: JoinClub
       }
     ]
