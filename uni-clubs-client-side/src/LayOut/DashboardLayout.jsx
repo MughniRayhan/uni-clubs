@@ -2,7 +2,7 @@ import React from "react";
 import { MdAddCircleOutline, MdDashboard, MdLogout } from "react-icons/md";
 import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import UseAuth from "../Hooks/UseAuth";
-import { FaUserCircle, FaUsers } from "react-icons/fa";
+import { FaClock, FaUserCircle, FaUsers } from "react-icons/fa";
 import { toast } from "react-toastify";
 import useUserRole from "../Hooks/useUserRole";
 import { useQuery } from "@tanstack/react-query";
@@ -194,6 +194,13 @@ function DashboardLayout() {
               >
                 <FaUsers /> Manage Users
               </NavLink>
+
+              <NavLink
+                 to="/dashboard/pending-clubs"
+                 className="flex items-center gap-2 mt-5 text-lg dashboard_page"
+               >
+                 <FaClock /> Pending Clubs
+               </NavLink>
             </>
           )}
 

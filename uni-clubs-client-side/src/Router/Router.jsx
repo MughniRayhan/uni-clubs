@@ -18,6 +18,7 @@ import AllUsers from "../Pages/DashBoard/AllUsers/AllUsers";
 import AddEvent from "../Pages/DashBoard/AddEvents/AddEvent";
 import JoinClub from "../Pages/DashBoard/JoinClubs/JoinClub";
 import CreateClub from "../Pages/DashBoard/CreateClub/CreateClub";
+import PendingClubs from "../Pages/DashBoard/PendingClubs/PendingClubs";
 
 
 
@@ -76,6 +77,10 @@ import CreateClub from "../Pages/DashBoard/CreateClub/CreateClub";
       {
         path: 'allUsers',
         Component: AllUsers
+      },
+      {
+        path: 'pending-clubs',
+        Component: PendingClubs
       },
       {
         path: 'addEvent',

@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const connectDB = require('./config/db');
 
 const userRoutes = require('./routes/userRoutes');
+const clubRoutes = require("./routes/clubRoutes");
 
 const app = express();
 connectDB();
@@ -17,6 +18,7 @@ const PORT = process.env.PORT || 8000;
 
 // Routes
 app.use('/api', userRoutes);
+app.use('/api', clubRoutes);
 
 app.get("/", (req, res) => {
   res.send("Uni-Clubs API is running...");

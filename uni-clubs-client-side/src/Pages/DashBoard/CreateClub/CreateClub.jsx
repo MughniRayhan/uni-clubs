@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import useAuth from "../../../Hooks/UseAuth";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import axios from "axios";
 
 export default function CreateClub() {
   const { user } = useAuth();
@@ -22,34 +23,54 @@ export default function CreateClub() {
   });
 
   const onSubmit = async (data) => {
-    try {
-      const newClub = {
-        clubName: data.clubName,
-        category: data.category,
-        description: data.description,
-        creatorName: data.creatorName,
-        creatorEmail: user.email,
-        studentId: data.studentId,          // ✅ include student ID
-        status: "pending",
-        createdAt: new Date().toISOString(),
-      };
+  try {
+    let imageUrl = "";
 
-      const res = await axiosSecure.post("/clubs", newClub);
+    // ✅ If cover image uploaded, first upload to imgbb
+    if (data.coverImage && data.coverImage[0]) {
+      const formData = new FormData();
+      formData.append("image", data.coverImage[0]);
 
-      if (res.data.insertedId || res.data.success) {
-        toast.success("Club request submitted! Waiting for admin approval.");
-        reset({
-          creatorName: user?.displayName || "",
-          studentId: user?.studentId || "",
-        });
-      } else {
-        toast.error("Something went wrong. Please try again.");
-      }
-    } catch (err) {
-      console.error(err);
-      toast.error(err.response?.data?.message || "Failed to create club.");
+      const uploadRes = await axios.post(
+        `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_image_key
+    }`,
+        formData
+      );
+
+      imageUrl = uploadRes.data.data.url;
     }
-  };
+
+    
+    const newClub = {
+      clubName: data.clubName,
+      category: data.category,
+      description: data.description,
+      creatorName: data.creatorName,
+      creatorEmail: user.email,
+      studentId: data.studentId,
+      coverImage: imageUrl || "cover image",
+      status: "pending",
+      createdAt: new Date().toISOString(),
+    };
+
+    const res = await axiosSecure.post("/clubs", newClub);
+
+    if (res.data.insertedId || res.data.success) {
+      toast.success("Club request submitted! Waiting for admin approval.");
+      reset({
+        creatorName: user?.displayName || "",
+        studentId: user?.studentId || "",
+      });
+    } else {
+      toast.error("Something went wrong. Please try again.");
+    }
+  } catch (err) {
+    console.error(err);
+    toast.error(err.response?.data?.message || "Failed to create club.");
+  }
+};
+
 
   return (
     <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-2xl p-8 mt-10">
@@ -98,6 +119,20 @@ export default function CreateClub() {
             <p className="text-red-500 text-sm mt-1">{errors.category.message}</p>
           )}
         </div>
+
+        {/* ✅ Cover Image */}
+<div>
+  <label className="label font-medium">Cover Image</label>
+  <input
+    type="file"
+    accept="image/*"
+    className="file-input file-input-bordered w-full"
+    {...register("coverImage", { required: "Cover image is required" })}
+  />
+  {errors.coverImage && (
+    <p className="text-red-500 text-sm mt-1">{errors.coverImage.message}</p>
+  )}
+</div>
 
         {/* Description */}
         <div>
