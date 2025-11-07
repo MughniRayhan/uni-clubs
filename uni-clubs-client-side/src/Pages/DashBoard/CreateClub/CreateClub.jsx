@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
@@ -10,67 +10,71 @@ export default function CreateClub() {
   const { user } = useAuth();
   const axiosSecure = UseAxiosSecure();
 
+  const [loadingImg, setLoadingImg] = useState(false);
+
   const {
     register,
     handleSubmit,
+    watch,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm({
-    defaultValues: {
-      creatorName: user?.displayName || "",
-      studentId: user?.studentId || "", // ✅ Pre-fill if stored in DB or context
-    },
-  });
+  } = useForm();
+
+  // auto shortName generate function
+  const generateShortName = (clubName) => {
+    if (!clubName) return "";
+    const ignore = ["of", "the", "and", "for", "in"];
+    return clubName
+      .split(" ")
+      .filter((w) => !ignore.includes(w.toLowerCase()))
+      .map((w) => w[0].toUpperCase())
+      .join("");
+  };
 
   const onSubmit = async (data) => {
-  try {
-    let imageUrl = "";
+    try {
+      setLoadingImg(true);
 
-    // ✅ If cover image uploaded, first upload to imgbb
-    if (data.coverImage && data.coverImage[0]) {
-      const formData = new FormData();
-      formData.append("image", data.coverImage[0]);
+      // handle cover pic upload → Imgbb
+      let coverUrl = "";
+      if (data.coverImage && data.coverImage[0]) {
+        const fd = new FormData();
+        fd.append("image", data.coverImage[0]);
 
-      const uploadRes = await axios.post(
-        `https://api.imgbb.com/1/upload?key=${
-      import.meta.env.VITE_image_key
-    }`,
-        formData
-      );
+        const uploadRes = await axios.post(
+          `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_key}`,
+          fd
+        );
+        coverUrl = uploadRes.data.data.url;
+      }
 
-      imageUrl = uploadRes.data.data.url;
+      setLoadingImg(false);
+
+      const shortName = generateShortName(data.name);
+
+      const payload = {
+        name: data.name,
+        shortName,
+        category: data.category,
+        description: data.description,
+        mission: data.mission,
+        coverImage: coverUrl,
+        contactPhone: data.contactPhone,
+        contactEmail: user?.email,
+      };
+
+      const res = await axiosSecure.post("/clubs", payload);
+
+      if (res.data.success) {
+        toast.success("Club request submitted successfully. Waiting for admin approval.");
+        reset();
+      } else {
+        toast.error(res.data.message || "Something went wrong");
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Failed to submit request");
     }
-
-    
-    const newClub = {
-      clubName: data.clubName,
-      category: data.category,
-      description: data.description,
-      creatorName: data.creatorName,
-      creatorEmail: user.email,
-      studentId: data.studentId,
-      coverImage: imageUrl || "cover image",
-      status: "pending",
-      createdAt: new Date().toISOString(),
-    };
-
-    const res = await axiosSecure.post("/clubs", newClub);
-
-    if (res.data.insertedId || res.data.success) {
-      toast.success("Club request submitted! Waiting for admin approval.");
-      reset({
-        creatorName: user?.displayName || "",
-        studentId: user?.studentId || "",
-      });
-    } else {
-      toast.error("Something went wrong. Please try again.");
-    }
-  } catch (err) {
-    console.error(err);
-    toast.error(err.response?.data?.message || "Failed to create club.");
-  }
-};
-
+  };
 
   return (
     <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-2xl p-8 mt-10">
@@ -92,11 +96,9 @@ export default function CreateClub() {
             type="text"
             placeholder="Enter club name"
             className="input input-bordered w-full"
-            {...register("clubName", { required: "Club name is required" })}
+            {...register("name", { required: "Club name is required" })}
           />
-          {errors.clubName && (
-            <p className="text-red-500 text-sm mt-1">{errors.clubName.message}</p>
-          )}
+          {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
         </div>
 
         {/* Category */}
@@ -115,91 +117,68 @@ export default function CreateClub() {
             <option value="Social">Social</option>
             <option value="Other">Other</option>
           </select>
-          {errors.category && (
-            <p className="text-red-500 text-sm mt-1">{errors.category.message}</p>
-          )}
+          {errors.category && <p className="text-red-500 text-sm mt-1">{errors.category.message}</p>}
         </div>
 
-        {/* ✅ Cover Image */}
-<div>
-  <label className="label font-medium">Cover Image</label>
-  <input
-    type="file"
-    accept="image/*"
-    className="file-input file-input-bordered w-full"
-    {...register("coverImage", { required: "Cover image is required" })}
-  />
-  {errors.coverImage && (
-    <p className="text-red-500 text-sm mt-1">{errors.coverImage.message}</p>
-  )}
-</div>
+        {/* Mission */}
+        <div>
+          <label className="label font-medium">Mission Statement</label>
+          <textarea
+            placeholder="Write the mission / purpose of this club"
+            className="textarea textarea-bordered w-full h-24 resize-none"
+            {...register("mission", { required: "Mission is required" })}
+          ></textarea>
+          {errors.mission && <p className="text-red-500 text-sm mt-1">{errors.mission.message}</p>}
+        </div>
 
         {/* Description */}
         <div>
           <label className="label font-medium">Description</label>
           <textarea
-            placeholder="Describe the purpose of this club..."
+            placeholder="Describe what this club stands for..."
             className="textarea textarea-bordered w-full h-32 resize-none"
             {...register("description", {
               required: "Description is required",
               minLength: { value: 30, message: "Please write at least 30 characters" },
             })}
           ></textarea>
-          {errors.description && (
-            <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>
-          )}
+          {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>}
         </div>
 
-                {/* ✅ Creator Name */}
+        {/* Contact Phone */}
         <div>
-          <label className="label font-medium">Your Name</label>
+          <label className="label font-medium">Contact Phone</label>
           <input
             type="text"
+            placeholder="Ex: 0170000000"
             className="input input-bordered w-full"
-            {...register("creatorName", { required: "Your name is required" })}
-            placeholder="Enter your full name"
+            {...register("contactPhone", { required: "Phone number is required" })}
           />
-          {errors.creatorName && (
-            <p className="text-red-500 text-sm mt-1">{errors.creatorName.message}</p>
-          )}
+          {errors.contactPhone && <p className="text-red-500 text-sm mt-1">{errors.contactPhone.message}</p>}
         </div>
 
-        {/* ✅ Student ID */}
+        {/* Cover Image */}
         <div>
-          <label className="label font-medium">Student ID</label>
+          <label className="label font-medium">Cover Image</label>
           <input
-            type="text"
-            className="input input-bordered w-full"
-            placeholder="Enter your student ID"
-            {...register("studentId", {
-              required: "Student ID is required",
-              pattern: {
-                value: /^[0-9a-zA-Z-]+$/, // allows numbers/letters/hyphen
-                message: "Invalid Student ID format",
-              },
-            })}
+            type="file"
+            accept="image/*"
+            className="file-input file-input-bordered w-full"
+            {...register("coverImage", { required: "Cover image is required" })}
           />
-          {errors.studentId && (
-            <p className="text-red-500 text-sm mt-1">{errors.studentId.message}</p>
-          )}
+          {errors.coverImage && <p className="text-red-500 text-sm mt-1">{errors.coverImage.message}</p>}
         </div>
 
-        {/* Submit Button */}
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           type="submit"
-          disabled={isSubmitting}
-          className="btn btn-primary w-full py-4  font-semibold"
+          disabled={isSubmitting || loadingImg}
+          className="btn btn-primary w-full py-3 font-semibold"
         >
-          {isSubmitting ? "Submitting..." : "Send Request"}
+          {isSubmitting || loadingImg ? "Submitting..." : "Submit Club Request"}
         </motion.button>
       </form>
-
-      <p className="text-gray-500 text-sm text-center mt-6">
-        After submitting, your request will be reviewed by the admin.
-        If approved, you will automatically become the club leader.
-      </p>
     </div>
   );
 }

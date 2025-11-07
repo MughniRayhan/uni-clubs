@@ -1,113 +1,112 @@
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
-import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 import Loader from "../../../Components/Loader";
-  import Swal from "sweetalert2";
 
 export default function PendingClubs() {
   const axiosSecure = UseAxiosSecure();
+  const queryClient = useQueryClient();
 
-  // Fetch pending clubs
-  const { data: clubs = [], isLoading, refetch } = useQuery({
+  // get pending clubs
+  const { data: pendingClubs = [], isLoading } = useQuery({
     queryKey: ["pendingClubs"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/pending-clubs");
+      const res = await axiosSecure.get("/admin/pending");
       return res.data;
     },
   });
 
-  if (isLoading) return <Loader />;
-
-
-const handleAction = async (clubId, action) => {
-  const confirmResult = await Swal.fire({
-    title: `Are you sure you want to ${action} this club?`,
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: action === "approve" ? "#4ade80" : "#f87171",
-    cancelButtonColor: "#6b7280",
-    confirmButtonText: `Yes, ${action} it!`,
-    cancelButtonText: "Cancel",
-  });
-
-  if (confirmResult.isConfirmed) {
-    try {
-      const res = await axiosSecure.patch(`/clubs/${clubId}`, { action });
-      if (res.data.success) {
-        Swal.fire({
-          icon: "success",
-          title: `Club ${action}d successfully!`,
-          timer: 1500,
-          showConfirmButton: false,
-        });
-        refetch();
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Action failed",
-          timer: 1500,
-          showConfirmButton: false,
-        });
-      }
-    } catch (err) {
-      console.error(err);
+  // mutation approve / reject
+  const mutation = useMutation({
+    mutationFn: async ({ id, action }) => {
+      const res = await axiosSecure.patch(`/admin/status/${id}`, { action });
+      return res.data;
+    },
+    onSuccess: (data) => {
+      Swal.fire({
+        icon: "success",
+        title: data.message,
+        timer: 1400,
+      });
+      queryClient.invalidateQueries(["pendingClubs"]);
+    },
+    onError: () => {
       Swal.fire({
         icon: "error",
         title: "Something went wrong",
-        text: err.message,
       });
-    }
-  }
-};
+    },
+  });
+
+  const handleAction = (id, action) => {
+    Swal.fire({
+      title: `Are you sure to ${action}?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        mutation.mutate({ id, action });
+      }
+    });
+  };
+
+  if (isLoading) return <Loader/>;
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-10">
-      <h1 className="text-3xl font-bold mb-6">Pending Club Requests</h1>
+    <div className="p-6">
+      <h2 className="text-2xl font-semibold mb-4">Pending Club Requests</h2>
 
-      {clubs.length === 0 ? (
-        <p className="text-gray-600">No pending club requests.</p>
-      ) : (
-        <div className="overflow-x-auto border bg-white border-gray-300 rounded-lg mt-6 shadow-md">
+       <div className="overflow-x-auto border bg-white border-gray-300 rounded-lg mt-6 shadow-md">
         <table className="table w-full">
           <thead className="bg-secondary font-bold text-gray-100">
-              <tr >
-                <th>Club Name</th>
-                <th>Category</th>
-                <th>Requested By</th>
-                <th>Student ID</th>
-                <th>Created At</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {clubs.map((club) => (
+            <tr >
+              <th>#</th>
+              <th>Club Name</th>
+              <th>Description</th>
+              <th>Created By</th>
+              <th>Email</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {pendingClubs.length > 0 ? (
+              pendingClubs.map((club, i) => (
                 <tr key={club._id}>
-                  <td>{club.clubName}</td>
-                  <td>{club.category}</td>
-                  <td>{club.creatorName} ({club.creatorEmail})</td>
-                  <td>{club.studentId}</td>
-                  <td>{new Date(club.createdAt).toLocaleDateString()}</td>
-                  <td>
+                  <td>{i + 1}</td>
+                  <td>{club.name}</td>
+                  <td>{club.description.slice(0, 50)}...</td>
+                  <td>{club.createdBy?.displayName || club.createdBy?.name}</td>
+                  <td>{club.createdBy?.email}</td>
+                  <td className="flex gap-2">
                     <button
                       onClick={() => handleAction(club._id, "approve")}
-                      className="btn btn-success text-white btn-sm mr-2"
+                      className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded cursor-pointer"
                     >
                       Approve
                     </button>
+
                     <button
                       onClick={() => handleAction(club._id, "reject")}
-                      className="btn btn-error text-white btn-sm"
+                      className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded cursor-pointer"
                     >
                       Reject
                     </button>
                   </td>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6" className="text-center py-5 text-gray-500">
+                  No pending club requests found
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

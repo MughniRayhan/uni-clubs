@@ -19,6 +19,8 @@ import AddEvent from "../Pages/DashBoard/AddEvents/AddEvent";
 import JoinClub from "../Pages/DashBoard/JoinClubs/JoinClub";
 import CreateClub from "../Pages/DashBoard/CreateClub/CreateClub";
 import PendingClubs from "../Pages/DashBoard/PendingClubs/PendingClubs";
+import PrivateRoute from "../Routes/PrivateRoute";
+import DashboardHome from "../Pages/DashBoard/DashboardHomePages/DashboardHome";
 
 
 
@@ -60,8 +62,12 @@ import PendingClubs from "../Pages/DashBoard/PendingClubs/PendingClubs";
   },
   {
     path: '/dashboard',
-    element: <DashboardLayout />,
+    element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
     children: [
+      {
+        index: true,
+        Component: DashboardHome
+      },
       {
         path: 'profile',
         Component:Profile

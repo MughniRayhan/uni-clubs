@@ -13,6 +13,7 @@ const verifyFbToken = async(req,res,next)=>{
       try {
     const decodedToken = await admin.auth().verifyIdToken(token);
     req.decoded = decodedToken;
+    console.log("Decoded token:", req.decoded);
     next();
   } catch (error) {
     res.status(403).send({ message: "Forbidden access" });

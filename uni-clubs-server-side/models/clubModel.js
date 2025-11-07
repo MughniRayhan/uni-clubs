@@ -1,53 +1,27 @@
 const mongoose = require("mongoose");
 
 const clubSchema = new mongoose.Schema({
-  clubName: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true
-  },
-  category: {
-    type: String,
-    required: true,
-    enum: ["Cultural", "Sports", "Academic", "Technology", "Social", "Other"]
-  },
-   coverImage: { 
-    type: String, 
-    required: true 
-}, 
-  description: {
-    type: String,
-    required: true,
-    minlength: 30
-  },
-  creatorName: {
-    type: String,
-    required: true
-  },
-  creatorEmail: {
-    type: String,
-    required: true,
-    lowercase: true,
-    trim: true
-  },
-  studentId: {
-    type: String,
-    required: true
-  },
-  status: {
-    type: String,
-    enum: ["pending", "approved", "rejected"],
-    default: "pending"
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
-  leader: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // link to User model when approved
-  }
+name: { type: String, required: true, index: true },
+shortName: { type: String },
+coverImage: { type: String },
+description: { type: String },
+mission: { type: String },
+extraDetails: { type: String, default: "" },
+category: { type: String },
+tags: [String],
+images: [{ url: String, caption: String }],
+documents: [{ name: String, url: String }],
+contactEmail: String,
+contactPhone: String,
+meetingTimes: String,
+status: { type: String, enum: ['pending','approved','rejected','archived'], default: 'pending' },
+leader: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+membershipFee: { amount: Number, currency: String },
+createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+createdAt:{ type: Date, default: Date.now },
+updatedAt: { type: Date, default: Date.now },
+stats: { memberCount: Number, eventsHosted: Number }
 });
 
 const Club = mongoose.model("Club", clubSchema);

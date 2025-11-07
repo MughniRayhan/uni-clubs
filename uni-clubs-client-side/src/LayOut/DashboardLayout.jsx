@@ -30,7 +30,7 @@ function DashboardLayout() {
     logOut()
       .then(() => {
         toast.success("Logged out successfully");
-        navigate("/");
+        navigate("/auth/login");
       })
       .catch((error) => {
         console.error("Logout Error: ", error);
@@ -186,6 +186,17 @@ function DashboardLayout() {
             <FaUserCircle /> My Profile
           </NavLink>
 
+          {
+            !roleLoading && role === "user" &&(
+              <NavLink 
+                  to="/dashboard/createClub"
+                  className="flex items-center gap-2 mt-5 text-lg dashboard_page"
+                >
+                  <MdAddCircleOutline /> Create Club
+                </NavLink>
+            )
+          }
+
           {!roleLoading && role === "admin" && (
             <>
               <NavLink
@@ -204,23 +215,22 @@ function DashboardLayout() {
             </>
           )}
 
-          {
-            !roleLoading && role === "user" &&(
-              <>
-
-              <NavLink 
-                  to="/dashboard/createClub"
-                  className="flex items-center gap-2 mt-5 text-lg dashboard_page"
-                >
-                  <MdAddCircleOutline /> Create Club
-                </NavLink>
-                    
+             {!roleLoading && role === "leader" && (
+            <>
                  <NavLink
             to="/dashboard/addEvent"
             className="flex items-center gap-2 mt-5 text-lg dashboard_page"
           >
             <VscDiffAdded />Add Events
           </NavLink>
+            </>
+          )}
+
+
+          {
+            !roleLoading && role === "user" &&(
+              <>  
+                
           <NavLink
             to="/dashboard/joinClub"
             className="flex items-center gap-2 mt-5 text-lg dashboard_page"

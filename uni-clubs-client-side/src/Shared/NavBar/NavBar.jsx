@@ -1,12 +1,11 @@
-import React, { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
-import { AuthContext } from "../../Context/AuthContext/AuthContext";
 import { toast } from "react-toastify";
 import Logo from "../Logo/Logo"
+import UseAuth from "../../Hooks/UseAuth";
 
 
 const NavBar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut } = UseAuth();
   const navigate = useNavigate();
   
   const handleLogout = () => {
@@ -148,7 +147,6 @@ const NavBar = () => {
           </div>
            <Link to='/' className="flex items-center ">
             <Logo></Logo>
-            <h3 className=" sm:text-4xl text-3xl font-semibold">UniClubs</h3>
            </Link>
           
         </div>

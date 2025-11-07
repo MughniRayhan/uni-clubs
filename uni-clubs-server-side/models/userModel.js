@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema({
       enum: ["user", "admin", "leader"], 
       default: "user",
     },
+    status: { type: String, enum: ['active','banned','pending'], default: 'active' },
     studentId: { 
       type: String, 
       default: "" 
@@ -30,6 +31,9 @@ const userSchema = new mongoose.Schema({
     type: String, 
     default: "" 
   },
+  enrolledClubs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Club' }],
+  points: { type: Number, default: 0 },
+badges: [{ code: String, name: String, dateAwarded: Date }],
   phone: { 
     type: String, 
     default: "" 
