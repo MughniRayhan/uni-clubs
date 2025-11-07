@@ -1,5 +1,11 @@
 const mongoose = require("mongoose");
 
+const sectionSchema = new mongoose.Schema({
+  title: { type: String, default: "" },
+  image: { type: String, default: "" }, // url
+  description: { type: String, required: true }, 
+}, { timestamps: true });
+
 const clubSchema = new mongoose.Schema({
 name: { type: String, required: true, index: true },
 shortName: { type: String },
@@ -21,7 +27,8 @@ membershipFee: { amount: Number, currency: String },
 createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 createdAt:{ type: Date, default: Date.now },
 updatedAt: { type: Date, default: Date.now },
-stats: { memberCount: Number, eventsHosted: Number }
+stats: { memberCount: Number, eventsHosted: Number },
+sections: [sectionSchema]
 });
 
 const Club = mongoose.model("Club", clubSchema);

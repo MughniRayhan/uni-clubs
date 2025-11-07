@@ -21,6 +21,7 @@ import CreateClub from "../Pages/DashBoard/CreateClub/CreateClub";
 import PendingClubs from "../Pages/DashBoard/PendingClubs/PendingClubs";
 import PrivateRoute from "../Routes/PrivateRoute";
 import DashboardHome from "../Pages/DashBoard/DashboardHomePages/DashboardHome";
+import ClubDetails from "../Pages/Clubs/ClubDetails";
 
 
 
@@ -43,6 +44,10 @@ import DashboardHome from "../Pages/DashBoard/DashboardHomePages/DashboardHome";
       {
         path: '/clubs',
         Component:Clubs
+      },
+      {
+        path: '/clubs/:clubId',
+        Component: ClubDetails
       },
       {
         path: '/events',

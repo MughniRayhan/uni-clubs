@@ -112,17 +112,142 @@ const getApprovedClubs = async(req,res)=>{
 }
 
 
-// PUBLIC single club details page
-const getClubById = async(req,res)=>{
-  try{
+
+/**
+ * GET club by id (public)
+ */
+const getClubById = async (req, res) => {
+  try {
     const { clubId } = req.params;
-    const club = await Club.findById(clubId).populate("leader","name email role");
-    if(!club) return res.status(404).json({success:false,message:"Club not found"});
-    res.status(200).json(club);
-  }catch(err){
-    res.status(500).json({success:false,message:err.message});
+    if (!clubId) return res.status(400).json({ success: false, message: "clubId required" });
+
+    const club = await Club.findById(clubId)
+      .populate("leader", "displayName email")
+      .populate("createdBy", "displayName email")
+      .lean();
+
+    if (!club) return res.status(404).json({ success: false, message: "Club not found" });
+
+    res.json({ success: true, data: club });
+  } catch (err) {
+    console.error("getClubById:", err);
+    res.status(500).json({ success: false, message: err.message });
   }
-}
+};
+
+/**
+ * PATCH /clubs/:clubId/details
+ * Leader or admin only
+ */
+const updateClubDetails = async (req, res) => {
+  try {
+    const { club } = req;
+    const payload = req.body;
+
+    const allowed = ["name","shortName","description","mission","extraDetails","contactPhone","meetingTimes","category","tags"];
+    allowed.forEach(f => {
+      if (f in payload) {
+        if (f === "tags" && Array.isArray(payload.tags)) {
+          club.tags = payload.tags.map(t => t?.toString().trim()).filter(Boolean);
+        } else {
+          club[f] = payload[f];
+        }
+      }
+    });
+
+    club.updatedAt = new Date();
+    await club.save();
+
+    res.json({ success: true, message: "Club details updated", club });
+  } catch (err) {
+    console.error("updateClubDetails:", err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+
+// Add gallery image
+const addClubImage = async (req,res) => {
+  try {
+    const { clubId } = req.params;
+    const { url, caption = "" } = req.body;
+    if (!url) return res.status(400).json({ success:false, message: "Image url required" });
+    const club = await Club.findById(clubId);
+    if (!club) return res.status(404).json({ success:false, message: "Club not found" });
+    club.images = club.images ? [...club.images, { url, caption }] : [{ url, caption }];
+    await club.save();
+    return res.status(201).json({ success:true, data: club.images[club.images.length-1] });
+  } catch (err) {
+    res.status(500).json({ success:false, message: err.message });
+  }
+};
+
+// Remove gallery image
+// DELETE /:clubId/gallery/:imageId
+const removeClubImage = async (req, res) => {
+  const { clubId, imageId } = req.params;
+  try {
+    const club = await Club.findById(clubId);
+    if (!club) return res.status(404).json({ message: "Club not found" });
+
+    const imageIndex = club.images.findIndex(img => img._id.toString() === imageId);
+    if (imageIndex === -1) return res.status(404).json({ message: "Image not found" });
+
+    // remove from array
+    club.images.splice(imageIndex, 1);
+    await club.save();
+
+    res.json({ success: true, message: "Image removed" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+
+const addSection = async (req, res) => {
+  try {
+    const { clubId } = req.params;
+    const { title = "", image = "", description } = req.body;
+
+    if (!description) return res.status(400).json({ success:false, message: "description required" });
+
+    const club = await Club.findById(clubId);
+    if (!club) return res.status(404).json({ success:false, message: "Club not found" });
+
+    const section = { title, image, description };
+    club.sections = club.sections ? [...club.sections, section] : [section];
+    await club.save();
+
+    // return the newly added section (it will have _id)
+    const added = club.sections[club.sections.length - 1];
+    return res.status(201).json({ success:true, data: added });
+  } catch (err) {
+    console.error("addSection:", err);
+    return res.status(500).json({ success:false, message: err.message });
+  }
+};
+
+/**
+ * DELETE /:clubId/sections/:sectionId
+ * Requires leader or admin
+ */
+const removeSection = async (req, res) => {
+  try {
+    const { clubId, sectionId } = req.params;
+    const club = await Club.findById(clubId); 
+    if (!club) return res.status(404).json({ success:false, message: "Club not found" });
+
+    // remove from sections array
+    club.sections = club.sections.filter(s => s._id.toString() !== sectionId);
+    await club.save();
+
+    return res.json({ success:true, message: "Section removed" });
+  } catch (err) {
+    console.error("removeSection:", err);
+    return res.status(500).json({ success:false, message: err.message });
+  }
+};
 
 
 
@@ -131,5 +256,10 @@ module.exports = {
   getPendingClubs,
   updateClubStatus,
   getApprovedClubs,
-  getClubById
+  getClubById,
+  updateClubDetails,
+  addClubImage,
+  removeClubImage,
+  addSection,
+  removeSection,
 };
