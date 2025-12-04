@@ -249,6 +249,25 @@ const removeSection = async (req, res) => {
   }
 };
 
+const getMyClubs = async (req, res) => {
+  try {
+    const email = req.decoded.email; // use decoded from middleware
+
+    // Find the user first
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ success: false, message: "User not found" });
+
+    // Find clubs where this user is the leader
+    const clubs = await Club.find({ leader: user._id });
+
+    res.json({ success: true, clubs });
+  } catch (err) {
+    console.error("getMyClubs:", err);
+    res.status(500).json({ success: false, message: "Failed to load clubs" });
+  }
+};
+
+
 
 
 module.exports = {
@@ -262,4 +281,5 @@ module.exports = {
   removeClubImage,
   addSection,
   removeSection,
+  getMyClubs,
 };

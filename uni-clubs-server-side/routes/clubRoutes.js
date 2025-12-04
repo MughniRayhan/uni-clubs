@@ -14,7 +14,8 @@ const {
   addClubImage,
   removeClubImage,
   addSection,
-  removeSection
+  removeSection,
+  getMyClubs
 } = require('../controllers/clubController');
 const verifyClubLeaderOrAdmin = require('../middleware/verifyClubLeaderOrAdmin');
 
@@ -31,6 +32,8 @@ router.get("/admin/pending", verifyFbToken, verifyAdmin, getPendingClubs);
 // ADMIN ONLY → approve/reject a club request + assign leader automatically
 router.patch("/admin/status/:clubId", verifyFbToken, verifyAdmin, updateClubStatus);
 
+// GET my clubs (leader)
+router.get("/leader/clubs", verifyFbToken, getMyClubs);
 
 // GET club single details public (this will be used on club details page)
 router.get("/:clubId", getClubById);
