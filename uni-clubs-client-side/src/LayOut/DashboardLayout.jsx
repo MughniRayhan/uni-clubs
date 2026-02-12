@@ -171,8 +171,7 @@ function DashboardLayout() {
           <NavLink
             to="/dashboard"
             className={({ isActive }) =>
-              `flex items-center gap-2 text-lg font-medium hover:text-primary mt-8 ${
-                isActive ? "text-primary" : "text-gray-700"
+              `flex items-center gap-2 text-lg font-medium hover:text-primary mt-8 ${isActive ? "text-primary" : "text-gray-700"
               }`
             }
           >
@@ -187,13 +186,13 @@ function DashboardLayout() {
           </NavLink>
 
           {
-            !roleLoading && role === "user" &&(
-              <NavLink 
-                  to="/dashboard/createClub"
-                  className="flex items-center gap-2 mt-5 text-lg dashboard_page"
-                >
-                  <MdAddCircleOutline /> Create Club
-                </NavLink>
+            !roleLoading && role === "user" && (
+              <NavLink
+                to="/dashboard/createClub"
+                className="flex items-center gap-2 mt-5 text-lg dashboard_page"
+              >
+                <MdAddCircleOutline /> Create Club
+              </NavLink>
             )
           }
 
@@ -207,41 +206,62 @@ function DashboardLayout() {
               </NavLink>
 
               <NavLink
-                 to="/dashboard/pending-clubs"
-                 className="flex items-center gap-2 mt-5 text-lg dashboard_page"
-               >
-                 <FaClock /> Pending Clubs
-               </NavLink>
+                to="/dashboard/pending-clubs"
+                className="flex items-center gap-2 mt-5 text-lg dashboard_page"
+              >
+                <FaClock /> Pending Clubs
+              </NavLink>
+              <NavLink
+                to="/dashboard/all-events"
+                className="flex items-center gap-2 mt-5 text-lg dashboard_page"
+              >
+                <FaClock /> All Events
+              </NavLink>
             </>
           )}
 
-             {!roleLoading && role === "leader" && (
+          {!roleLoading && role === "leader" && (
             <>
-                 <NavLink
-            to="/dashboard/addEvent"
-            className="flex items-center gap-2 mt-5 text-lg dashboard_page"
-          >
-            <VscDiffAdded />Add Events
-          </NavLink>
+              <NavLink
+                to="/dashboard/addEvent"
+                className="flex items-center gap-2 mt-5 text-lg dashboard_page"
+              >
+                <VscDiffAdded />Add Events
+              </NavLink>
+
+              <NavLink
+                to="/dashboard/myEvents"
+                className="flex items-center gap-2 mt-5 text-lg dashboard_page"
+              >
+                <VscDiffAdded />My Events
+              </NavLink>
+
+              <NavLink
+                to="/dashboard/leaderClubs"
+                className="flex items-center gap-2 mt-5 text-lg dashboard_page"
+              >
+                <VscDiffAdded />My Clubs
+              </NavLink>
+
             </>
           )}
 
 
           {
-            !roleLoading && role === "user" &&(
-              <>  
-                
-          <NavLink
-            to="/dashboard/joinClub"
-            className="flex items-center gap-2 mt-5 text-lg dashboard_page"
-          >
-            <MdJoinInner />Join Clubs
-          </NavLink>
+            !roleLoading && role === "user" && (
+              <>
+
+                <NavLink
+                  to="/dashboard/joinClub"
+                  className="flex items-center gap-2 mt-5 text-lg dashboard_page"
+                >
+                  <MdJoinInner />Join Clubs
+                </NavLink>
               </>
             )
 
           }
-          
+
         </ul>
       </div>
     </div>

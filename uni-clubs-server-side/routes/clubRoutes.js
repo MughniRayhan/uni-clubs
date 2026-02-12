@@ -18,6 +18,7 @@ const {
   getMyClubs
 } = require('../controllers/clubController');
 const verifyClubLeaderOrAdmin = require('../middleware/verifyClubLeaderOrAdmin');
+const verifyLeader = require('../middleware/verifyLeader');
 
 
 // USER → create a club request
@@ -33,7 +34,7 @@ router.get("/admin/pending", verifyFbToken, verifyAdmin, getPendingClubs);
 router.patch("/admin/status/:clubId", verifyFbToken, verifyAdmin, updateClubStatus);
 
 // GET my clubs (leader)
-router.get("/leader/clubs", verifyFbToken, getMyClubs);
+router.get("/leader/clubs", verifyFbToken, verifyLeader, getMyClubs);
 
 // GET club single details public (this will be used on club details page)
 router.get("/:clubId", getClubById);

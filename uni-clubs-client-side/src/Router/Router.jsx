@@ -15,35 +15,39 @@ import MyClubs from "../Pages/DashBoard/MyClubs/MyClubs";
 import About from "../Pages/Home/AboutSection/About";
 import AllPolls from "../Pages/Home/Polls/AllPolls";
 import AllUsers from "../Pages/DashBoard/AllUsers/AllUsers";
-import AddEvent from "../Pages/DashBoard/AddEvents/AddEvent";
 import JoinClub from "../Pages/DashBoard/JoinClubs/JoinClub";
 import CreateClub from "../Pages/DashBoard/CreateClub/CreateClub";
 import PendingClubs from "../Pages/DashBoard/PendingClubs/PendingClubs";
 import PrivateRoute from "../Routes/PrivateRoute";
 import DashboardHome from "../Pages/DashBoard/DashboardHomePages/DashboardHome";
 import ClubDetails from "../Pages/Clubs/ClubDetails";
+import AllEvents from "../Pages/DashBoard/AllEvents/AllEvents";
+import LeaderClubs from "../Pages/DashBoard/LeaderDashboard/LeaderClubs";
+import MyEvents from "../Pages/DashBoard/LeaderDashboard/LeaderEvents/MyEvents";
+import AddEvent from "../Pages/DashBoard/LeaderDashboard/LeaderEvents/AddEvent";
 
 
 
 
 
- export const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
-    errorElement: Error ,
-    children:[
-        {   index: true,
-            Component:Home
-        },
-         {
+    errorElement: Error,
+    children: [
+      {
+        index: true,
+        Component: Home
+      },
+      {
         path: '/forbidden',
         Component: Forbidden
       },
-      
+
       {
         path: '/clubs',
-        Component:Clubs
+        Component: Clubs
       },
       {
         path: '/clubs/:clubId',
@@ -75,7 +79,7 @@ import ClubDetails from "../Pages/Clubs/ClubDetails";
       },
       {
         path: 'profile',
-        Component:Profile
+        Component: Profile
       },
       {
         path: 'createClub',
@@ -94,8 +98,20 @@ import ClubDetails from "../Pages/Clubs/ClubDetails";
         Component: PendingClubs
       },
       {
+        path: 'all-events',
+        Component: AllEvents,
+      },
+      {
         path: 'addEvent',
         Component: AddEvent
+      },
+      {
+        path: 'myEvents',
+        Component: MyEvents
+      },
+      {
+        path: 'leaderClubs',
+        Component: LeaderClubs
       },
       {
         path: 'joinClub',
@@ -106,7 +122,7 @@ import ClubDetails from "../Pages/Clubs/ClubDetails";
   {
     path: '/auth',
     Component: AuthLayout,
-    children:[
+    children: [
       {
         path: '/auth/login',
         Component: Login

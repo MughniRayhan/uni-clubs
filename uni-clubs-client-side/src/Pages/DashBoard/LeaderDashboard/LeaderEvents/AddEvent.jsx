@@ -2,88 +2,93 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { toast } from "react-toastify";
-import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import { useNavigate } from "react-router";
+import UseAxiosSecure from "../../../../Hooks/UseAxiosSecure";
+import UseAuth from "../../../../Hooks/UseAuth";
 
 const AddEvent = () => {
   const axiosSecure = UseAxiosSecure();
+  const { user } = UseAuth();
+  const navigate = useNavigate();
   const [bannerFile, setBannerFile] = useState(null);
- const [myClubs, setMyClubs] = useState([]);
+  const [myClubs, setMyClubs] = useState([]);
   const [selectedClub, setSelectedClub] = useState("");
 
   useEffect(() => {
-  const loadClubs = async () => {
+    const loadClubs = async () => {
+      try {
+        const res = await axiosSecure.get("/leader/clubs");
+        // make sure it's an array
+        setMyClubs(res.data.clubs || []);
+      } catch (err) {
+        console.error(err);
+        setMyClubs([]);
+      }
+    };
+    loadClubs();
+  }, []);
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!selectedClub) {
+      toast.error("Please select a club");
+      return;
+    }
+
     try {
-      const res = await axiosSecure.get("/leader/clubs");
-      // make sure it's an array
-      setMyClubs(res.data.clubs || []); 
+      const form = e.target;
+
+      const title = form.eventName.value;
+      const shortDescription = form.shortDescription.value;
+      const userName = form.userName.value;
+      const studentId = form.studentId.value;
+      const date = form.eventDate.value;
+      const time = form.eventTime.value;
+      const venue = form.venue.value;
+      const category = form.category.value;
+
+      // --- Upload Banner to IMGBB ---
+      let bannerUrl = "";
+      if (bannerFile) {
+        const fd = new FormData();
+        fd.append("image", bannerFile);
+
+        const uploadRes = await axios.post(
+          `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_key}`,
+          fd
+        );
+
+        bannerUrl = uploadRes.data.data.url;
+      }
+
+      // --- Prepare Data ---
+      const payload = {
+        title,
+        shortDescription,
+        date,
+        time,
+        venue,
+        category,
+        banner: bannerUrl,
+        createdByName: userName,
+        studentId,
+      };
+
+      // --- Send Event Request ---
+      await axiosSecure.post(`/events/create/${selectedClub}`, payload);
+
+      toast.success("Event request sent to admin!");
+      navigate("/dashboard/myEvents");
+      form.reset();
+      setBannerFile(null);
+      setSelectedClub("");
     } catch (err) {
       console.error(err);
-      setMyClubs([]);
+      toast.error(err.response?.data?.message || "Failed to submit event");
     }
   };
-  loadClubs();
-}, []);
-
-
- const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  if (!selectedClub) {
-    toast.error("Please select a club");
-    return;
-  }
-
-  try {
-    const form = e.target;
-
-    const title = form.eventName.value;
-    const shortDescription = form.shortDescription.value;
-    const userName = form.userName.value;
-    const studentId = form.studentId.value;
-    const date = form.eventDate.value;
-    const time = form.eventTime.value;
-    const venue = form.venue.value;
-    const category = form.category.value;
-
-    // --- Upload Banner to IMGBB ---
-    let bannerUrl = "";
-    if (bannerFile) {
-      const fd = new FormData();
-      fd.append("image", bannerFile);
-
-      const uploadRes = await axios.post(
-        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_key}`,
-        fd
-      );
-
-      bannerUrl = uploadRes.data.data.url;
-    }
-
-    // --- Prepare Data ---
-    const payload = {
-      title,
-      shortDescription,
-      date,
-      time,
-      venue,
-      category,
-      banner: bannerUrl,
-      createdByName: userName,
-      studentId,
-    };
-
-    // --- Send Event Request ---
-    await axiosSecure.post(`/events/${selectedClub}`, payload);
-
-    toast.success("Event request sent to admin!");
-    form.reset();
-    setBannerFile(null);
-    setSelectedClub(""); // reset select
-  } catch (err) {
-    console.error(err);
-    toast.error(err.response?.data?.message || "Failed to submit event");
-  }
-};
 
 
   return (
@@ -99,7 +104,7 @@ const AddEvent = () => {
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-[#036666]">Add Event</h1>
           <p className="text-gray-500 mt-2">
-            Fill in the details to create and publish your event 
+            Fill in the details to create and publish your event
           </p>
         </div>
 
@@ -141,6 +146,7 @@ const AddEvent = () => {
               <input
                 name="userName"
                 type="text"
+                value={user?.displayName}
                 placeholder="Enter your name"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-[#036666]"
                 required
@@ -153,6 +159,7 @@ const AddEvent = () => {
               <input
                 name="studentId"
                 type="text"
+                value={user?.studentId}
                 placeholder="Enter student ID"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-[#036666]"
                 required
@@ -198,23 +205,23 @@ const AddEvent = () => {
           </div>
 
           <div>
-  <label className="block text-gray-700 font-semibold mb-1">
-    Select Club (Required)
-  </label>
-  <select
-    required
-    value={selectedClub}
-    onChange={(e) => setSelectedClub(e.target.value)}
-    className="w-full px-4 py-2 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-[#036666] cursor-pointer"
-  >
-    <option value="">Choose a club</option>
-    {myClubs.map((club) => (
-      <option key={club._id} value={club._id}>
-        {club.name}
-      </option>
-    ))}
-  </select>
-</div>
+            <label className="block text-gray-700 font-semibold mb-1">
+              Select Club
+            </label>
+            <select
+              required
+              value={selectedClub}
+              onChange={(e) => setSelectedClub(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-[#036666] cursor-pointer"
+            >
+              <option value="">Choose a club</option>
+              {myClubs.map((club) => (
+                <option key={club._id} value={club._id}>
+                  {club.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
 
           {/* Category */}

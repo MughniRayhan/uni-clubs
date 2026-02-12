@@ -14,7 +14,7 @@ const verifyFbToken = async (req, res, next) => {
 
   try {
     const decodedToken = await admin.auth().verifyIdToken(token);
-    console.log("Decoded token:", decodedToken);
+   
 
     // Find the user in your DB
     const user = await User.findOne({ email: decodedToken.email });
