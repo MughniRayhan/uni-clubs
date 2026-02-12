@@ -127,13 +127,21 @@ function DashboardLayout() {
                   <li className="px-2 py-1 text-center font-medium">
                     {profile?.displayName || user?.displayName || "User"}
                   </li>
-
+                    
                   <div className="divider my-1"></div>
-
+                    <div>
+                        
+          <NavLink
+            to="/dashboard/profile"
+            className="flex items-center gap-2 text-lg dashboard_page"
+          >
+            <FaUserCircle /> My Profile
+          </NavLink>
+                    </div>
                   <li>
                     <button
                       onClick={handleLogout}
-                      className="font-semibold text-gray-700 flex justify-center"
+                      className="font-semibold mt-5 text-gray-700 flex justify-center"
                     >
                       <MdLogout /> Sign out
                     </button>
@@ -178,12 +186,6 @@ function DashboardLayout() {
             <MdDashboard /> Dashboard
           </NavLink>
 
-          <NavLink
-            to="/dashboard/profile"
-            className="flex items-center gap-2 mt-5 text-lg dashboard_page"
-          >
-            <FaUserCircle /> My Profile
-          </NavLink>
 
           {
             !roleLoading && role === "user" && (

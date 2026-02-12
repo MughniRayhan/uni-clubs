@@ -152,7 +152,7 @@ const NavBar = () => {
                 </li>
 
                 <li className=" font-bold mt-4">
-                  <Link to="/dashboard" className="text-xl">Dashboard</Link>
+                  <Link to="/dashboard" className="text-[16px]">Dashboard</Link>
                 </li>
 
                 <li className=" font-bold mt-5">
