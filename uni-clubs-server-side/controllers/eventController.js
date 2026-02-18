@@ -26,19 +26,27 @@ const createEvent = async (req, res) => {
 
     // 3. Create event
     const event = await Event.create({
-      title: req.body.title,
-      shortDescription: req.body.shortDescription,
-      date: req.body.date,
-      time: req.body.time,
-      venue: req.body.venue,
-      category: req.body.category,
-      banner: req.body.banner,
-      club: clubId,
-      createdBy: user._id,
-      createdByName: req.body.createdByName,
-      studentId: req.body.studentId,
-      status: "pending", // admin approval
-    });
+  title: req.body.title,
+  shortDescription: req.body.shortDescription,
+  eventDate: new Date(req.body.eventDate),
+  time: req.body.time,
+  venue: req.body.venue,
+  category: req.body.category,
+  banner: req.body.banner,
+
+  registrationStart: req.body.registrationStart
+    ? new Date(req.body.registrationStart)
+    : null,
+
+  registrationEnd: req.body.registrationEnd
+    ? new Date(req.body.registrationEnd)
+    : null,
+
+  club: clubId,
+  createdBy: user._id,
+  status: "pending",
+});
+
 
     res.status(201).json({
       success: true,
@@ -58,15 +66,25 @@ const createEvent = async (req, res) => {
 // Get all approved events (public)
 const getEvents = async (req, res) => {
   try {
+    const now = new Date();
+
     const events = await Event.find({ status: "approved" })
       .populate("club", "name coverImage")
-      .sort({ createdAt: -1 });
+      .sort({ eventDate: 1 });
 
-    res.json({ success: true, data: events });
+    const upcoming = events.filter(e => e.eventDate > now);
+    const past = events.filter(e => e.eventDate <= now);
+
+    res.json({
+      success: true,
+      upcoming,
+      past,
+    });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
 };
+
 
 // Leader: Get my events
 const getMyEvents = async (req, res) => {
@@ -152,16 +170,44 @@ const updateEvent = async (req, res) => {
 
     const { eventId } = req.params;
 
-    // Make sure ticketPrice is structured correctly
-    const updatedData = {
-      ...req.body,
-      ticketPrice: {
-        amount: req.body.ticketAmount || 0,
-        currency: req.body.ticketCurrency || "BDT",
-      },
-    };
+    const {
+  ticketAmount,
+  ticketCurrency,
+  registrationStart,
+  registrationEnd,
+  eventDate,
+  ...rest
+} = req.body;
 
-    const event = await Event.findByIdAndUpdate(eventId, updatedData, { new: true })
+const updatedData = {
+  ...rest,
+
+  eventDate: eventDate
+    ? new Date(eventDate)
+    : undefined,
+
+  registrationStart: registrationStart
+    ? new Date(registrationStart)
+    : null,
+
+  registrationEnd: registrationEnd
+    ? new Date(registrationEnd)
+    : null,
+
+  ticketPrice: {
+    amount: ticketAmount || 0,
+    currency: ticketCurrency || "BDT",
+  },
+};
+
+
+    console.log("Updating:", updatedData);
+
+    const event = await Event.findByIdAndUpdate(
+      eventId,
+      updatedData,
+      { new: true, runValidators: true, strict: true }
+    )
       .populate("club", "name")
       .populate("createdBy", "displayName email");
 
@@ -169,11 +215,13 @@ const updateEvent = async (req, res) => {
       return res.status(404).json({ success: false, message: "Event not found" });
 
     res.json({ success: true, message: "Event updated", data: event });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: err.message });
   }
 };
+
 
 // Leader: Update my event
 const updateMyEvent = async (req, res) => {

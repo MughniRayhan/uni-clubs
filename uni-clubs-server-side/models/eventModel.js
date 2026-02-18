@@ -9,31 +9,36 @@ const eventSchema = new mongoose.Schema({
   description: String,
 
   banner: String,
-  attachments: [{ name: String, url: String }],
 
-  date: String,
+  eventDate: { type: Date, required: true },
   time: String,
   venue: String,
   category: String,
 
   capacity: Number,
-  registrationDeadline: Date,
+
+  registrationStart: { type: Date, default: null },
+registrationEnd: { type: Date, default: null },
+
 
   ticketPrice: {
     amount: { type: Number, default: 0 },
     currency: { type: String, default: "BDT" },
   },
 
-  schedule: String,
-
   status: {
     type: String,
     enum: ["pending", "approved", "rejected"],
-    default: "pending"
+    default: "pending",
   },
 
   createdAt: { type: Date, default: Date.now },
 });
 
-const Event = mongoose.model("Event", eventSchema);
-module.exports = Event;
+// Virtual status (upcoming / finished)
+eventSchema.virtual("eventState").get(function () {
+  const now = new Date();
+  return this.eventDate > now ? "upcoming" : "finished";
+});
+
+module.exports = mongoose.model("Event", eventSchema);

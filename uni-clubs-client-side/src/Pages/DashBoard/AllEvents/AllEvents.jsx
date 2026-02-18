@@ -92,20 +92,23 @@ const AllEvents = () => {
         setSelectedEvent(event);
         setFormData({
             title: event.title || "",
-            date: event.date || "",
+            eventDate: event.eventDate?.split("T")[0] || "",
             time: event.time || "",
             venue: event.venue || "",
             category: event.category || "",
             capacity: event.capacity || "",
-            registrationDeadline: event.registrationDeadline?.split("T")[0] || "", // fix for ISO date
+            registrationStart: event.registrationStart?.split("T")[0] || "",
+            registrationEnd: event.registrationEnd?.split("T")[0] || "",
             ticketAmount: event.ticketPrice?.amount || 0,
             ticketCurrency: event.ticketPrice?.currency || "BDT",
             shortDescription: event.shortDescription || "",
             description: event.description || "",
         });
+
         setEditMode(true);
         setModalOpen(true);
     };
+
 
 
 
@@ -118,9 +121,15 @@ const AllEvents = () => {
         try {
             const updatedData = {
                 ...formData,
-                ticketPrice: { amount: formData.ticketAmount, currency: formData.ticketCurrency },
+                ticketPrice: {
+                    amount: formData.ticketAmount,
+                    currency: formData.ticketCurrency,
+                },
             };
+            console.log("updated", updatedData)
+
             await axiosSecure.put(`/events/${selectedEvent._id}`, updatedData);
+
             Swal.fire("Success", "Event updated successfully", "success");
             setModalOpen(false);
             fetchEvents();
@@ -129,6 +138,7 @@ const AllEvents = () => {
             Swal.fire("Error", "Failed to update event", "error");
         }
     };
+
 
     if (loading) return <Loader />;
 
@@ -229,11 +239,17 @@ const AllEvents = () => {
                                 <p><strong>Club:</strong> {selectedEvent.club?.name}</p>
                                 <p><strong>Created By:</strong> {selectedEvent.createdBy?.displayName} ({selectedEvent.createdBy?.email})</p>
                                 <p><strong>Status:</strong> {selectedEvent.status}</p>
-                                <p><strong>Date & Time:</strong> {selectedEvent.date} at {selectedEvent.time}</p>
+                                <p>
+                                    <strong>Date & Time:</strong>
+                                    {new Date(selectedEvent.eventDate).toLocaleDateString()}
+                                    {" "}at {selectedEvent.time}
+                                </p>
+
                                 <p><strong>Venue:</strong> {selectedEvent.venue}</p>
                                 <p><strong>Category:</strong> {selectedEvent.category}</p>
                                 <p><strong>Capacity:</strong> {selectedEvent.capacity}</p>
-                                <p><strong>Registration Deadline:</strong> {selectedEvent.registrationDeadline}</p>
+                                <p><strong>Registration:</strong> {selectedEvent.registrationStart} → {selectedEvent.registrationEnd}</p>
+
                                 <p><strong>Ticket Price:</strong> {selectedEvent.ticketPrice?.amount} {selectedEvent.ticketPrice?.currency}</p>
                                 <p><strong>Short Description:</strong> {selectedEvent.shortDescription}</p>
                             </>
@@ -250,9 +266,9 @@ const AllEvents = () => {
                                         className="input input-bordered w-full"
                                     />
                                     <input
-                                        type="text"
-                                        name="date"
-                                        value={formData.date}
+                                        type="date"
+                                        name="eventDate"
+                                        value={formData.eventDate}
                                         onChange={handleInputChange}
                                         placeholder="Date"
                                         className="input input-bordered w-full"
@@ -289,13 +305,24 @@ const AllEvents = () => {
                                         placeholder="Capacity"
                                         className="input input-bordered w-full"
                                     />
+                                    <label className="font-medium">Registration Start</label>
                                     <input
                                         type="date"
-                                        name="registrationDeadline"
-                                        value={formData.registrationDeadline}
+                                        name="registrationStart"
+                                        value={formData.registrationStart}
                                         onChange={handleInputChange}
                                         className="input input-bordered w-full"
                                     />
+
+                                    <label className="font-medium">Registration End</label>
+                                    <input
+                                        type="date"
+                                        name="registrationEnd"
+                                        value={formData.registrationEnd}
+                                        onChange={handleInputChange}
+                                        className="input input-bordered w-full"
+                                    />
+
                                     <div className="flex gap-2">
                                         <input
                                             type="number"

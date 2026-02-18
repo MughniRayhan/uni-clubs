@@ -48,6 +48,9 @@ const AddEvent = () => {
       const time = form.eventTime.value;
       const venue = form.venue.value;
       const category = form.category.value;
+      const eventDate = form.eventDate.value;
+      const registrationStart = form.registrationStart.value;
+      const registrationEnd = form.registrationEnd.value;
 
       // --- Upload Banner to IMGBB ---
       let bannerUrl = "";
@@ -64,14 +67,18 @@ const AddEvent = () => {
       }
 
       // --- Prepare Data ---
+
+
       const payload = {
         title,
         shortDescription,
-        date,
+        eventDate,
         time,
         venue,
         category,
         banner: bannerUrl,
+        registrationStart,
+        registrationEnd,
         createdByName: userName,
         studentId,
       };
@@ -204,6 +211,31 @@ const AddEvent = () => {
             />
           </div>
 
+          {/* Registration */}
+          <div>
+            <label className="block text-gray-700 font-semibold mb-1">
+              Registration Start Date
+            </label>
+            <input
+              name="registrationStart"
+              type="date"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-[#036666]"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-700 font-semibold mb-1">
+              Registration Closing Date
+            </label>
+            <input
+              name="registrationEnd"
+              type="date"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-[#036666]"
+              required
+            />
+          </div>
+
           <div>
             <label className="block text-gray-700 font-semibold mb-1">
               Select Club
@@ -222,6 +254,7 @@ const AddEvent = () => {
               ))}
             </select>
           </div>
+
 
 
           {/* Category */}
