@@ -34,27 +34,34 @@ const createUser = async (req, res) => {
 
 // get all users
 const getAllUsers = async (req, res) => {
-  const search = req.query.search;
-  let query = {};
-
-  if (search) {
-    query = {
-      $or: [
-        { displayName: { $regex: search, $options: "i" } },
-        { email: { $regex: search, $options: "i" } }
-      ]
-    };
-  }
-
   try {
-    const users = await User.find(query).lean();
-    res.send(users);
+    const { search = "", role = "" } = req.query;
+
+    const query = {};
+
+    //  Search by name or email
+    if (search.trim()) {
+      query.$or = [
+        { displayName: { $regex: search.trim(), $options: "i" } },
+        { email: { $regex: search.trim(), $options: "i" } },
+      ];
+    }
+
+    // Filter by role
+    if (role && role !== "all") {
+      query.role = role;
+    }
+
+    const users = await User.find(query)
+      .sort({ creation_date: -1 })
+      .lean();
+
+    res.status(200).json(users);
   } catch (error) {
     console.error("Error fetching users:", error);
-    res.status(500).send({ message: "Failed to fetch users" });
+    res.status(500).json({ message: "Failed to fetch users" });
   }
 };
-
 // make admin
 const makeAdmin = async (req, res) => {
   const { id } = req.params;

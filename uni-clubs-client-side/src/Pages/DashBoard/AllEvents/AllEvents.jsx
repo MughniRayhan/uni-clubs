@@ -155,7 +155,7 @@ const AllEvents = () => {
                             <th>Club</th>
                             <th>Created By</th>
                             <th>Status</th>
-                            <th className="text-center">Actions</th>
+                            <th className="text-center" >Actions</th>
                         </tr>
                     </thead>
 
@@ -187,7 +187,7 @@ const AllEvents = () => {
                                     </span>
                                 </td>
 
-                                <td className="flex gap-2 justify-center">
+                                <td className="flex gap-2 items-center">
                                     <button onClick={() => handleView(event)} className="btn btn-xs btn-info text-white">
                                         View
                                     </button>
@@ -216,6 +216,7 @@ const AllEvents = () => {
 
                                     {event.status === "rejected" && <span className="text-gray-400 text-sm">No actions</span>}
                                 </td>
+
                             </tr>
                         ))}
                     </tbody>

@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
+import UseAuth from "../../Hooks/UseAuth";
 
 const Events = () => {
     const axiosSecure = UseAxiosSecure();
     const [upcoming, setUpcoming] = useState([]);
     const [past, setPast] = useState([]);
     const [now, setNow] = useState(Date.now());
+    const { user } = UseAuth();
+
 
     useEffect(() => {
         fetchEvents();
@@ -63,25 +66,35 @@ const Events = () => {
                         📅 Event Date: {formatDate(e.eventDate)} at {e.time}
                     </p>
 
-                    {/* Countdown */}
-                    <p
-                        className={`text-lg font-semibold ${countdown.closed
-                            ? "text-red-500"
-                            : "text-green-600"
-                            }`}
-                    >
-                        {countdown.text}
-                    </p>
+                    {
+                        user && (
+                            <>
+                                {/* Countdown */}
+                                <p
+                                    className={`font-semibold ${countdown.closed
+                                        ? "text-red-500"
+                                        : "text-green-600"
+                                        }`}
+                                >
+                                    {countdown.text}
+                                </p>
 
-                    <button
-                        disabled={countdown.closed}
-                        className={`btn mt-2  ${countdown.closed
-                            ? "btn-disabled"
-                            : "btn-primary"
-                            }`}
-                    >
-                        {countdown.closed ? "Closed" : "Register"}
-                    </button>
+                                {
+                                    !countdown.closed && (
+                                        <button
+                                            disabled={countdown.closed}
+                                            className={`btn mt-2  ${countdown.closed
+                                                ? "btn-disabled"
+                                                : "btn-primary"
+                                                }`}
+                                        >
+                                            Register
+                                        </button>
+                                    )
+                                }
+                            </>
+                        )
+                    }
                 </div>
             </div>
         );

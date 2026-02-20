@@ -65,7 +65,7 @@ const NavBar = () => {
         Events
       </NavLink>
 
-      
+
     </>
   );
 
@@ -95,7 +95,7 @@ const NavBar = () => {
                       <Link to="/dashboard">Dashboard</Link>
                     </li>
                     <li >
-                      <button  onClick={handleLogout}>Sign Out</button>
+                      <button onClick={handleLogout}>Sign Out</button>
                     </li>
                   </>
                 ) : (
@@ -133,29 +133,30 @@ const NavBar = () => {
                 <div className="w-15 rounded-full border-2 border-white">
                   <img
                     src={
-                      user.photoURL ||
+                      user?.photoURL ||
                       "https://i.ibb.co/4pDNDk1/avatar.png"
                     }
                     alt="Profile"
                     title={user.displayName}
-                  
+
                   />
                 </div>
               </div>
 
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 z-[1] p-5 shadow  bg-white rounded-box w-52  text-primary"
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-5 shadow text-center flex flex-col justify-center items-center bg-white rounded-box w-52  text-primary"
               >
                 <li className="font-semibold text-center">
                   {user.displayName || "User"}
                 </li>
+                <div className="divider my-1"></div>
 
-                <li className=" font-bold mt-4">
-                  <Link to="/dashboard" className="text-[16px]">Dashboard</Link>
+                <li className=" font-semibold text-center ">
+                  <Link to="/dashboard" className="text-[16px] ">Dashboard</Link>
                 </li>
 
-                <li className=" font-bold mt-5">
+                <li className=" font-bold mt-2">
                   <button className="lg:inline-block px-4 py-2 text-center lg:border border-gray-200 rounded-md bg-transparent lg:hover:bg-[#26667F] text-[16px] hover:text-[#daf5ff] transition duration-300 font-medium" onClick={handleLogout}>Sign Out</button>
                 </li>
               </ul>

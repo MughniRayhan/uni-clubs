@@ -4,11 +4,13 @@ import { Link } from "react-router";
 import Loader from "../../Components/Loader";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import JoinClubModal from "./JoinClubModal";
+import UseAuth from "../../Hooks/UseAuth";
 
 export default function Clubs() {
   const axiosSecure = UseAxiosSecure();
   const [openModal, setOpenModal] = useState(false);
   const [selectedClub, setSelectedClub] = useState(null);
+  const { user } = UseAuth();
 
   const { data: clubs = [], isLoading } = useQuery({
     queryKey: ["approvedClubs"],
@@ -61,12 +63,16 @@ export default function Clubs() {
                   View Details
                 </Link>
 
-                <button
-                  className="btn btn-primary w-full"
-                  onClick={() => handleJoinClick(club)}
-                >
-                  Join
-                </button>
+                {
+                  user && (
+                    <button
+                      className="btn btn-primary w-full"
+                      onClick={() => handleJoinClick(club)}
+                    >
+                      Join
+                    </button>
+                  )
+                }
               </div>
             </div>
           </div>

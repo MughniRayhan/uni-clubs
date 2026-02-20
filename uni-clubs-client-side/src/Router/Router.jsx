@@ -17,7 +17,6 @@ import AllPolls from "../Pages/Home/Polls/AllPolls";
 import AllUsers from "../Pages/DashBoard/AllUsers/AllUsers";
 import JoinClub from "../Pages/DashBoard/JoinClubs/JoinClub";
 import CreateClub from "../Pages/DashBoard/CreateClub/CreateClub";
-import PendingClubs from "../Pages/DashBoard/PendingClubs/PendingClubs";
 import PrivateRoute from "../Routes/PrivateRoute";
 import DashboardHome from "../Pages/DashBoard/DashboardHomePages/DashboardHome";
 import ClubDetails from "../Pages/Clubs/ClubDetails";
@@ -25,6 +24,8 @@ import AllEvents from "../Pages/DashBoard/AllEvents/AllEvents";
 import LeaderClubs from "../Pages/DashBoard/LeaderDashboard/LeaderClubs";
 import MyEvents from "../Pages/DashBoard/LeaderDashboard/LeaderEvents/MyEvents";
 import AddEvent from "../Pages/DashBoard/LeaderDashboard/LeaderEvents/AddEvent";
+import AllClubs from "../Pages/DashBoard/Clubs/AllClubs";
+import PendingClubs from "../Pages/DashBoard/Clubs/PendingClubs";
 
 
 
@@ -96,6 +97,10 @@ export const router = createBrowserRouter([
       {
         path: 'pending-clubs',
         Component: PendingClubs
+      },
+      {
+        path: 'all-clubs',
+        Component: AllClubs
       },
       {
         path: 'all-events',
