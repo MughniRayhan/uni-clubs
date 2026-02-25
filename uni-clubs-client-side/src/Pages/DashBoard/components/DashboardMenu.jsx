@@ -50,7 +50,7 @@ export const dashboardMenu = {
             icon: MdAddCircleOutline,
             children: [
                 { name: "Create Club", path: "/dashboard/createClub" },
-                { name: "Join Clubs", path: "/dashboard/joinClub" },
+                // { name: "Join Clubs", path: "/dashboard/joinClub" },
             ],
         },
     ],

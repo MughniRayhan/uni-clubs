@@ -7,7 +7,7 @@ const sectionSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 const clubSchema = new mongoose.Schema({
-name: { type: String, required: true, index: true },
+name: { type: String, required: true},
 shortName: { type: String },
 coverImage: { type: String },
 description: { type: String },

@@ -104,13 +104,30 @@ const updateClubStatus = async (req, res) => {
 // PUBLIC approved clubs listing
 const getApprovedClubs = async(req,res)=>{
   try{
-    const clubs = await Club.find({status:"approved"}).sort({createdAt:-1});
+    const clubs = await Club.find({status:"approved"})
+  .populate("leader", "displayName email")
+  .populate("createdBy", "displayName email")
+  .sort({ createdAt: -1 });
     res.status(200).json(clubs);
   }catch(err){
     res.status(500).json({success:false,message:err.message});
   }
 }
 
+// GET ALL CLUBS (ADMIN)
+const getAllClubs = async (req, res) => {
+  try {
+    const clubs = await Club.find({ status: { $ne: "pending" } })
+      .populate("leader", "displayName email")
+      .populate("createdBy", "displayName email")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({ success: true, clubs });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
 
 
 /**
@@ -268,13 +285,66 @@ const getMyClubs = async (req, res) => {
 };
 
 
+// ADMIN: Update club fully
+const updateClubByAdmin = async (req, res) => {
+  try {
+    const { clubId } = req.params;
+    const payload = req.body;
 
+    const club = await Club.findById(clubId);
+    if (!club)
+      return res.status(404).json({ success: false, message: "Club not found" });
+
+    const allowedFields = [
+      "name",
+      "shortName",
+      "description",
+      "mission",
+      "category",
+      "contactEmail",
+      "contactPhone",
+      "meetingTimes",
+      "tags"
+    ];
+
+    allowedFields.forEach((field) => {
+      if (payload[field] !== undefined) {
+        club[field] = payload[field];
+      }
+    });
+
+    club.updatedAt = new Date();
+    await club.save();
+
+    res.json({ success: true, message: "Club updated successfully", club });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+// ADMIN: Delete club
+const deleteClubAdmin = async (req, res) => {
+  try {
+    const { clubId } = req.params;
+
+    const club = await Club.findById(clubId);
+    if (!club)
+      return res.status(404).json({ success: false, message: "Club not found" });
+
+    await Club.findByIdAndDelete(clubId);
+
+    res.json({ success: true, message: "Club deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
 
 module.exports = {
   createClubRequest,
   getPendingClubs,
   updateClubStatus,
   getApprovedClubs,
+  getAllClubs,
   getClubById,
   updateClubDetails,
   addClubImage,
@@ -282,4 +352,6 @@ module.exports = {
   addSection,
   removeSection,
   getMyClubs,
+  updateClubByAdmin,
+  deleteClubAdmin,
 };
