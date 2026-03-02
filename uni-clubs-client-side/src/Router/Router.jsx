@@ -26,6 +26,11 @@ import MyEvents from "../Pages/DashBoard/LeaderDashboard/LeaderEvents/MyEvents";
 import AddEvent from "../Pages/DashBoard/LeaderDashboard/LeaderEvents/AddEvent";
 import AllClubs from "../Pages/DashBoard/Clubs/AllClubs";
 import PendingClubs from "../Pages/DashBoard/Clubs/PendingClubs";
+import leadership from "../Pages/Home/AboutSection/Overview";
+import history from "../Pages/Home/AboutSection/history";
+import Strategies from "../Pages/Home/AboutSection/Strategies";
+import Overview from "../Pages/Home/AboutSection/Overview";
+import HomeAbout from "../Pages/Home/AboutSection/HomeAbout";
 
 
 
@@ -61,6 +66,27 @@ export const router = createBrowserRouter([
       {
         path: '/about',
         Component: About
+      },
+      {
+        path:"/HomeAbout",
+        Component:HomeAbout
+
+      },
+      {
+        path: '/leadership',
+        Component: leadership
+      },
+      {
+         path: '/history',
+         Component: history
+      },
+      {
+         path: '/strategies',
+         Component: Strategies
+      },
+      {
+         path: '/Overview',
+         Component: Overview
       },
       {
         path: '/AllPolls',

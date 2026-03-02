@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from "framer-motion";
 import { FaUsers, FaBell, FaEye, FaBullseye, FaHistory } from "react-icons/fa";
 import { GiAbstract091 } from "react-icons/gi";
@@ -5,37 +6,12 @@ import { CiCircleInfo } from "react-icons/ci";
 
 
 import { Link } from "react-router";
-import aboutBanner from "../../../assets/about.png"; // ✅ import image
-import Leadership from "./leadership";
+;
 
-export default function About() {
-  return (
-    <>
-      {/* 🔥 Banner Section */}
-      <div
-        className="relative h-[350px] md:h-[450px] flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: `url(${aboutBanner})` }}
-      >
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black/50"></div>
-
-        {/* Center Content */}
-        <div className="relative text-center text-white px-4">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">
-            About the University
-          </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto">
-            Metropolitan University, Sylhet, Bangladesh is a leading private
-            university committed to quality education, innovative research, and
-            holistic student development.
-          </p>
-        </div>
-      </div>
-      <section>
-          <Leadership />
-      </section>
-      {/* 🔽 Existing About Section (Unchanged) */}
-      <section
+const HomeAbout = () => {
+    return (
+        <div>
+              <section
         className="bg-base-100 py-20"
         data-aos="fade-up"
         data-aos-duration="2000"
@@ -133,6 +109,8 @@ To provide a stimulating learning environment where our students can prepare the
           </div>
         </div>
       </section>
-    </>
-  );
-}
+        </div>
+    );
+};
+
+export default HomeAbout;

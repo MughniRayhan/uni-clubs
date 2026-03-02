@@ -25,8 +25,8 @@ const NavBar = () => {
         to="/"
         className={({ isActive }) =>
           isActive
-            ? "text-[#FAFEFF] border-b-2 border-[#FAFEFF] font-semibold text-xl"
-            : "text-[#FAFEFF] font-semibold text-xl"
+            ? "text-primary border-b-2 border-primary :font-semibold text-xl"
+            : "text-primary font-semibold text-xl"
         }
       >
         Home
@@ -36,19 +36,19 @@ const NavBar = () => {
         to="/clubs"
         className={({ isActive }) =>
           isActive
-            ? "text-[#FAFEFF] border-b-2 border-[#FAFEFF] font-semibold text-xl"
-            : "text-[#FAFEFF] font-semibold text-xl"
+            ? "text-primary border-b-2 border-primary font-semibold text-xl"
+            : "text-primary font-semibold text-xl"
         }
       >
         Clubs
       </NavLink>
 
       <NavLink
-        to="/about"
+        to="/About"
         className={({ isActive }) =>
           isActive
-            ? "text-[#FAFEFF] border-b-2 border-[#FAFEFF] font-semibold text-xl"
-            : "text-[#FAFEFF] font-semibold text-xl"
+            ? "text-primary border-b-2 border-primary font-semibold text-xl"
+            : "text-primary font-semibold text-xl"
         }
       >
         About
@@ -58,8 +58,8 @@ const NavBar = () => {
         to="/events"
         className={({ isActive }) =>
           isActive
-            ? "text-[#FAFEFF] border-b-2 border-[#FAFEFF] font-semibold text-xl"
-            : "text-[#FAFEFF] font-semibold text-xl"
+            ? "text-primary border-b-2 border-primary font-semibold text-xl"
+            : "text-primary  font-semibold text-xl"
         }
       >
         Events
@@ -71,7 +71,7 @@ const NavBar = () => {
 
   return (
     <div className="sticky top-0 z-50">
-      <div className="navbar bg-[#036666] text-white shadow-sm lg:px-15 lg:py-5 px-5 py-2 border-b border-secondary">
+      <div className="navbar bg-white  text-white shadow-sm lg:px-15 lg:py-5 px-5 py-2 border-b border-secondary">
 
         {/* LEFT SIDE */}
         <div className="navbar-start">
@@ -166,7 +166,7 @@ const NavBar = () => {
               <Link
                 to="/auth/login"
                 className="px-4 py-2 border border-gray-200 rounded-md 
-                           hover:bg-[#26667F] transition duration-300 font-medium"
+                           bg-[#26667F] hover:text-black transition duration-300 font-medium"
               >
                 Sign In
               </Link>
@@ -174,7 +174,7 @@ const NavBar = () => {
               <Link
                 to="/auth/register"
                 className="px-4 py-2 border border-gray-200 rounded-md 
-                           hover:bg-[#26667F] transition duration-300 font-medium"
+                           bg-[#26667F] hover:text-black transition duration-300 font-medium"
               >
                 Sign Up
               </Link>

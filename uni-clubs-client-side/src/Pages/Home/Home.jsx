@@ -6,13 +6,14 @@ import Gallery from './Gallery/Gallery';
 import CallToAction from './CallToAction/CallToAction';
 import Stats from './StatsSection/Stats';
 import Poll from './Polls/Poll';
+import HomeAbout from './AboutSection/HomeAbout';
 
 
 const Home = () => {
     return (
         <div>
             <Banner/>
-            <About/>
+            <HomeAbout/>
             <BenefitsSection/>
             <Gallery/>
             <CallToAction/>

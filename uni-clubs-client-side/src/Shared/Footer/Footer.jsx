@@ -3,6 +3,8 @@ import { Link, NavLink } from "react-router";
 import UseAuth from "../../Hooks/UseAuth";
 import Logo from "../../../src/Shared/Logo/Logo";
 
+
+
 export default function Footer() {
     const {user} = UseAuth();
 
@@ -32,7 +34,11 @@ export default function Footer() {
         {/* Brand / About */}
         <div className="space-y-4 md:w-1/3">
           <Link to='/' className="flex items-center ">
-            <h3 className=" text-4xl font-semibold"> <Logo></Logo></h3>
+                <img 
+  src={Logo} 
+  alt="Logo"z
+  style={{ filter: "brightness(0) invert(1)" }} 
+/>
            </Link>
           <p className="text-gray-200 text-sm">
             Uni-Clubs is a centralized platform for managing university clubs and 
