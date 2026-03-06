@@ -31,6 +31,9 @@ import history from "../Pages/Home/AboutSection/history";
 import Strategies from "../Pages/Home/AboutSection/Strategies";
 import Overview from "../Pages/Home/AboutSection/Overview";
 import HomeAbout from "../Pages/Home/AboutSection/HomeAbout";
+import PendingJoinRequest from "../Pages/DashBoard/ClubMembers/PendingJoinRequest";
+import ManageMembers from "../Pages/DashBoard/ClubMembers/ManageMembersPage";
+import ManageClubDetails from "../Pages/DashBoard/Clubs/ManageClubDetails";
 
 
 
@@ -68,8 +71,8 @@ export const router = createBrowserRouter([
         Component: About
       },
       {
-        path:"/HomeAbout",
-        Component:HomeAbout
+        path: "/HomeAbout",
+        Component: HomeAbout
 
       },
       {
@@ -77,16 +80,16 @@ export const router = createBrowserRouter([
         Component: leadership
       },
       {
-         path: '/history',
-         Component: history
+        path: '/history',
+        Component: history
       },
       {
-         path: '/strategies',
-         Component: Strategies
+        path: '/strategies',
+        Component: Strategies
       },
       {
-         path: '/Overview',
-         Component: Overview
+        path: '/Overview',
+        Component: Overview
       },
       {
         path: '/AllPolls',
@@ -127,6 +130,18 @@ export const router = createBrowserRouter([
       {
         path: 'all-clubs',
         Component: AllClubs
+      },
+      {
+        path: 'club-details',
+        Component: ManageClubDetails
+      },
+      {
+        path: 'pending-members',
+        Component: PendingJoinRequest
+      },
+      {
+        path: 'manage-members',
+        Component: ManageMembers
       },
       {
         path: 'all-events',

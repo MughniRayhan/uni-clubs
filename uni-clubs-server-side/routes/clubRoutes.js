@@ -18,7 +18,9 @@ const {
   getMyClubs,
   deleteClubAdmin,
   updateClubByAdmin,
-  getAllClubs
+  getAllClubs,
+  getClubDetails,
+  removeLeaderCard
 } = require('../controllers/clubController');
 const verifyClubLeaderOrAdmin = require('../middleware/verifyClubLeaderOrAdmin');
 const verifyLeader = require('../middleware/verifyLeader');
@@ -58,15 +60,17 @@ router.get("/leader/clubs", verifyFbToken, verifyLeader, getMyClubs);
 
 
 // Leader/Admin only
-router.patch("/:clubId/details", verifyFbToken, verifyClubLeaderOrAdmin, updateClubDetails);
+router.get("/clubs/:id", getClubDetails);
+
+router.patch("/clubs/:id", verifyFbToken, verifyAdmin, updateClubDetails);
+
 router.post("/:clubId/gallery", verifyFbToken, verifyClubLeaderOrAdmin, addClubImage);
 router.delete("/:clubId/gallery/:imageId", verifyFbToken, verifyClubLeaderOrAdmin, removeClubImage);
 
 // sections
 router.post('/:clubId/sections', verifyFbToken, verifyClubLeaderOrAdmin, addSection);
-router.delete('/:clubId/sections/:sectionId', verifyFbToken, verifyClubLeaderOrAdmin, removeSection);
+router.delete("/clubs/:clubId/sections/:sectionId", verifyFbToken, verifyAdmin, removeSection);
 
-// GET club single details public (this will be used on club details page)
-router.get("/:clubId", getClubById);
+router.delete( "/clubs/:clubId/leaderCards/:cardId", verifyFbToken, verifyAdmin, removeLeaderCard);
 
 module.exports = router;

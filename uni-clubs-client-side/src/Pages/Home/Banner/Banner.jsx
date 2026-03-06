@@ -6,12 +6,12 @@ import UseAuth from '../../../Hooks/UseAuth';
 
 const messages = [
   { text: "🎓  Join your favorite clubs", position: "top-[-40px] right-[-70px] -translate-x-1/2" },
-  { text: "📅 Register for events", position: "top-[-40] right-[-50px] -translate-y-1/2"  },
+  { text: "📅 Register for events", position: "top-[-40] right-[-50px] -translate-y-1/2" },
   { text: "📊 Track your engagement", position: "top-[-40px] right-[-5px] -translate-x-1/2" },
 ];
 
 export default function Banner() {
-  const {user} = UseAuth();
+  const { user } = UseAuth();
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -22,11 +22,11 @@ export default function Banner() {
   }, []);
 
   return (
-    <section className="bg-gradient-to-r from-[#01161e] to-secondary text-white py-20" 
-   
+    <section className="bg-gradient-to-r from-[#01161e] to-primary text-white py-20"
+
     >
       <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row justify-center items-center">
-        
+
         {/* Left Side */}
         <div className="space-y-6 lg:order-1 order-2 text-center lg:text-left flex flex-col items-center lg:items-start p-8  lg:bg-gradient-to-r lg:from-secondary/20 lg:to-transparent">
           <motion.h1
@@ -35,7 +35,7 @@ export default function Banner() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-4xl md:text-6xl font-extrabold leading-tight w-full lg:w-180"
           >
-            One Portal for All <span className="bg-gradient-to-r from-secondary via-green-200 to-secondary bg-clip-text text-transparent">University Clubs</span> & Events
+            One Portal for All <span className="bg-gradient-to-r from-blue-300 via-green-100 to-blue-300 bg-clip-text text-transparent">University Clubs</span> & Events
           </motion.h1>
 
           <motion.p
@@ -53,37 +53,37 @@ export default function Banner() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4"
-            
+
           >
-            <Link to='/Clubs' className="bg-primary hover:bg-emerald-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition">
+            <Link to='/Clubs' className="bg-secondary text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition">
               Explore Clubs
             </Link>
-            {!user && 
-            <Link to='/auth/register'  className="border border-white hover:bg-gradient-to-r hover:from-primary hover:to-secondary  font-semibold px-6 py-3 rounded-xl transition">
-              Register Now
-            </Link>
+            {!user &&
+              <Link to='/auth/register' className="border border-white hover:bg-gradient-to-r hover:from-primary hover:to-secondary  font-semibold px-6 py-3 rounded-xl transition">
+                Register Now
+              </Link>
             }
           </motion.div>
         </div>
 
         {/* Right Side: Image and Floating Messages */}
-        <div className="relative flex justify-center md:justify-end order-1 lg:order-2 p-8 rounded-t-full rounded-xl lg:bg-gradient-to-b lg:from-indigo-100/10 lg:to-transparent">
+        <div className="relative flex justify-center md:justify-end order-1 lg:order-2 p-8 rounded-t-full rounded-xl lg:bg-gradient-to-b lg:from-blue-200/10 lg:to-transparent">
           <motion.img
             src={BannerImage}
             alt="University Clubs"
-           
-            animate={{ 
-              opacity: 1, 
+
+            animate={{
+              opacity: 1,
               scale: 1,
-              y: [0, -15, 0],        
-              rotate: [0, 2, -2, 0]  
+              y: [0, -15, 0],
+              rotate: [0, 2, -2, 0]
             }}
-            transition={{ 
+            transition={{
               duration: 11,
-              delay: 0.9, 
-              repeat: Infinity, 
+              delay: 0.9,
+              repeat: Infinity,
               repeatType: "loop",
-              ease: "easeInOut" 
+              ease: "easeInOut"
             }}
             className="w-full max-w-2xl drop-shadow-2xl rounded-2xl"
           />
@@ -99,14 +99,14 @@ export default function Banner() {
             lg:inline-block`}
           >
             {messages[index].text}
-             <div className="absolute -bottom-2 left-6 w-0 h-0 
+            <div className="absolute -bottom-2 left-6 w-0 h-0 
                   border-l-8 border-r-8 border-t-8 
                   border-l-transparent border-r-transparent 
                   border-t-white"></div>
           </motion.div>
         </div>
       </div>
-      
+
     </section>
   );
 }

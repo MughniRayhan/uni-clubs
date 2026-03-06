@@ -1,6 +1,7 @@
 import { Link, NavLink, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import Logo from "../Logo/Logo";
+import Avatar from "../../assets/avatar.png";
 import UseAuth from "../../Hooks/UseAuth";
 
 const NavBar = () => {
@@ -25,8 +26,8 @@ const NavBar = () => {
         to="/"
         className={({ isActive }) =>
           isActive
-            ? "text-primary border-b-2 border-primary :font-semibold text-xl"
-            : "text-primary font-semibold text-xl"
+            ? "text-primary border-b-2 border-primary font-semibold sm:text-xl"
+            : "text-primary font-semibold sm:text-xl"
         }
       >
         Home
@@ -36,8 +37,8 @@ const NavBar = () => {
         to="/clubs"
         className={({ isActive }) =>
           isActive
-            ? "text-primary border-b-2 border-primary font-semibold text-xl"
-            : "text-primary font-semibold text-xl"
+            ? "text-primary border-b-2 border-primary font-semibold sm:text-xl"
+            : "text-primary font-semibold sm:text-xl"
         }
       >
         Clubs
@@ -47,8 +48,8 @@ const NavBar = () => {
         to="/About"
         className={({ isActive }) =>
           isActive
-            ? "text-primary border-b-2 border-primary font-semibold text-xl"
-            : "text-primary font-semibold text-xl"
+            ? "text-primary border-b-2 border-primary font-semibold sm:text-xl"
+            : "text-primary font-semibold sm:text-xl"
         }
       >
         About
@@ -58,8 +59,8 @@ const NavBar = () => {
         to="/events"
         className={({ isActive }) =>
           isActive
-            ? "text-primary border-b-2 border-primary font-semibold text-xl"
-            : "text-primary  font-semibold text-xl"
+            ? "text-primary border-b-2 border-primary font-semibold sm:text-xl"
+            : "text-primary font-semibold sm:text-xl"
         }
       >
         Events
@@ -71,24 +72,24 @@ const NavBar = () => {
 
   return (
     <div className="sticky top-0 z-50">
-      <div className="navbar bg-white  text-white shadow-sm lg:px-15 lg:py-5 px-5 py-2 border-b border-secondary">
+      <div className="navbar bg-white  text-white border-b border-gray-100 lg:px-15 lg:py-5 px-5 py-2 ">
 
         {/* LEFT SIDE */}
         <div className="navbar-start">
 
           {/* Mobile Menu */}
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden text-black">
               ☰
             </div>
 
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-primary rounded-box z-[1] mt-3 w-52 p-3 space-y-2 shadow"
+              className="menu menu-sm dropdown-content bg-white rounded-box z-[1] mt-3  w-52 p-3 space-y-2 shadow"
             >
               {NavList}
 
-              <div className="border-t pt-2 mt-2">
+              <div className="border-t border-gray-200 pt-2 mt-2 text-primary font-semibold text-xl">
                 {user ? (
                   <>
                     <li>
@@ -134,7 +135,7 @@ const NavBar = () => {
                   <img
                     src={
                       user?.photoURL ||
-                      "https://i.ibb.co/4pDNDk1/avatar.png"
+                      Avatar
                     }
                     alt="Profile"
                     title={user.displayName}

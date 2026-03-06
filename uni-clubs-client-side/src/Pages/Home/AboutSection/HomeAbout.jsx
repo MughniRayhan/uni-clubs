@@ -9,9 +9,9 @@ import { Link } from "react-router";
 ;
 
 const HomeAbout = () => {
-    return (
-        <div>
-              <section
+  return (
+    <div>
+      <section
         className="bg-base-100 py-20"
         data-aos="fade-up"
         data-aos-duration="2000"
@@ -43,24 +43,28 @@ const HomeAbout = () => {
 
           {/* Mission & Vision */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-            <div className="card bg-base-200 shadow-lg hover:shadow-xl transition rounded-2xl p-10 space-y-4 text-left">
-              <FaBullseye className="w-10 h-10 text-primary" />
-              <h3 className="text-2xl font-semibold">Our Mission</h3>
+            <div className="card shadow-lg hover:shadow-xl transition rounded-2xl p-10 space-y-4 text-left">
+              <div className='flex items-center gap-3'>
+                <FaBullseye className="w-10 h-10 text-primary" />
+                <h3 className="text-2xl font-semibold">Our Mission</h3>
+              </div>
               <p className="text-gray-600">
                 1 .
-To provide our students with globally compatible tertiary education characterized by academic excellence in a range of subjects pertinent to the present and future social needs.  <br /><br />
+                To provide our students with globally compatible tertiary education characterized by academic excellence in a range of subjects pertinent to the present and future social needs.  <br /><br />
 
-2 .
-To provide our students with the necessary lessons on moral values, ethics, self-respect, and patriotism.  <br /><br />
+                2 .
+                To provide our students with the necessary lessons on moral values, ethics, self-respect, and patriotism.  <br /><br />
 
-3 .
-To provide a stimulating learning environment where our students can prepare themselves for pursuing their academic, personal, and career goals.
+                3 .
+                To provide a stimulating learning environment where our students can prepare themselves for pursuing their academic, personal, and career goals.
               </p>
             </div>
 
-            <div className="card bg-base-200 shadow-lg hover:shadow-xl transition rounded-2xl p-10 space-y-4 text-left">
-              <FaEye className="w-10 h-10 text-primary" />
-              <h3 className="text-2xl font-semibold">Our Vision</h3>
+            <div className="card  shadow-lg hover:shadow-xl transition rounded-2xl p-10 space-y-4 text-left">
+              <div className='flex items-center gap-3'>
+                <FaEye className="w-10 h-10 text-primary" />
+                <h3 className="text-2xl font-semibold">Our Vision</h3>
+              </div>
               <p className="text-gray-600">
                 To emerge as a distinguished teaching and research university
                 recognized around the globe through innovative education,
@@ -109,8 +113,8 @@ To provide a stimulating learning environment where our students can prepare the
           </div>
         </div>
       </section>
-        </div>
-    );
+    </div>
+  );
 };
 
 export default HomeAbout;

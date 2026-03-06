@@ -133,55 +133,71 @@ const getAllClubs = async (req, res) => {
 /**
  * GET club by id (public)
  */
-const getClubById = async (req, res) => {
+const getClubDetails = async (req, res) => {
   try {
-    const { clubId } = req.params;
-    if (!clubId) return res.status(400).json({ success: false, message: "clubId required" });
 
-    const club = await Club.findById(clubId)
+    const club = await Club.findById(req.params.id)
       .populate("leader", "displayName email")
-      .populate("createdBy", "displayName email")
-      .lean();
+      .populate("createdBy", "displayName email");
 
-    if (!club) return res.status(404).json({ success: false, message: "Club not found" });
+    if (!club) {
+      return res.status(404).json({ message: "Club not found" });
+    }
 
-    res.json({ success: true, data: club });
-  } catch (err) {
-    console.error("getClubById:", err);
-    res.status(500).json({ success: false, message: err.message });
+    res.json(club);
+
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching club details" });
   }
 };
 
-/**
- * PATCH /clubs/:clubId/details
- * Leader or admin only
- */
+// 🔹 Update full club details (Admin Only)
 const updateClubDetails = async (req, res) => {
   try {
-    const { club } = req;
-    const payload = req.body;
+    const { id } = req.params;
 
-    const allowed = ["name","shortName","description","mission","extraDetails","contactPhone","meetingTimes","category","tags"];
-    allowed.forEach(f => {
-      if (f in payload) {
-        if (f === "tags" && Array.isArray(payload.tags)) {
-          club.tags = payload.tags.map(t => t?.toString().trim()).filter(Boolean);
-        } else {
-          club[f] = payload[f];
-        }
-      }
-    });
+    const {
+      name,
+      description,
+      leaderCards,
+      sections
+    } = req.body;
+
+    const club = await Club.findById(id);
+
+    if (!club) {
+      return res.status(404).json({ message: "Club not found" });
+    }
+
+    // update fields
+    if (name) club.name = name;
+    if (description) club.description = description;
+
+    if (leaderCards) {
+      club.leaderCards = leaderCards;
+    }
+
+    if (sections) {
+      club.sections = sections;
+    }
 
     club.updatedAt = new Date();
+
     await club.save();
 
-    res.json({ success: true, message: "Club details updated", club });
-  } catch (err) {
-    console.error("updateClubDetails:", err);
-    res.status(500).json({ success: false, message: err.message });
+    res.json({
+      success: true,
+      message: "Club updated successfully",
+      club
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Failed to update club"
+    });
   }
 };
-
 
 // Add gallery image
 const addClubImage = async (req,res) => {
@@ -266,6 +282,42 @@ const removeSection = async (req, res) => {
   }
 };
 
+/**
+ * DELETE leader card
+ * DELETE /clubs/:clubId/leaderCards/:cardId
+ */
+const removeLeaderCard = async (req, res) => {
+  try {
+    const { clubId, cardId } = req.params;
+
+    const club = await Club.findById(clubId);
+    if (!club) {
+      return res.status(404).json({
+        success: false,
+        message: "Club not found"
+      });
+    }
+
+    club.leaderCards = club.leaderCards.filter(
+      card => card._id.toString() !== cardId
+    );
+
+    await club.save();
+
+    res.json({
+      success: true,
+      message: "Leader card deleted"
+    });
+
+  } catch (err) {
+    console.error("removeLeaderCard:", err);
+    res.status(500).json({
+      success: false,
+      message: err.message
+    });
+  }
+};
+
 const getMyClubs = async (req, res) => {
   try {
     const email = req.decoded.email; // use decoded from middleware
@@ -345,12 +397,13 @@ module.exports = {
   updateClubStatus,
   getApprovedClubs,
   getAllClubs,
-  getClubById,
+  getClubDetails,
   updateClubDetails,
   addClubImage,
   removeClubImage,
   addSection,
   removeSection,
+  removeLeaderCard,
   getMyClubs,
   updateClubByAdmin,
   deleteClubAdmin,

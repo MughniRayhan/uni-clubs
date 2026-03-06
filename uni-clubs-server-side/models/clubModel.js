@@ -6,6 +6,12 @@ const sectionSchema = new mongoose.Schema({
   description: { type: String, required: true }, 
 }, { timestamps: true });
 
+const leaderCardSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  role: { type: String, required: true },
+  image: { type: String, default: "" }
+});
+
 const clubSchema = new mongoose.Schema({
 name: { type: String, required: true},
 shortName: { type: String },
@@ -22,12 +28,12 @@ contactPhone: String,
 meetingTimes: String,
 status: { type: String, enum: ['pending','approved','rejected','archived'], default: 'pending' },
 leader: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 membershipFee: { amount: Number, currency: String },
 createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 createdAt:{ type: Date, default: Date.now },
 updatedAt: { type: Date, default: Date.now },
 stats: { memberCount: Number, eventsHosted: Number },
+leaderCards: [leaderCardSchema],
 sections: [sectionSchema]
 });
 

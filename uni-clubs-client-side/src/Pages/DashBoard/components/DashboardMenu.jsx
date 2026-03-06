@@ -17,6 +17,15 @@ export const dashboardMenu = {
             children: [
                 { name: "Pending Clubs", path: "/dashboard/pending-clubs" },
                 { name: "All Clubs", path: "/dashboard/all-clubs" },
+                { name: "Manage Club Details", path: "/dashboard/club-details" },
+            ],
+        },
+        {
+            title: "Club Members",
+            icon: FaClock,
+            children: [
+                { name: "Pending Members", path: "/dashboard/pending-members" },
+                { name: "Manage Members", path: "/dashboard/manage-members" },
             ],
         },
         {
@@ -50,6 +59,7 @@ export const dashboardMenu = {
             icon: MdAddCircleOutline,
             children: [
                 { name: "Create Club", path: "/dashboard/createClub" },
+                { name: "My Clubs", path: "/dashboard/myClubs" },
                 // { name: "Join Clubs", path: "/dashboard/joinClub" },
             ],
         },

@@ -11,7 +11,6 @@ import Leadership from "./leadership";
 export default function About() {
   return (
     <>
-      {/* 🔥 Banner Section */}
       <div
         className="relative h-[350px] md:h-[450px] flex items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: `url(${aboutBanner})` }}
@@ -32,9 +31,9 @@ export default function About() {
         </div>
       </div>
       <section>
-          <Leadership />
+        <Leadership />
       </section>
-      {/* 🔽 Existing About Section (Unchanged) */}
+      {/* Existing About Section (Unchanged) */}
       <section
         className="bg-base-100 py-20"
         data-aos="fade-up"
@@ -72,13 +71,13 @@ export default function About() {
               <h3 className="text-2xl font-semibold">Our Mission</h3>
               <p className="text-gray-600">
                 1 .
-To provide our students with globally compatible tertiary education characterized by academic excellence in a range of subjects pertinent to the present and future social needs.  <br /><br />
+                To provide our students with globally compatible tertiary education characterized by academic excellence in a range of subjects pertinent to the present and future social needs.  <br /><br />
 
-2 .
-To provide our students with the necessary lessons on moral values, ethics, self-respect, and patriotism.  <br /><br />
+                2 .
+                To provide our students with the necessary lessons on moral values, ethics, self-respect, and patriotism.  <br /><br />
 
-3 .
-To provide a stimulating learning environment where our students can prepare themselves for pursuing their academic, personal, and career goals.
+                3 .
+                To provide a stimulating learning environment where our students can prepare themselves for pursuing their academic, personal, and career goals.
               </p>
             </div>
 

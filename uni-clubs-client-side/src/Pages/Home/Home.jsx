@@ -12,13 +12,12 @@ import HomeAbout from './AboutSection/HomeAbout';
 const Home = () => {
     return (
         <div>
-            <Banner/>
-            <HomeAbout/>
-            <BenefitsSection/>
-            <Gallery/>
-            <CallToAction/>
-            <Poll/>
-            <Stats/>
+            <Banner />
+            <HomeAbout />
+            <BenefitsSection />
+            <Gallery />
+            <CallToAction />
+            <Stats />
         </div>
     );
 };

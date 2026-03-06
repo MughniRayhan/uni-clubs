@@ -31,7 +31,6 @@ const userSchema = new mongoose.Schema({
     type: String, 
     default: "" 
   },
-  enrolledClubs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Club' }],
   points: { type: Number, default: 0 },
 badges: [{ code: String, name: String, dateAwarded: Date }],
   phone: { 

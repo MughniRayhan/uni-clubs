@@ -3,24 +3,24 @@ import CountUp from "react-countup";
 import { FaUsers, FaCalendarAlt, FaUniversity, FaChartLine } from "react-icons/fa";
 
 const stats = [
-  { icon: <FaUniversity className="w-10 h-10 text-primary" />, value: 20, suffix: "+", label: "Active Clubs" },
-  { icon: <FaCalendarAlt className="w-10 h-10 text-primary" />, value: 100, suffix: "+", label: "Events Organized" },
-  { icon: <FaUsers className="w-10 h-10 text-primary" />, value: 1500, suffix: "+", label: "Student Members" },
-  { icon: <FaChartLine className="w-10 h-10 text-primary" />, value: 90, suffix: "%", label: "Engagement Rate" },
+  { icon: <FaUniversity className="w-10 h-10 text-primary" />, value: 6000, suffix: "+", label: "Active Students" },
+  { icon: <FaCalendarAlt className="w-10 h-10 text-primary" />, value: 250, suffix: "+", label: "Expert Faculty & Staff" },
+  { icon: <FaUsers className="w-10 h-10 text-primary" />, value: 100, suffix: "%", label: "Permanent Campus" },
+  { icon: <FaChartLine className="w-10 h-10 text-primary" />, value: 10000, suffix: "+", label: "Global Alumni" },
 ];
 
 export default function Stats() {
   return (
     <section className="bg-base-100 py-20">
       <div className="max-w-6xl mx-auto px-6 text-center">
-        
+
         {/* Section Title */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-           className="text-3xl md:text-5xl text-center bg-gradient-to-tl from-black via-primary to-secondary/50 bg-clip-text text-transparent font-bold mb-12"
+          className="text-3xl md:text-5xl text-center bg-gradient-to-tl from-black via-primary to-secondary/50 bg-clip-text text-transparent font-bold mb-12"
         >
           Our <span className="text-primary">Impact</span> in Numbers
         </motion.h2>
