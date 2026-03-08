@@ -167,7 +167,7 @@ const NavBar = () => {
               <Link
                 to="/auth/login"
                 className="px-4 py-2 border border-gray-200 rounded-md 
-                           bg-[#26667F] hover:text-black transition duration-300 font-medium"
+                           bg-secondary hover:text-black transition duration-300 font-medium"
               >
                 Sign In
               </Link>
@@ -175,7 +175,7 @@ const NavBar = () => {
               <Link
                 to="/auth/register"
                 className="px-4 py-2 border border-gray-200 rounded-md 
-                           bg-[#26667F] hover:text-black transition duration-300 font-medium"
+                           bg-secondary hover:text-black transition duration-300 font-medium"
               >
                 Sign Up
               </Link>

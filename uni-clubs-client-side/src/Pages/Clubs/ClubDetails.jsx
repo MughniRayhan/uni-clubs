@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import Swal from "sweetalert2";
 import Loader from "../../Components/Loader";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
@@ -15,6 +15,8 @@ export default function ClubDetails() {
   const axiosSecure = UseAxiosSecure();
   const { role } = useUserRole();
   const { user } = UseAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [club, setClub] = useState(null);
   console.log("club", club)
@@ -48,6 +50,14 @@ export default function ClubDetails() {
   }, [clubId]);
 
   const handleJoinClick = (club) => {
+
+    if (!user) {
+      navigate("/auth/login", {
+        state: { from: location.pathname }
+      });
+      return;
+    }
+
     setSelectedClub(club);
     setOpenModal(true);
   };

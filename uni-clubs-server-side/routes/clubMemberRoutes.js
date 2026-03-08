@@ -18,7 +18,7 @@ router.patch("/reject/:id", verifyFbToken, verifyAdmin, clubMemberController.rej
 
 router.get("/status/:clubId", verifyFbToken, clubMemberController.getMyMembershipStatus);
 
-router.get("/club/:clubId", verifyFbToken, clubMemberController.getClubMembers);
+router.get("/club/:clubId", clubMemberController.getClubMembers);
 
 router.patch("/role/:id",verifyFbToken,verifyAdmin, clubMemberController.updateMemberRole);
 

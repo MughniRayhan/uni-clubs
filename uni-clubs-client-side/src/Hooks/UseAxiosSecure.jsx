@@ -3,15 +3,15 @@ import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router';
 import UseAuth from './UseAuth';
 
-    const   axiosSecure = axios.create({
-        baseURL: 'http://localhost:5000/api' 
-    })
+const axiosSecure = axios.create({
+  baseURL: `${import.meta.env.VITE_API_URL}`
+})
 
 function UseAxiosSecure() {
-  const {user,logOut} = UseAuth();
+  const { user, logOut } = UseAuth();
   const navigate = useNavigate();
- 
- useEffect(() => {
+
+  useEffect(() => {
     const requestInterceptor = axiosSecure.interceptors.request.use(
       async (config) => {
         if (user) {
@@ -24,7 +24,7 @@ function UseAxiosSecure() {
         return Promise.reject(error);
       }
     );
-const responseInterceptor = axiosSecure.interceptors.response.use(
+    const responseInterceptor = axiosSecure.interceptors.response.use(
       (res) => {
         return res;
       },
@@ -37,7 +37,7 @@ const responseInterceptor = axiosSecure.interceptors.response.use(
             .then(() => {
               navigate('/auth/login');
             })
-            .catch(() => {});
+            .catch(() => { });
         }
         return Promise.reject(error);
       }

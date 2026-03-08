@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import UseAuth from "../../Hooks/UseAuth";
+import Loader from "../../Components/Loader";
 
 const Events = () => {
     const axiosSecure = UseAxiosSecure();
     const [upcoming, setUpcoming] = useState([]);
     const [past, setPast] = useState([]);
     const [now, setNow] = useState(Date.now());
+    const [loading, setLoading] = useState(true);
     const { user } = UseAuth();
 
 
@@ -20,6 +22,7 @@ const Events = () => {
         const res = await axiosSecure.get("/events/approved");
         setUpcoming(res.data.upcoming);
         setPast(res.data.past);
+        setLoading(false);
     };
 
     const formatCountdown = (end) => {
@@ -48,6 +51,7 @@ const Events = () => {
             day: "numeric",
         });
 
+    if (loading) return <Loader />;
 
     const EventCard = ({ e }) => {
         const countdown = formatCountdown(e.registrationEnd);
@@ -66,35 +70,31 @@ const Events = () => {
                         📅 Event Date: {formatDate(e.eventDate)} at {e.time}
                     </p>
 
-                    {
-                        user && (
-                            <>
-                                {/* Countdown */}
-                                <p
-                                    className={`font-semibold ${countdown.closed
-                                        ? "text-red-500"
-                                        : "text-green-600"
-                                        }`}
-                                >
-                                    {countdown.text}
-                                </p>
 
-                                {
-                                    !countdown.closed && (
-                                        <button
-                                            disabled={countdown.closed}
-                                            className={`btn mt-2  ${countdown.closed
-                                                ? "btn-disabled"
-                                                : "btn-primary"
-                                                }`}
-                                        >
-                                            Register
-                                        </button>
-                                    )
-                                }
-                            </>
+                    {/* Countdown */}
+                    <p
+                        className={`font-semibold ${countdown.closed
+                            ? "text-red-500"
+                            : "text-green-600"
+                            }`}
+                    >
+                        {countdown.text}
+                    </p>
+
+                    {
+                        !countdown.closed && (
+                            <button
+                                disabled={countdown.closed}
+                                className={`btn mt-2  ${countdown.closed
+                                    ? "btn-disabled"
+                                    : "btn-primary"
+                                    }`}
+                            >
+                                Register
+                            </button>
                         )
                     }
+
                 </div>
             </div>
         );

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import Loader from "../../Components/Loader";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import JoinClubModal from "./JoinClubModal";
@@ -11,6 +11,8 @@ export default function Clubs() {
   const [openModal, setOpenModal] = useState(false);
   const [selectedClub, setSelectedClub] = useState(null);
   const { user } = UseAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const { data: clubs = [], isLoading } = useQuery({
     queryKey: ["approvedClubs"],
@@ -23,6 +25,14 @@ export default function Clubs() {
   if (isLoading) return <Loader />;
 
   const handleJoinClick = (club) => {
+
+    if (!user) {
+      navigate("/auth/login", {
+        state: { from: location.pathname }
+      });
+      return;
+    }
+
     setSelectedClub(club);
     setOpenModal(true);
   };
@@ -63,16 +73,15 @@ export default function Clubs() {
                   View Details
                 </Link>
 
-                {
-                  user && (
-                    <button
-                      className="btn btn-primary w-full"
-                      onClick={() => handleJoinClick(club)}
-                    >
-                      Join
-                    </button>
-                  )
-                }
+
+                <button
+                  className="btn btn-primary w-full"
+                  onClick={() => handleJoinClick(club)}
+                >
+                  Join
+                </button>
+
+
               </div>
             </div>
           </div>
