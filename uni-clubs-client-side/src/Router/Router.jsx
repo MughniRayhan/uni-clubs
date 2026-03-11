@@ -34,6 +34,10 @@ import HomeAbout from "../Pages/Home/AboutSection/HomeAbout";
 import PendingJoinRequest from "../Pages/DashBoard/ClubMembers/PendingJoinRequest";
 import ManageMembers from "../Pages/DashBoard/ClubMembers/ManageMembersPage";
 import ManageClubDetails from "../Pages/DashBoard/Clubs/ManageClubDetails";
+import PendingEventRegistration from "../Pages/DashBoard/LeaderDashboard/LeaderEvents/PendingEventRegistration";
+import ManageEventRegistrations from "../Pages/DashBoard/LeaderDashboard/LeaderEvents/ManageEventRegistrations";
+import EventParticipants from "../Pages/DashBoard/LeaderDashboard/LeaderEvents/EventParticipants";
+import RegisteredEvents from "../Pages/DashBoard/Events/RegisteredEvents";
 
 
 
@@ -120,6 +124,10 @@ export const router = createBrowserRouter([
         Component: MyClubs
       },
       {
+        path: 'registered-events',
+        Component: RegisteredEvents
+      },
+      {
         path: 'allUsers',
         Component: AllUsers
       },
@@ -154,6 +162,18 @@ export const router = createBrowserRouter([
       {
         path: 'myEvents',
         Component: MyEvents
+      },
+      {
+        path: 'pending-event-reg',
+        Component: PendingEventRegistration
+      },
+      {
+        path: 'all-event-reg',
+        Component: ManageEventRegistrations
+      },
+      {
+        path: 'event-participants/:eventId',
+        Component: EventParticipants
       },
       {
         path: 'leaderClubs',

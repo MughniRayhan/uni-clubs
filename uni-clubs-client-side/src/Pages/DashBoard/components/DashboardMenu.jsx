@@ -50,6 +50,9 @@ export const dashboardMenu = {
             children: [
                 { name: "Add Event", path: "/dashboard/addEvent" },
                 { name: "My Events", path: "/dashboard/myEvents" },
+                { name: "Pending Registrations", path: "/dashboard/pending-event-reg" },
+                { name: "Manage Registrations", path: "/dashboard/all-event-reg" },
+
             ],
         },
     ],
@@ -61,6 +64,14 @@ export const dashboardMenu = {
                 { name: "Create Club", path: "/dashboard/createClub" },
                 { name: "My Clubs", path: "/dashboard/myClubs" },
                 // { name: "Join Clubs", path: "/dashboard/joinClub" },
+            ],
+        },
+        {
+            title: "Events",
+            icon: VscDiffAdded,
+            children: [
+                { name: "Registered Events", path: "/dashboard/registered-events" },
+
             ],
         },
     ],
