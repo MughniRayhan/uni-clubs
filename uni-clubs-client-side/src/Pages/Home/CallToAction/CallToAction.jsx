@@ -5,7 +5,7 @@ import { Link } from "react-router";
 export default function CallToAction() {
   const { user } = UseAuth();
   return (
-    <section className="relative overflow-hidden bg-gray-900 text-white py-20 mt-10">
+    <section className="relative overflow-hidden bg-gray-900 text-white py-20 ">
       {/* Animated Blobs Background */}
       <motion.div
         className="absolute top-10 left-10 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl"

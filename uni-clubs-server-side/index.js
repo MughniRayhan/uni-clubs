@@ -10,6 +10,7 @@ const clubRoutes = require("./routes/clubRoutes");
 const eventRoutes = require("./routes/eventRoutes");
 const clubMemberRoutes = require("./routes/clubMemberRoutes");
 const eventRegistrationRoutes = require("./routes/eventRegistrationRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
 
 const app = express();
 connectDB();
@@ -25,6 +26,7 @@ app.use('/api', clubRoutes);
 app.use('/api/events', eventRoutes);
 app.use("/api/club-members", clubMemberRoutes);
 app.use("/api/event-registration", eventRegistrationRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 app.get("/", (req, res) => {
   res.send("Uni-Clubs API is running...");

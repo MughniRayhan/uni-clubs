@@ -1,16 +1,16 @@
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { Link, NavLink } from "react-router";
 import UseAuth from "../../Hooks/UseAuth";
-import Logo from "../../../src/Shared/Logo/Logo";
+import Logo from "../../assets/logo.png";
 
 
 
 export default function Footer() {
-    const {user} = UseAuth();
+  const { user } = UseAuth();
 
-       const NavList = (
-    <> 
-      <NavLink  to="/" >Home</NavLink>
+  const NavList = (
+    <>
+      <NavLink to="/" >Home</NavLink>
       <NavLink to="/Clubs">Clubs</NavLink>
       <NavLink to="/About">About</NavLink>
       <NavLink to="/Events">Events</NavLink>
@@ -18,30 +18,31 @@ export default function Footer() {
       {user && (
 
         <>
-        
-        <NavLink to="/Dashboard">Dashboard</NavLink>
+
+          <NavLink to="/Dashboard">Dashboard</NavLink>
 
         </>
       )}
-     
+
     </>
   );
 
   return (
     <footer className="bg-primary  pt-12 pb-6 text-white">
       <div className="max-w-7xl mx-auto sm:px-20 px-6 flex flex-col md:flex-row justify-between  gap-10">
-        
+
         {/* Brand / About */}
         <div className="space-y-4 md:w-1/3">
           <Link to='/' className="flex items-center ">
-                <img 
-  src={Logo} 
-  alt="Logo"z
-  style={{ filter: "brightness(0) invert(1)" }} 
-/>
-           </Link>
+            <img
+              src={Logo}
+              alt="Logo"
+              className=' h-12 '
+              style={{ filter: "brightness(0) invert(1)" }}
+            />
+          </Link>
           <p className="text-gray-200 text-sm">
-            Uni-Clubs is a centralized platform for managing university clubs and 
+            Uni-Clubs is a centralized platform for managing university clubs and
             events — making student engagement simpler, smarter, and more connected.
           </p>
         </div>
@@ -61,7 +62,7 @@ export default function Footer() {
             <a href="https://www.facebook.com/metropolitanuniversity/" className="hover:text-gray-400 transition text-2xl"><FaFacebookF /></a>
             <a href="#" className="hover:text-gray-400 transition text-2xl"><FaTwitter /></a>
             <a href="https://www.linkedin.com/school/metrouni-edu-bd/" className="hover:text-gray-400  transition text-2xl"><FaLinkedinIn /></a>
-            
+
           </div>
         </div>
       </div>
