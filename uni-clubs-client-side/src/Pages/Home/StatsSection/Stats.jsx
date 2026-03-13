@@ -11,7 +11,7 @@ const stats = [
 
 export default function Stats() {
   return (
-    <section className="bg-base-100 py-20">
+    <section className="bg-base-100 lg:py-24 py-20">
       <div className="max-w-6xl mx-auto px-6 text-center">
 
         {/* Section Title */}
@@ -20,7 +20,7 @@ export default function Stats() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-5xl text-center bg-gradient-to-tl from-black via-primary to-secondary/50 bg-clip-text text-transparent font-bold mb-12"
+          className="text-3xl md:text-7xl text-center bg-gradient-to-tl from-black via-primary to-secondary/50 bg-clip-text text-transparent font-bold mb-16"
         >
           Our <span className="text-primary">Impact</span> in Numbers
         </motion.h2>
@@ -42,7 +42,7 @@ export default function Stats() {
                 whileInView={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 viewport={{ once: true }}
-                className="text-3xl md:text-4xl font-extrabold text-gray-900"
+                className="text-3xl md:text-4xl font-bold text-gray-900"
               >
                 <CountUp end={stat.value} duration={3} />{stat.suffix}
               </motion.h3>

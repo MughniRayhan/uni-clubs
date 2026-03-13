@@ -33,7 +33,7 @@ export default function Banner() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-4xl md:text-6xl font-extrabold leading-tight w-full lg:w-180"
+            className="text-4xl md:text-7xl font-bold leading-tight w-full lg:w-180"
           >
             One Portal for All <span className="bg-gradient-to-r from-blue-300 via-green-100 to-blue-300 bg-clip-text text-transparent">University Clubs</span> & Events
           </motion.h1>
@@ -44,8 +44,7 @@ export default function Banner() {
             transition={{ duration: 1, delay: 0.2 }}
             className="text-lg md:text-xl text-gray-200 max-w-xl"
           >
-            Discover, join, and engage with your university’s clubs and events
-            — all in one centralized platform designed for students, leaders, and admins.
+            Discover, join, and engage with your university’s clubs and events - all in one centralized platform designed for students, leaders, and admins.
           </motion.p>
 
           <motion.div

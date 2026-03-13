@@ -11,7 +11,8 @@ const {
   rejectRegistration,
   getEventParticipants,
   getMyRegistrations,
-  getLeaderEvents
+  getLeaderEvents,
+  getRegistrationStatus
 } = require("../controllers/eventRegistrationController");
 
 
@@ -34,5 +35,7 @@ router.get("/my-registrations",verifyFbToken,getMyRegistrations);
 
 // 
 router.get("/leader/events", verifyFbToken,verifyLeader, getLeaderEvents);
+router.get("/status/:eventId", verifyFbToken, getRegistrationStatus);
+
 
 module.exports = router;

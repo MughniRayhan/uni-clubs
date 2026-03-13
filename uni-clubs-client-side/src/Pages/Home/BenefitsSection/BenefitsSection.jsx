@@ -19,12 +19,12 @@ const BenefitsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-3xl md:text-5xl text-center bg-gradient-to-tl from-black via-primary to-secondary/50 bg-clip-text text-transparent font-bold mb-4"
+          className="text-3xl md:text-7xl text-center bg-gradient-to-tl from-black via-primary to-secondary/50 bg-clip-text text-transparent font-bold mb-4"
         >
-          Benefits of UniClubs
+          Benefits of University Clubs
         </motion.h2>
 
-        <div className="lg:flex lg:gap-12 mt-12 items-center">
+        <div className="lg:flex lg:gap-12 mt-14 items-center">
           <div className="relative lg:w-1/2 ">
             {/* Vertical Line */}
             <div className="absolute left-0 transform -translate-x-1/2 w-1 h-full bg-gradient-to-r from-primary to-secondary"></div>

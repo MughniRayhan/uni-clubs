@@ -105,11 +105,11 @@ const AddEvent = () => {
         initial={{ opacity: 0, y: 60 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="bg-white w-full max-w-4xl rounded-2xl shadow-2xl p-8 border-t-4 border-[#036666]"
+        className="bg-white w-full max-w-4xl rounded-2xl shadow-2xl p-8 "
       >
         {/* Heading */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-[#036666]">Add Event</h1>
+          <h1 className="text-3xl font-bold text-primary">Add Event</h1>
           <p className="text-gray-500 mt-2">
             Fill in the details to create and publish your event
           </p>
@@ -284,7 +284,7 @@ const AddEvent = () => {
               name="banner"
               type="file"
               onChange={(e) => setBannerFile(e.target.files[0])}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg file:cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-[#036666] file:text-white hover:file:bg-[#024f4f]"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg file:cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-secondary file:text-white hover:file:bg-[#024f4f]"
             />
           </div>
 
@@ -293,7 +293,7 @@ const AddEvent = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             type="submit"
-            className="w-full py-3 rounded-lg bg-[#036666] text-white font-bold shadow-lg hover:shadow-xl transition-all cursor-pointer"
+            className="w-full py-3 rounded-lg bg-primary text-white font-bold shadow-lg hover:shadow-xl transition-all cursor-pointer"
           >
             Add Event
           </motion.button>

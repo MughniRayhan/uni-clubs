@@ -38,63 +38,65 @@ export default function Clubs() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-16">
-      <h2 className="text-4xl font-bold text-center mb-4">
-        Explore Our Official University Clubs
-      </h2>
+    <div className="bg-gradient-to-br from-blue-50 via-white to-blue-50">
+      <div className="max-w-7xl mx-auto px-6 py-16">
+        <h2 className="text-4xl font-bold text-center mb-4">
+          Explore Our Official University Clubs
+        </h2>
 
-      <p className="text-center text-gray-500 max-w-2xl mx-auto mb-12">
-        Discover communities that match your passion and field of interest.
-      </p>
+        <p className="text-center text-gray-500 max-w-2xl mx-auto mb-12">
+          Discover communities that match your passion and field of interest.
+        </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {clubs.map((club) => (
-          <div
-            key={club._id}
-            className="bg-white shadow-xl rounded-2xl border-t-2 border-secondary"
-          >
-            <img
-              src={club.coverImage}
-              alt={club.name}
-              className="h-48 w-full object-cover rounded-t-2xl"
-            />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {clubs.map((club) => (
+            <div
+              key={club._id}
+              className="bg-white shadow-xl rounded-2xl border-t-2 border-secondary"
+            >
+              <img
+                src={club.coverImage}
+                alt={club.name}
+                className="h-48 w-full object-cover rounded-t-2xl"
+              />
 
-            <div className="p-6 space-y-3">
-              <h3 className="text-2xl font-bold">{club.name}</h3>
-              <p className="text-gray-600 line-clamp-2">
-                {club.description}
-              </p>
+              <div className="p-6 space-y-3">
+                <h3 className="text-2xl font-bold">{club.name}</h3>
+                <p className="text-gray-600 line-clamp-2">
+                  {club.description}
+                </p>
 
-              <div className="pt-4 grid grid-cols-2 gap-3">
-                <Link
-                  to={`/clubs/${club._id}`}
-                  className="btn btn-outline w-full"
-                >
-                  View Details
-                </Link>
-
-
-                <button
-                  className="btn btn-primary w-full"
-                  onClick={() => handleJoinClick(club)}
-                >
-                  Join
-                </button>
+                <div className="pt-4 grid grid-cols-2 gap-3">
+                  <Link
+                    to={`/clubs/${club._id}`}
+                    className="btn btn-outline w-full"
+                  >
+                    View Details
+                  </Link>
 
 
+                  <button
+                    className="btn btn-primary w-full"
+                    onClick={() => handleJoinClick(club)}
+                  >
+                    Join
+                  </button>
+
+
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      {/* JOIN MODAL */}
-      {openModal && selectedClub && (
-        <JoinClubModal
-          club={selectedClub}
-          closeModal={() => setOpenModal(false)}
-        />
-      )}
+        {/* JOIN MODAL */}
+        {openModal && selectedClub && (
+          <JoinClubModal
+            club={selectedClub}
+            closeModal={() => setOpenModal(false)}
+          />
+        )}
+      </div>
     </div>
   );
 }

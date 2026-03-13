@@ -10,7 +10,7 @@ const fadeUp = {
 const Overview = () => {
   return (
 
-    <section className="bg-[#f4f6f9] mb-15">
+    <section className="bg-white ">
       <div className="relative w-full h-[400px] md:h-[500px]">
         <img
           src={aboutBanner}
@@ -26,23 +26,23 @@ const Overview = () => {
         </div>
       </div>
       {/* ================= ACADEMIC & STUDENT INFO ================= */}
-      <section className="bg-[#f4f6f9] py-20">
+      <section className="bg-white py-20">
         <div className="max-w-screen-xl mx-auto px-6 space-y-16">
           {/* Academic Departments */}
           <div>
-            <h2 className="text-2xl md:text-3xl font-bold text-blue-900 mb-6 border-l-4 border-blue-800 pl-4">
+            <h2 className="text-2xl md:text-4xl font-semibold text-blue-900 mb-6 border-l-4 border-blue-800 pl-4">
               Academic Departments
             </h2>
 
             <div className="grid md:grid-cols-2 gap-6 text-gray-700 text-sm">
-              <ul className="border text-xl rounded-lg p-4 space-y-1">
+              <ul className="border border-gray-300 text-lg rounded-lg p-4 space-y-1">
                 <li>Science & Technology</li>
                 <li>Computer Science & Engineering (CSE)</li>
                 <li>Software Engineering</li>
                 <li>Data Science</li>
                 <li>Electrical & Electronic Engineering (EEE)</li>
               </ul>
-              <ul className="border rounded-lg p-4  text-xl space-y-1">
+              <ul className="border  border-gray-300 rounded-lg p-4  text-lg space-y-1">
                 <li>Business & Humanities</li>
                 <li>Business Administration</li>
                 <li>Economics</li>
@@ -55,13 +55,13 @@ const Overview = () => {
 
           {/* Offered Degree Programmes */}
           <div>
-            <h2 className="text-2xl md:text-3xl font-bold text-blue-900 mb-6 border-l-4 border-blue-800 pl-4">
+            <h2 className="text-2xl md:text-4xl font-semibold text-blue-900 mb-6 border-l-4 border-blue-800 pl-4 mt-4">
               Offered Degree Programmes
             </h2>
 
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border border-gray-300">
-                <thead className="bg-blue-900 text-white">
+            <div className="overflow-x-auto rounded">
+              <table className="w-full text-left border border-gray-300 rounded">
+                <thead className="bg-blue-900 text-white rounded-xl">
                   <tr>
                     <th className="px-4  text-xl py-2">Category</th>
                     <th className="px-4 text-xl  py-2">Programmes Offered</th>
@@ -69,7 +69,7 @@ const Overview = () => {
                 </thead>
                 <tbody className="bg-white text-gray-900">
                   <tr className="border-b border-gray-300">
-                    <td className="px-4 tex-xl py-2 font-semibold">Honours</td>
+                    <td className="px-4  py-2 font-semibold">Honours</td>
                     <td className="px-4 py-2">
                       BSc. in CSE, Software Engineering, EEE, ETC; BBA, B.A.
                       (Hons.) in English, BSS in Economics, LL.B. (Hons.)
@@ -99,11 +99,11 @@ const Overview = () => {
 
           {/* Student Life & Organizations */}
           <div>
-            <h2 className="text-2xl md:text-3xl font-bold text-blue-900 mb-6 border-l-4 border-blue-800 pl-4">
+            <h2 className="text-2xl  md:text-4xl font-semibold mt-4 text-blue-900 mb-6 border-l-4 border-blue-800 pl-4">
               Student Life & Organizations
             </h2>
 
-            <p className="text-gray-700 mb-4 text-[16px]">
+            <p className="text-gray-700 mb-4 ">
               We believe in the holistic development of our students. The
               following organizations actively engage students in leadership,
               culture, and social service:
@@ -131,11 +131,11 @@ const Overview = () => {
 
           {/* Scholarships & Financial Aid */}
           <div>
-            <h2 className="text-2xl md:text-3xl font-bold text-blue-900 mb-6 border-l-4 border-blue-800 pl-4">
+            <h2 className="text-2xl  md:text-4xl font-semibold mt-4 text-blue-900 mb-6 border-l-4 border-blue-800 pl-4">
               Scholarships & Financial Aid
             </h2>
 
-            <div className="grid md:grid-cols-2 gap-6 text-gray-700 text-xl">
+            <div className="grid md:grid-cols-2 gap-6 text-gray-700 ">
               <div>
                 <p>
                   <strong>Merit Based:</strong> Chairman’s & VC’s Merit
@@ -168,7 +168,7 @@ const Overview = () => {
           </div>
 
           {/* Legacy of Excellence */}
-          <div className="bg-blue-900 text-white rounded-lg p-8 text-center">
+          <div className="bg-blue-900 text-white rounded-lg p-8 text-center mt-10">
             <h3 className="text-xl md:text-2xl font-bold mb-4">
               A Legacy of Excellence
             </h3>

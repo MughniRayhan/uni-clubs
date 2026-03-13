@@ -1,6 +1,7 @@
 import { useState } from "react";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import UseAuth from "../../Hooks/UseAuth";
+import { toast } from "react-toastify";
 
 export default function EventRegisterModal({ event, close }) {
     const axiosSecure = UseAxiosSecure();
@@ -18,7 +19,7 @@ export default function EventRegisterModal({ event, close }) {
 
         try {
             const res = await axiosSecure.post(`/event-registration/register/${event._id}`, form);
-            alert(res.data.message);
+            toast.success(res.data.message);
             close();
         } catch (err) {
             alert(err.response?.data?.message);

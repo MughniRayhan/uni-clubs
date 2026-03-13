@@ -212,6 +212,26 @@ const getLeaderEvents = async (req, res) => {
   }
 };
 
+// GET /event-registration/status/:eventId
+const getRegistrationStatus = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.decoded.email });
+    const { eventId } = req.params;
+
+    const registration = await EventRegistration.findOne({
+      user: user._id,
+      event: eventId
+    });
+
+    res.json({
+      success: true,
+      status: registration ? registration.status : null
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
 module.exports = {
     registerEvent,
     getPendingRegistrations,
@@ -219,5 +239,6 @@ module.exports = {
     rejectRegistration,
     getEventParticipants,
     getMyRegistrations,
-    getLeaderEvents
+    getLeaderEvents,
+    getRegistrationStatus
 }

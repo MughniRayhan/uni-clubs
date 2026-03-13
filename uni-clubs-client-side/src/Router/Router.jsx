@@ -38,6 +38,7 @@ import PendingEventRegistration from "../Pages/DashBoard/LeaderDashboard/LeaderE
 import ManageEventRegistrations from "../Pages/DashBoard/LeaderDashboard/LeaderEvents/ManageEventRegistrations";
 import EventParticipants from "../Pages/DashBoard/LeaderDashboard/LeaderEvents/EventParticipants";
 import RegisteredEvents from "../Pages/DashBoard/Events/RegisteredEvents";
+import EventDetails from "../Pages/Events/EventDetails";
 
 
 
@@ -69,6 +70,10 @@ export const router = createBrowserRouter([
       {
         path: '/events',
         Component: Events
+      },
+      {
+        path: '/events/:eventId',
+        Component: EventDetails
       },
       {
         path: '/about',

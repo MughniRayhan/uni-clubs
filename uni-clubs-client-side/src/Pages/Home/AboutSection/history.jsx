@@ -24,7 +24,7 @@ const History = () => {
 
   return (
     <>
-      {/* 🔥 Banner Section (Added) */}
+      {/*  Banner Section (Added) */}
       <div className="relative w-full h-[400px] md:h-[500px]">
         <img
           src={aboutBanner}
@@ -46,11 +46,11 @@ const History = () => {
 
           {/* Section Title */}
           <div className="mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-               History
+            <h2 className="text-3xl text-center md:text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              History
             </h2>
 
-            <p className="text-gray-700 lg:text-xl lg:ml-20 mt-4 max-w-6xl leading-relaxed">
+            <p className="text-gray-700 lg:text-lg  my-5 text-center max-w-6xl leading-relaxed">
               A remarkable fact about Bangladesh is that its economy is growing
               rapidly as is its large youthful population. 34 percent of its 160
               million people are aged 15 or younger, and the country has an
@@ -87,7 +87,7 @@ const History = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
                 viewport={{ once: true }}
-                className="relative bg-base-200 p-8 rounded-2xl
+                className="relative bg-base-200 p-8 rounded-2xl shadow
                            border border-transparent
                            hover:border-primary
                            hover:shadow-2xl

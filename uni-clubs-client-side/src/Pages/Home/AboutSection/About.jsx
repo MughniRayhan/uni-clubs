@@ -40,16 +40,7 @@ export default function About() {
         data-aos-duration="2000"
       >
         <div className="max-w-6xl mx-auto px-6 text-center">
-          {/* Title */}
-          <motion.h2
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-5xl bg-gradient-to-tl from-black via-primary to-secondary/50 bg-clip-text text-transparent font-bold mb-4"
-          >
-            About Us
-          </motion.h2>
+
 
           {/* Description */}
           <motion.p
@@ -66,7 +57,7 @@ export default function About() {
 
           {/* Mission & Vision */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-            <div className="card bg-base-200 shadow-lg hover:shadow-xl transition rounded-2xl p-10 space-y-4 text-left">
+            <div className="card bg-white shadow-lg hover:shadow-xl transition rounded-2xl p-10 space-y-4 text-left">
               <FaBullseye className="w-10 h-10 text-primary" />
               <h3 className="text-2xl font-semibold">Our Mission</h3>
               <p className="text-gray-600">
@@ -81,7 +72,7 @@ export default function About() {
               </p>
             </div>
 
-            <div className="card bg-base-200 shadow-lg hover:shadow-xl transition rounded-2xl p-10 space-y-4 text-left">
+            <div className="card bg-white shadow-lg hover:shadow-xl transition rounded-2xl p-10 space-y-4 text-left">
               <FaEye className="w-10 h-10 text-primary" />
               <h3 className="text-2xl font-semibold">Our Vision</h3>
               <p className="text-gray-600">

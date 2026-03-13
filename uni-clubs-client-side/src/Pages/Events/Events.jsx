@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import UseAuth from "../../Hooks/UseAuth";
 import Loader from "../../Components/Loader";
+import eventsBg from "../../assets/bg.jpg";
 import EventRegisterModal from "./EventRegisterModal";
 import jsPDF from "jspdf";
 
@@ -14,16 +15,16 @@ const EventCard = ({
     formatDate,
     formatCountdown,
     handleRegister,
-    downloadTicket
+    downloadTicket,
+    navigate
 }) => {
     const countdown = formatCountdown(event.registrationEnd);
-    console.log("first", status)
     const renderButton = () => {
-        if (countdown.closed) return null;
+        // if (countdown.closed) return null;
 
         if (status === "pending") {
             return (
-                <button className="btn btn-warning mt-2" disabled>
+                <button className="btn btn-warning " disabled>
                     Request Sent
                 </button>
             );
@@ -31,10 +32,10 @@ const EventCard = ({
 
         if (status === "approved") {
             return (
-                <div className="flex gap-2 mt-2">
-                    <button className="btn btn-primary " disabled >
+                <div className="flex gap-2 ">
+                    {/* <button className="btn btn-primary " disabled >
                         Registered
-                    </button>
+                    </button> */}
                     <button
                         className="btn btn-outline btn-primary"
                         onClick={() => downloadTicket(event)}
@@ -47,7 +48,7 @@ const EventCard = ({
 
         return (
             <button
-                className="btn btn-primary mt-2"
+                className="btn btn-primary "
                 onClick={() => handleRegister(event)}
             >
                 Register
@@ -56,11 +57,12 @@ const EventCard = ({
     };
 
     return (
-        <div className="card bg-white shadow-md rounded-2xl h-full">
-            <img src={event.banner} className="h-40 object-cover" />
+
+        <div className="card bg-white shadow-md rounded-2xl h-full border-t-2 border-primary">
+            {/* <img src={event.banner} className="h-40 object-cover" /> */}
 
             <div className="p-4 space-y-2">
-                <h3 className="font-bold text-lg">{event.title}</h3>
+                <h3 className="font-bold text-lg py-2 border-b border-gray-200">{event.title}</h3>
 
                 <p className="text-sm text-gray-600">{event.shortDescription}</p>
 
@@ -75,7 +77,19 @@ const EventCard = ({
                     {countdown.text}
                 </p>}
 
-                {renderButton()}
+
+                <div className="flex items-center  gap-2 mt-4">
+                    <button
+                        className="btn btn-outline btn-primary"
+                        onClick={() => navigate(`/events/${event._id}`)}
+                    >
+                        View
+                    </button>
+
+                    <div>
+                        {renderButton()}
+                    </div>
+                </div>
             </div>
         </div>
     );
@@ -115,16 +129,19 @@ const Events = () => {
                 setPast(eventsRes.data.past);
 
                 if (user) {
-                    const regRes = await axiosSecure.get("/event-registration/my-registrations");
+                    // Fetch status for each upcoming event
+                    const statusMap = {};
 
-                    const map = {};
+                    await Promise.all(
+                        eventsRes.data.upcoming.map(async (event) => {
+                            const res = await axiosSecure.get(
+                                `/event-registration/status/${event._id}`
+                            );
+                            statusMap[event._id] = res.data.status;
+                        })
+                    );
 
-                    regRes.data.data.forEach((r) => {
-                        const eventId = typeof r.event === "object" ? r.event._id : r.event;
-                        map[eventId] = r.status;
-                    });
-
-                    setRegistrations(map);
+                    setRegistrations(statusMap);
                 }
             } catch (err) {
                 console.error("Error fetching events:", err);
@@ -198,49 +215,55 @@ const Events = () => {
     if (loading) return <Loader />;
 
     return (
-        <div className="max-w-7xl mx-auto px-6 py-16">
-            <h2 className="text-2xl font-bold mb-12">Upcoming Events</h2>
 
-            <div className="grid md:grid-cols-3 gap-10">
-                {upcoming.map((event) => (
-                    <EventCard
-                        key={event._id}
-                        event={event}
-                        status={registrations[event._id]}
-                        formatDate={formatDate}
-                        formatCountdown={formatCountdown}
-                        handleRegister={handleRegister}
-                        downloadTicket={downloadTicket}
+        <div className="bg-gradient-to-br from-blue-50 via-white to-blue-100">
+
+            <div className="max-w-7xl mx-auto px-6 py-16 ">
+                <h2 className="text-2xl font-bold mb-12">Upcoming Events</h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    {upcoming.map((event) => (
+                        <EventCard
+                            key={event._id}
+                            event={event}
+                            status={registrations[event._id]}
+                            formatDate={formatDate}
+                            formatCountdown={formatCountdown}
+                            handleRegister={handleRegister}
+                            downloadTicket={downloadTicket}
+                            navigate={navigate}
+                        />
+                    ))}
+                </div>
+
+                {past.length > 0 && (
+                    <>
+                        <h2 className="text-2xl font-bold my-12">Past Events</h2>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 opacity-70">
+                            {past.map((event) => (
+                                <EventCard
+                                    key={event._id}
+                                    event={event}
+                                    status={registrations[event._id]}
+                                    formatDate={formatDate}
+                                    formatCountdown={formatCountdown}
+                                    handleRegister={handleRegister}
+                                    downloadTicket={downloadTicket}
+                                    navigate={navigate}
+                                />
+                            ))}
+                        </div>
+                    </>
+                )}
+
+                {openModal && selectedEvent && (
+                    <EventRegisterModal
+                        event={selectedEvent}
+                        close={() => setOpenModal(false)}
                     />
-                ))}
+                )}
             </div>
-
-            {past.length > 0 && (
-                <>
-                    <h2 className="text-2xl font-bold my-12">Past Events</h2>
-
-                    <div className="grid md:grid-cols-3 gap-10 opacity-70">
-                        {past.map((event) => (
-                            <EventCard
-                                key={event._id}
-                                event={event}
-                                status={registrations[event._id]}
-                                formatDate={formatDate}
-                                formatCountdown={formatCountdown}
-                                handleRegister={handleRegister}
-                                downloadTicket={downloadTicket}
-                            />
-                        ))}
-                    </div>
-                </>
-            )}
-
-            {openModal && selectedEvent && (
-                <EventRegisterModal
-                    event={selectedEvent}
-                    close={() => setOpenModal(false)}
-                />
-            )}
         </div>
     );
 };

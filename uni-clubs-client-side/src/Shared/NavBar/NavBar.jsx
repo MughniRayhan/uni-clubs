@@ -45,17 +45,6 @@ const NavBar = () => {
       </NavLink>
 
       <NavLink
-        to="/About"
-        className={({ isActive }) =>
-          isActive
-            ? "text-primary border-b-2 border-primary font-semibold sm:text-xl"
-            : "text-primary font-semibold sm:text-xl"
-        }
-      >
-        About
-      </NavLink>
-
-      <NavLink
         to="/events"
         className={({ isActive }) =>
           isActive
@@ -66,7 +55,16 @@ const NavBar = () => {
         Events
       </NavLink>
 
-
+      <NavLink
+        to="/About"
+        className={({ isActive }) =>
+          isActive
+            ? "text-primary border-b-2 border-primary font-semibold sm:text-xl"
+            : "text-primary font-semibold sm:text-xl"
+        }
+      >
+        About Us
+      </NavLink>
     </>
   );
 

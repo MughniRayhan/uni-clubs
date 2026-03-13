@@ -35,7 +35,7 @@ router.post("/create/:clubId", verifyFbToken, createEvent);
 
 // -------- DYNAMIC ROUTES ---------
 // Get single event by ID
-router.get("/id/:eventId", getEventById);
+router.get("/:eventId", getEventById);
 
 // Admin approve/reject/delete
 router.patch("/id/:eventId/approve", verifyFbToken, verifyAdmin, approveEvent);

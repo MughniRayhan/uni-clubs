@@ -21,7 +21,7 @@ const HomeAbout = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl bg-gradient-to-tl from-black via-primary to-secondary/50 bg-clip-text text-transparent font-bold mb-4"
+            className="text-3xl md:text-7xl bg-gradient-to-tl from-black via-primary to-secondary/50 bg-clip-text text-transparent font-bold mb-4"
           >
             About Us
           </motion.h2>
