@@ -10,7 +10,7 @@ const createAnnouncement = async (req, res) => {
     let fileName = "";
 
     if (req.file) {
-      fileUrl = `/uploads/${req.file.filename}`;
+      fileUrl = req.file.path;
       fileName = req.file.originalname;
     }
 
@@ -92,7 +92,7 @@ const updateAnnouncement = async (req, res) => {
     };
 
     if (req.file) {
-      updateData.fileUrl = `/uploads/${req.file.filename}`;
+      updateData.fileUrl = req.file.path;
       updateData.fileName = req.file.originalname;
     }
 

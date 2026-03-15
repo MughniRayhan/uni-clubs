@@ -23,7 +23,7 @@ function Login() {
         navigate(location.state?.from || "/dashboard", { replace: true });
       })
       .catch((error) => {
-        console.error(error.message);
+        toast.error(error.message);
       })
   }
 

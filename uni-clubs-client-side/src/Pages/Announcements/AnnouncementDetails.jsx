@@ -54,7 +54,7 @@ const AnnouncementDetails = () => {
                 {announcement.fileUrl && (
 
                     <a
-                        href={`http://localhost:5000${announcement.fileUrl}`}
+                        href={`${announcement.fileUrl}?fl_attachment`}
                         download
                         target="_blank"
                         rel="noreferrer"
