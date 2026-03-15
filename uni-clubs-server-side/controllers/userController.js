@@ -35,33 +35,52 @@ const createUser = async (req, res) => {
 // get all users
 const getAllUsers = async (req, res) => {
   try {
-    const { search = "", role = "" } = req.query;
+    const {
+      search = "",
+      role = "",
+      page = 1,
+      limit = 10
+    } = req.query;
 
     const query = {};
 
-    //  Search by name or email
+    // Search by name or email
     if (search.trim()) {
       query.$or = [
         { displayName: { $regex: search.trim(), $options: "i" } },
-        { email: { $regex: search.trim(), $options: "i" } },
+        { email: { $regex: search.trim(), $options: "i" } }
       ];
     }
 
-    // Filter by role
+    // Role filter
     if (role && role !== "all") {
       query.role = role;
     }
 
+    const pageNumber = parseInt(page);
+    const limitNumber = parseInt(limit);
+
+    const totalUsers = await User.countDocuments(query);
+
     const users = await User.find(query)
       .sort({ creation_date: -1 })
+      .skip((pageNumber - 1) * limitNumber)
+      .limit(limitNumber)
       .lean();
 
-    res.status(200).json(users);
+    res.status(200).json({
+      users,
+      totalUsers,
+      totalPages: Math.ceil(totalUsers / limitNumber),
+      currentPage: pageNumber
+    });
+
   } catch (error) {
     console.error("Error fetching users:", error);
     res.status(500).json({ message: "Failed to fetch users" });
   }
 };
+
 // make admin
 const makeAdmin = async (req, res) => {
   const { id } = req.params;

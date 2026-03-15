@@ -108,6 +108,9 @@ const Events = () => {
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [openModal, setOpenModal] = useState(false);
 
+    const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState("");
+
     const [now, setNow] = useState(Date.now());
 
     // countdown timer
@@ -119,11 +122,26 @@ const Events = () => {
         return () => clearInterval(timer);
     }, []);
 
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const res = await axiosSecure.get("/clubs/categories");
+                setCategories(res.data.data);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchCategories();
+    }, []);
+
     // fetch events
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const eventsRes = await axiosSecure.get("/events/approved");
+                const eventsRes = await axiosSecure.get(
+                    `/events/approved${selectedCategory ? `?category=${selectedCategory}` : ""}`
+                );
 
                 setUpcoming(eventsRes.data.upcoming);
                 setPast(eventsRes.data.past);
@@ -151,7 +169,9 @@ const Events = () => {
         };
 
         fetchData();
-    }, [user, axiosSecure]);
+    }, [user, axiosSecure, selectedCategory]);
+
+
 
     const handleRegister = (event) => {
         if (!user) {
@@ -219,7 +239,27 @@ const Events = () => {
         <div className="bg-gradient-to-br from-blue-50 via-white to-blue-100">
 
             <div className="max-w-7xl mx-auto px-6 py-16 ">
-                <h2 className="text-2xl font-bold mb-12">Upcoming Events</h2>
+
+                <div className="flex items-center justify-between mb-12">
+                    <h2 className="text-2xl font-bold">Upcoming Events</h2>
+
+                    {/* filter */}
+                    <div>
+                        <select
+                            className="select select-bordered"
+                            value={selectedCategory}
+                            onChange={(e) => setSelectedCategory(e.target.value)}
+                        >
+                            <option value="">Select category</option>
+
+                            {categories.map((cat) => (
+                                <option key={cat} value={cat}>
+                                    {cat}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {upcoming.map((event) => (

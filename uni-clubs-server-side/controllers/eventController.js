@@ -66,10 +66,26 @@ const createEvent = async (req, res) => {
 // Get all approved events (public)
 const getEvents = async (req, res) => {
   try {
+    const { category } = req.query;
+
     const now = new Date();
 
-    const events = await Event.find({ status: "approved" })
-      .populate("club", "name coverImage")
+    let clubFilter = { status: "approved" };
+
+    if (category) {
+      clubFilter.category = category;
+    }
+
+    // get clubs by category
+    const clubs = await Club.find(clubFilter).select("_id");
+
+    const clubIds = clubs.map(c => c._id);
+
+    const events = await Event.find({
+      status: "approved",
+      club: { $in: clubIds }
+    })
+      .populate("club", "name coverImage category")
       .sort({ eventDate: 1 });
 
     const upcoming = events.filter(e => e.eventDate > now);
@@ -80,6 +96,7 @@ const getEvents = async (req, res) => {
       upcoming,
       past,
     });
+
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }

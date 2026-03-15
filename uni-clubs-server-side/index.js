@@ -8,6 +8,7 @@ const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
 const clubRoutes = require("./routes/clubRoutes");
 const eventRoutes = require("./routes/eventRoutes");
+const announcementRoutes = require("./routes/announcementRoutes");
 const clubMemberRoutes = require("./routes/clubMemberRoutes");
 const eventRegistrationRoutes = require("./routes/eventRegistrationRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
@@ -25,10 +26,12 @@ const PORT = process.env.PORT || 8000;
 app.use('/api', userRoutes);
 app.use('/api', clubRoutes);
 app.use('/api/events', eventRoutes);
+app.use("/api/announcements", announcementRoutes);
 app.use("/api/club-members", clubMemberRoutes);
 app.use("/api/event-registration", eventRegistrationRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use('/api', chatRoutes);
+app.use("/uploads", express.static("uploads"));
 
 app.get("/", (req, res) => {
   res.send("Uni-Clubs API is running...");

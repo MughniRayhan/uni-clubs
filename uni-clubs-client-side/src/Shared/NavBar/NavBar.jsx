@@ -65,6 +65,17 @@ const NavBar = () => {
       >
         About Us
       </NavLink>
+
+      <NavLink
+        to="/announcements"
+        className={({ isActive }) =>
+          isActive
+            ? "text-primary border-b-2 border-primary font-semibold sm:text-xl"
+            : "text-primary font-semibold sm:text-xl"
+        }
+      >
+        Announcements
+      </NavLink>
     </>
   );
 

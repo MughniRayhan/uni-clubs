@@ -35,6 +35,13 @@ export const dashboardMenu = {
                 { name: "All Events", path: "/dashboard/all-events" },
             ],
         },
+        {
+            title: "Announcements",
+            icon: VscDiffAdded,
+            children: [
+                { name: "All Announcements", path: "/dashboard/announcements" },
+            ],
+        },
     ],
     leader: [
         {

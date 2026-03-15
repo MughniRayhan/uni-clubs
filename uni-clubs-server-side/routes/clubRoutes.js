@@ -20,7 +20,8 @@ const {
   updateClubByAdmin,
   getAllClubs,
   getClubDetails,
-  removeLeaderCard
+  removeLeaderCard,
+  getClubCategories
 } = require('../controllers/clubController');
 const verifyClubLeaderOrAdmin = require('../middleware/verifyClubLeaderOrAdmin');
 const verifyLeader = require('../middleware/verifyLeader');
@@ -53,10 +54,10 @@ router.post("/clubs", verifyFbToken, createClubRequest);
 // PUBLIC or AUTH user can see approved clubs
 router.get("/clubs/approved", getApprovedClubs);
 
+router.get("/clubs/categories", getClubCategories);
 
 // GET my clubs (leader)
 router.get("/leader/clubs", verifyFbToken, verifyLeader, getMyClubs);
-
 
 
 // Leader/Admin only

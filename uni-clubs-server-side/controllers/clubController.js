@@ -391,6 +391,24 @@ const deleteClubAdmin = async (req, res) => {
   }
 };
 
+// Get club categories from approved clubs
+const getClubCategories = async (req, res) => {
+  try {
+    const categories = await Club.distinct("category", { status: "approved" });
+
+    res.json({
+      success: true,
+      data: categories.filter(Boolean) // remove null
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message
+    });
+  }
+};
+
 module.exports = {
   createClubRequest,
   getPendingClubs,
@@ -407,4 +425,5 @@ module.exports = {
   getMyClubs,
   updateClubByAdmin,
   deleteClubAdmin,
+  getClubCategories
 };

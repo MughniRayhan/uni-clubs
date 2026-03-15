@@ -13,6 +13,8 @@ const AllUsers = () => {
   const { user } = UseAuth();
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const [page, setPage] = useState(1);
+  const limit = 5;
 
 
   const [search, setSearch] = useState(
@@ -47,24 +49,31 @@ const AllUsers = () => {
 
   }, [debouncedSearch, role]);
 
+  useEffect(() => {
+    setPage(1);
+  }, [debouncedSearch, role]);
+
   // Fetch Users
-  const { data: users = [], isLoading } = useQuery({
-    queryKey: ["allUsers", debouncedSearch, role],
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["allUsers", debouncedSearch, role, page],
     enabled: !!user,
     queryFn: async () => {
       const res = await axiosSecure.get("/users", {
         params: {
           search: debouncedSearch,
           role,
-        },
+          page,
+          limit
+        }
       });
       return res.data;
     },
-    keepPreviousData: true,
+    keepPreviousData: true
   });
 
 
-
+  const users = data?.users || [];
+  const totalPages = data?.totalPages || 1;
 
   // const handleSearch = (e) => {
   //   e.preventDefault();
@@ -158,7 +167,7 @@ const AllUsers = () => {
               .filter(u => u.email !== user.email) // exclude current user
               .map((u, index) => (
                 <tr key={u._id}>
-                  <td>{index + 1}</td>
+                  <td>{(page - 1) * limit + index + 1}</td>
                   <td>{u.displayName}</td>
                   <td>{u.email}</td>
                   <td>{u.role}</td>
@@ -193,6 +202,37 @@ const AllUsers = () => {
           </tbody>
 
         </table>
+
+      </div>
+      <div className="flex justify-center mt-6 gap-2">
+
+        <button
+          className="btn btn-sm"
+          disabled={page === 1}
+          onClick={() => setPage(page - 1)}
+        >
+          Prev
+        </button>
+
+        {[...Array(totalPages).keys()].map(num => (
+          <button
+            key={num}
+            onClick={() => setPage(num + 1)}
+            className={`btn btn-sm ${page === num + 1 ? "btn-primary" : ""
+              }`}
+          >
+            {num + 1}
+          </button>
+        ))}
+
+        <button
+          className="btn btn-sm"
+          disabled={page === totalPages}
+          onClick={() => setPage(page + 1)}
+        >
+          Next
+        </button>
+
       </div>
     </div>
   );

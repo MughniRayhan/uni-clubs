@@ -39,6 +39,9 @@ import ManageEventRegistrations from "../Pages/DashBoard/LeaderDashboard/LeaderE
 import EventParticipants from "../Pages/DashBoard/LeaderDashboard/LeaderEvents/EventParticipants";
 import RegisteredEvents from "../Pages/DashBoard/Events/RegisteredEvents";
 import EventDetails from "../Pages/Events/EventDetails";
+import ManageAnnouncements from "../Pages/DashBoard/Announcements/ManageAnnouncements";
+import Announcements from "../Pages/Announcements/Announcements";
+import AnnouncementDetails from "../Pages/Announcements/AnnouncementDetails";
 
 
 
@@ -103,6 +106,14 @@ export const router = createBrowserRouter([
       {
         path: '/AllPolls',
         Component: AllPolls
+      },
+      {
+        path: 'announcements',
+        Component: Announcements
+      },
+      {
+        path: '/announcements/:id',
+        Component: AnnouncementDetails
       }
 
     ]
@@ -163,6 +174,10 @@ export const router = createBrowserRouter([
       {
         path: 'addEvent',
         Component: AddEvent
+      },
+      {
+        path: 'announcements',
+        Component: ManageAnnouncements
       },
       {
         path: 'myEvents',
