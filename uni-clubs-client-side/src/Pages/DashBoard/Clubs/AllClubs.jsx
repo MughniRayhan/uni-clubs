@@ -7,6 +7,7 @@ const AllClubs = () => {
     const axios = UseAxiosSecure();
     const [selectedClub, setSelectedClub] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [users, setUsers] = useState([]);
 
     const fetchClubs = async () => {
         try {
@@ -35,23 +36,34 @@ const AllClubs = () => {
         }
     };
 
-    const handleEditClick = (club) => {
+    const handleEditClick = async (club) => {
         setSelectedClub(club);
         setIsModalOpen(true);
+
+        const res = await axios.get("/admin/users/available-leaders");
+        setUsers(res.data.users);
     };
+
+
 
     const handleUpdate = async (e) => {
         e.preventDefault();
 
-        const res = await axios.patch(
-            `/admin/clubs/${selectedClub._id}`,
-            selectedClub
-        );
+        // update club info
+        await axios.patch(`/admin/clubs/${selectedClub._id}`, selectedClub);
 
-        if (res.data.success) {
-            setIsModalOpen(false);
-            fetchClubs();
+        // change leader if selected
+        if (selectedClub.newLeaderId) {
+
+            await axios.patch(
+                `/admin/clubs/${selectedClub._id}/change-leader`,
+                { newLeaderId: selectedClub.newLeaderId }
+            );
+
         }
+
+        setIsModalOpen(false);
+        fetchClubs();
     };
 
     const handleChange = (e) => {
@@ -159,6 +171,24 @@ const AllClubs = () => {
                                     placeholder="Description"
                                     className="w-full border p-2 rounded"
                                 />
+                            </div>
+
+                            <div>
+                                <label className="font-medium">Assign Leader</label>
+
+                                <select
+                                    name="newLeaderId"
+                                    onChange={handleChange}
+                                    className="w-full border p-2 rounded"
+                                >
+                                    <option value="">Select Leader</option>
+
+                                    {users.map(user => (
+                                        <option key={user._id} value={user._id}>
+                                            {user.displayName} ({user.email})
+                                        </option>
+                                    ))}
+                                </select>
                             </div>
 
                             <div className="flex justify-end space-x-3 mt-4">

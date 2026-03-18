@@ -112,9 +112,12 @@ export default function CreateClub() {
             <option value="" disabled>Select a category</option>
             <option value="Cultural">Cultural</option>
             <option value="Sports">Sports</option>
-            <option value="Academic">Academic</option>
-            <option value="Technology">Technology</option>
+            <option value="Robotics">Robotics</option>
+            <option value="HultPrize">Hult Prize</option>
             <option value="Social">Social</option>
+            <option value="Photographic">Photographic</option>
+            <option value="Geography">Geography & Astronomical</option>
+            <option value="SWE">SWE</option>
             <option value="Other">Other</option>
           </select>
           {errors.category && <p className="text-red-500 text-sm mt-1">{errors.category.message}</p>}

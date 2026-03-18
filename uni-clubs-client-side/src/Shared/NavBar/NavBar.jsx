@@ -26,8 +26,8 @@ const NavBar = () => {
         to="/"
         className={({ isActive }) =>
           isActive
-            ? "text-primary border-b-2 border-primary font-semibold sm:text-xl"
-            : "text-primary font-semibold sm:text-xl"
+            ? "text-primary border-b-2 border-primary sm:text-xl"
+            : "text-primary  sm:text-xl"
         }
       >
         Home
@@ -37,8 +37,8 @@ const NavBar = () => {
         to="/clubs"
         className={({ isActive }) =>
           isActive
-            ? "text-primary border-b-2 border-primary font-semibold sm:text-xl"
-            : "text-primary font-semibold sm:text-xl"
+            ? "text-primary border-b-2 border-primary  sm:text-xl"
+            : "text-primary  sm:text-xl"
         }
       >
         Clubs
@@ -48,8 +48,8 @@ const NavBar = () => {
         to="/events"
         className={({ isActive }) =>
           isActive
-            ? "text-primary border-b-2 border-primary font-semibold sm:text-xl"
-            : "text-primary font-semibold sm:text-xl"
+            ? "text-primary border-b-2 border-primary sm:text-xl"
+            : "text-primary  sm:text-xl"
         }
       >
         Events
@@ -59,8 +59,8 @@ const NavBar = () => {
         to="/About"
         className={({ isActive }) =>
           isActive
-            ? "text-primary border-b-2 border-primary font-semibold sm:text-xl"
-            : "text-primary font-semibold sm:text-xl"
+            ? "text-primary border-b-2 border-primary  sm:text-xl"
+            : "text-primary  sm:text-xl"
         }
       >
         About Us
@@ -70,8 +70,8 @@ const NavBar = () => {
         to="/announcements"
         className={({ isActive }) =>
           isActive
-            ? "text-primary border-b-2 border-primary font-semibold sm:text-xl"
-            : "text-primary font-semibold sm:text-xl"
+            ? "text-primary border-b-2 border-primary sm:text-xl"
+            : "text-primary  sm:text-xl"
         }
       >
         Announcements

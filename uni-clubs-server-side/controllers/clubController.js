@@ -1,6 +1,6 @@
 const Club = require("../models/clubModel");
 const User = require("../models/userModel");
-
+const ClubMember = require("../models/ClubMember");
 // USER CREATE CLUB REQUEST
 const createClubRequest = async (req, res) => {
   try {
@@ -68,7 +68,6 @@ const getPendingClubs = async(req,res)=>{
   }
 }
 
-
 // ADMIN APPROVE or REJECT
 const updateClubStatus = async (req, res) => {
   try {
@@ -77,26 +76,48 @@ const updateClubStatus = async (req, res) => {
 
     const club = await Club.findById(clubId).populate("createdBy");
 
-    if(!club) return res.status(404).json({success:false,message:"Club not found"});
+    if (!club)
+      return res.status(404).json({ success: false, message: "Club not found" });
 
-    if(action==="approve"){
-      club.status="approved";
+    if (action === "approve") {
+      club.status = "approved";
       club.leader = club.createdBy._id;
 
-      // change user role to leader
-      await User.findByIdAndUpdate(club.createdBy._id, { role:"leader" });
+      // update user role
+      await User.findByIdAndUpdate(club.createdBy._id, { role: "leader" });
 
-    }else if(action==="reject"){
-      club.status="rejected";
-    }else{
-      return res.status(400).json({success:false,message:"Invalid action"});
+      // ✅ AUTO ADD LEADER AS MEMBER
+      await ClubMember.create({
+        clubId: club._id,
+        userId: club.createdBy._id,
+        fullName: club.createdBy.displayName,
+        role: "leader",
+        status: "approved",
+        joinedAt: new Date(),
+        approvedBy: req.user?._id // admin
+      });
+
+    } else if (action === "reject") {
+      club.status = "rejected";
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid action",
+      });
     }
 
     await club.save();
-    return res.json({success:true,message:`Club ${action}d successfully`});
+
+    return res.json({
+      success: true,
+      message: `Club ${action}d successfully`,
+    });
 
   } catch (err) {
-    res.status(500).json({success:false,message:err.message});
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
   }
 };
 
@@ -409,6 +430,106 @@ const getClubCategories = async (req, res) => {
   }
 };
 
+const getAvailableLeaders = async (req, res) => {
+  try {
+
+    // get all leaders already assigned to clubs
+    const clubs = await Club.find({ leader: { $ne: null } }).select("leader");
+
+    const leaderIds = clubs.map(c => c.leader);
+
+    // find users who are not leaders
+    const users = await User.find({
+      _id: { $nin: leaderIds }
+    }).select("displayName email");
+
+    res.json({
+      success: true,
+      users
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message
+    });
+  }
+};
+
+const changeClubLeader = async (req, res) => {
+  try {
+
+    const { clubId } = req.params;
+    const { newLeaderId } = req.body;
+
+    const club = await Club.findById(clubId);
+
+    if (!club) {
+      return res.status(404).json({
+        success: false,
+        message: "Club not found"
+      });
+    }
+
+    const previousLeaderId = club.leader;
+
+    // update club leader
+    club.leader = newLeaderId;
+    await club.save();
+
+    // change user roles
+    if (previousLeaderId) {
+      await User.findByIdAndUpdate(previousLeaderId, { role: "user" });
+    }
+
+    await User.findByIdAndUpdate(newLeaderId, { role: "leader" });
+
+    // update clubMember roles
+
+    // previous leader becomes member
+    await ClubMember.findOneAndUpdate(
+      { clubId, userId: previousLeaderId },
+      { role: "member" }
+    );
+
+    // check if new leader already member
+    let newLeaderMember = await ClubMember.findOne({
+      clubId,
+      userId: newLeaderId
+    });
+
+    if (newLeaderMember) {
+
+      newLeaderMember.role = "leader";
+      newLeaderMember.status = "approved";
+      await newLeaderMember.save();
+
+    } else {
+
+      await ClubMember.create({
+        clubId,
+        userId: newLeaderId,
+        role: "leader",
+        status: "approved",
+        joinedAt: new Date(),
+        approvedBy: req.user?._id
+      });
+
+    }
+
+    res.json({
+      success: true,
+      message: "Leader updated successfully"
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message
+    });
+  }
+};
+
 module.exports = {
   createClubRequest,
   getPendingClubs,
@@ -425,5 +546,7 @@ module.exports = {
   getMyClubs,
   updateClubByAdmin,
   deleteClubAdmin,
-  getClubCategories
+  getClubCategories,
+  getAvailableLeaders,
+  changeClubLeader
 };
