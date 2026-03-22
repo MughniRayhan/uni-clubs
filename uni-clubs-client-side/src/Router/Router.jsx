@@ -42,6 +42,7 @@ import EventDetails from "../Pages/Events/EventDetails";
 import ManageAnnouncements from "../Pages/DashBoard/Announcements/ManageAnnouncements";
 import Announcements from "../Pages/Announcements/Announcements";
 import AnnouncementDetails from "../Pages/Announcements/AnnouncementDetails";
+import PublicRoute from "../Routes/PublicRoute";
 
 
 
@@ -51,7 +52,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
-    errorElement: Error,
+    errorElement: <Error />,
     children: [
       {
         index: true,
@@ -207,7 +208,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/auth',
-    Component: AuthLayout,
+    element: <PublicRoute><AuthLayout /></PublicRoute>,
     children: [
       {
         path: '/auth/login',

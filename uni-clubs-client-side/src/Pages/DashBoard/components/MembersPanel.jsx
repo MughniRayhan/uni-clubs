@@ -27,11 +27,8 @@ export default function MembersPanel({ club }) {
     };
 
     return (
-        <div className="flex-1 p-6   rounded overflow-auto">
-            <h2 className="text-2xl font-bold mb-4">
-                {club.name} Members
-            </h2>
-            <div className="overflow-x-auto border bg-white border-gray-300 rounded-lg mt-6 shadow-md">
+        <div className="mt-4   rounded overflow-auto">
+            <div className="overflow-x-auto border bg-white border-gray-300 rounded-lg  shadow-md">
                 <table className="table w-full">
                     <thead className="bg-secondary font-bold text-gray-100">
                         <tr>
