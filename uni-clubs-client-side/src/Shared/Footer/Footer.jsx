@@ -1,4 +1,4 @@
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaGithub } from "react-icons/fa";
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaGithub, FaYoutube } from "react-icons/fa";
 import { Link, NavLink } from "react-router";
 import UseAuth from "../../Hooks/UseAuth";
 import Logo from "../../assets/logo.png";
@@ -60,9 +60,8 @@ export default function Footer() {
           <h3 className="text-lg font-semibold">Connect With Us</h3>
           <div className="flex gap-4 text-xl">
             <a href="https://www.facebook.com/metropolitanuniversity/" className="hover:text-gray-400 transition text-2xl"><FaFacebookF /></a>
-            <a href="#" className="hover:text-gray-400 transition text-2xl"><FaTwitter /></a>
+            <a href="https://www.youtube.com/MetropolitanUniversityBangladesh" className="hover:text-gray-400  transition text-2xl"><FaYoutube /></a>
             <a href="https://www.linkedin.com/school/metrouni-edu-bd/" className="hover:text-gray-400  transition text-2xl"><FaLinkedinIn /></a>
-
           </div>
         </div>
       </div>

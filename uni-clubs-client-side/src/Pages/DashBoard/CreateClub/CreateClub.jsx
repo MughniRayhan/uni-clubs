@@ -129,7 +129,7 @@ export default function CreateClub() {
           <textarea
             placeholder="Write the mission / purpose of this club"
             className="textarea textarea-bordered w-full h-24 resize-none"
-            {...register("mission", { required: "Mission is required" })}
+            {...register("mission")}
           ></textarea>
           {errors.mission && <p className="text-red-500 text-sm mt-1">{errors.mission.message}</p>}
         </div>
@@ -140,10 +140,7 @@ export default function CreateClub() {
           <textarea
             placeholder="Describe what this club stands for..."
             className="textarea textarea-bordered w-full h-32 resize-none"
-            {...register("description", {
-              required: "Description is required",
-              minLength: { value: 30, message: "Please write at least 30 characters" },
-            })}
+            {...register("description",)}
           ></textarea>
           {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>}
         </div>
@@ -167,7 +164,7 @@ export default function CreateClub() {
             type="file"
             accept="image/*"
             className="file-input file-input-bordered w-full"
-            {...register("coverImage", { required: "Cover image is required" })}
+            {...register("coverImage")}
           />
           {errors.coverImage && <p className="text-red-500 text-sm mt-1">{errors.coverImage.message}</p>}
         </div>

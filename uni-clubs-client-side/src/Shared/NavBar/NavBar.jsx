@@ -140,7 +140,7 @@ const NavBar = () => {
           {user ? (
             <div className="dropdown dropdown-end">
               <div tabIndex={0} className="cursor-pointer avatar">
-                <div className="w-15 rounded-full border-2 border-white">
+                <div className="w-15 rounded-full border-2 border-gray-300">
                   <img
                     src={
                       user?.photoURL ||
