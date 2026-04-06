@@ -18,13 +18,24 @@ function Login() {
   const onSubmit = (data) => {
 
     signIn(data.email, data.password)
-      .then((result) => {
-        toast.success("Successfully logged in")
+      .then(async (result) => {
+        const user = result.user;
+
+        // Reload user to get latest emailVerified status
+        await user.reload();
+
+        if (!user.emailVerified) {
+          await logOut(); // force logout if somehow logged in
+          toast.error("Please verify your email first");
+          return;
+        }
+
+        toast.success("Successfully logged in");
         navigate(location.state?.from || "/dashboard", { replace: true });
       })
       .catch((error) => {
-        toast.error(error.message);
-      })
+        toast.error("Invalid email or password");
+      });
   }
 
   // forgot password

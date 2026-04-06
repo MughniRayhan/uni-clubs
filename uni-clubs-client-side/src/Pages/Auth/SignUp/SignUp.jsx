@@ -54,10 +54,10 @@ function SignUp() {
         };
 
         updateUserProfile(userProfile)
-          .then(() => {})
-          .catch((error) => {});
-        toast.success("Successfully registered");
-        navigate("/");
+          .then(() => { })
+          .catch((error) => { });
+        toast.success("Verification email sent. Please check your email and verify.");
+        navigate("/auth/login"); // redirect to login
       })
       .catch((error) => {
         console.error(error.message);
@@ -70,9 +70,8 @@ function SignUp() {
     const formData = new FormData();
     formData.append("image", image);
     // imgbb api
-    const uploadUrl = `https://api.imgbb.com/1/upload?key=${
-      import.meta.env.VITE_image_key
-    }`;
+    const uploadUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_key
+      }`;
 
     try {
       // upload image to imgbb
@@ -84,83 +83,83 @@ function SignUp() {
   };
 
   return (
-    <div className="bg-gradient-to-tl from-primary/20 via-transparent to-primary/10  "> 
-    <div className=' flex  items-center justify-center  '>
-      <form onSubmit={handleSubmit(onSubmit)} className='lg:w-1/2 w-full bg-white  min-h-screen flex flex-col justify-center items-center shadow-lg md:shadow-none px-5 '>
+    <div className="bg-gradient-to-tl from-primary/20 via-transparent to-primary/10  ">
+      <div className=' flex  items-center justify-center  '>
+        <form onSubmit={handleSubmit(onSubmit)} className='lg:w-1/2 w-full bg-white  min-h-screen flex flex-col justify-center items-center shadow-lg md:shadow-none px-5 '>
           <h2 className="text-3xl bg-gradient-to-t from-black via-primary to-secondary/50 bg-clip-text text-transparent font-bold mb-6">
             Create an Account
           </h2>
-        <fieldset className="fieldset">
-          {/* image */}
-          <input
-            type="file"
-            onChange={handleUploadImage}
-            className="file-input file-input-bordered text-gray-500 bg-base-100 
+          <fieldset className="fieldset">
+            {/* image */}
+            <input
+              type="file"
+              onChange={handleUploadImage}
+              className="file-input file-input-bordered text-gray-500 bg-base-100 
              file:bg-secondary/20 file:border-primary/20 file:px-4 file:py-2 file:text-primary file:rounded file:cursor-pointer"
-          />
+            />
 
-          {/* name */}
-          <label className="label">Name</label>
-          <input
-            type="text"
-            {...register("name", { required: true })}
-            className="input"
-            placeholder="Name"
-          />
-          {errors.name?.type === "required" && (
-            <span className="text-red-500">Name is required</span>
-          )}
-          {/* email */}
-          <label className="label">Email</label>
-          <input
-            type="email"
-            {...register("email", { required: true })}
-            className="input"
-            placeholder="Email"
-          />
-          {errors.email?.type === "required" && (
-            <span className="text-red-500">Email is required</span>
-          )}
-          {/* password */}
-          <label className="label">Password</label>
-          <input
-            type="password"
-            {...register("password", { required: true, minLength: 6 })}
-            className="input"
-            placeholder="Password"
-          />
-          {errors.password?.type === "required" && (
-            <span className="text-red-500">Password is required</span>
-          )}
-          {errors.password?.type === "minLength" && (
-            <span className="text-red-500">Must have to 6 length</span>
-          )}
+            {/* name */}
+            <label className="label">Name</label>
+            <input
+              type="text"
+              {...register("name", { required: true })}
+              className="input"
+              placeholder="Name"
+            />
+            {errors.name?.type === "required" && (
+              <span className="text-red-500">Name is required</span>
+            )}
+            {/* email */}
+            <label className="label">Email</label>
+            <input
+              type="email"
+              {...register("email", { required: true })}
+              className="input"
+              placeholder="Email"
+            />
+            {errors.email?.type === "required" && (
+              <span className="text-red-500">Email is required</span>
+            )}
+            {/* password */}
+            <label className="label">Password</label>
+            <input
+              type="password"
+              {...register("password", { required: true, minLength: 6 })}
+              className="input"
+              placeholder="Password"
+            />
+            {errors.password?.type === "required" && (
+              <span className="text-red-500">Password is required</span>
+            )}
+            {errors.password?.type === "minLength" && (
+              <span className="text-red-500">Must have to 6 length</span>
+            )}
 
-          <button 
-          className="btn  mt-4 sm:w-[330px] bg-primary text-white hover:bg-white hover:text-primary hover:border hover:border-primary font-bold ">
-            Register
-          </button>
-          <div className="mt-2 text-base">
-            Allready have an account?
-            <Link
-              to="/auth/login"
-              className="text-secondary font-semibold underline "
-            >
-              {" "}
-              Login
-            </Link>
-          </div>
-          <SocialLogin />
-        </fieldset>
-      </form>
-      <div className=" w-1/2  bg-secondary/20  min-h-screen hidden lg:flex justify-center items-center ">
-        <Lottie
-          className="w-100 h-140"
-          animationData={animation}
-          loop={true}
-        ></Lottie>
+            <button
+              className="btn  mt-4 sm:w-[330px] bg-primary text-white hover:bg-white hover:text-primary hover:border hover:border-primary font-bold ">
+              Register
+            </button>
+            <div className="mt-2 text-base">
+              Allready have an account?
+              <Link
+                to="/auth/login"
+                className="text-secondary font-semibold underline "
+              >
+                {" "}
+                Login
+              </Link>
+            </div>
+            <SocialLogin />
+          </fieldset>
+        </form>
+        <div className=" w-1/2  bg-secondary/20  min-h-screen hidden lg:flex justify-center items-center ">
+          <Lottie
+            className="w-100 h-140"
+            animationData={animation}
+            loop={true}
+          ></Lottie>
+        </div>
       </div>
-    </div>
     </div>
   );
 }

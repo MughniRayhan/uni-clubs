@@ -203,7 +203,7 @@ const AllEvents = () => {
                                         </>
                                     )}
 
-                                    {event.status === "approved" && (
+                                    {(event.status === "approved" || event.status === "rejected") && (
                                         <>
                                             <button onClick={() => handleEdit(event)} className="btn btn-xs btn-warning text-white">
                                                 <FaEdit />
@@ -214,7 +214,7 @@ const AllEvents = () => {
                                         </>
                                     )}
 
-                                    {event.status === "rejected" && <span className="text-gray-400 text-sm">No actions</span>}
+
                                 </td>
 
                             </tr>
